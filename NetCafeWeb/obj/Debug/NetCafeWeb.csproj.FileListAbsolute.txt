@@ -1,0 +1,137 @@
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\csc.exe
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CSharp.Core.targets
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.VisualBasic.Core.targets
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\System.Collections.Immutable.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\System.Reflection.Metadata.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\vbc.exe
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\VBCSCompiler.exe
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\VBCSCompiler.exe.config
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\NetCafeWeb.dll.config
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\NetCafeWeb.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\NetCafeWeb.pdb
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Antlr3.Runtime.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\EntityFramework.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\EntityFramework.SqlServer.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.Core.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.Owin.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Host.SystemWeb.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Cookies.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Facebook.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Google.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.OAuth.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Twitter.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Newtonsoft.Json.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Owin.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.Helpers.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.Mvc.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.Optimization.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.Razor.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.Razor.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\WebGrease.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.Helpers.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.Mvc.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.Optimization.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.Razor.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.Razor.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Antlr3.Runtime.pdb
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Newtonsoft.Json.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\EntityFramework.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\EntityFramework.SqlServer.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.Core.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.Owin.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Host.SystemWeb.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Facebook.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Cookies.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.OAuth.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Google.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Twitter.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.dll
+\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.pdb
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\csc.exe
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CSharp.Core.targets
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.VisualBasic.Core.targets
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\System.Collections.Immutable.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\System.Reflection.Metadata.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\vbc.exe
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\VBCSCompiler.exe
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\roslyn\VBCSCompiler.exe.config
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\NetCafeWeb.dll.config
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\NetCafeWeb.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\NetCafeWeb.pdb
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Antlr3.Runtime.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\EntityFramework.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\EntityFramework.SqlServer.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.Core.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.Owin.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Host.SystemWeb.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Cookies.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Facebook.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Google.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.OAuth.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Twitter.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Newtonsoft.Json.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Owin.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.Helpers.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.Mvc.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.Optimization.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.Razor.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.Razor.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\WebGrease.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.Helpers.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.Mvc.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.Optimization.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.Razor.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\System.Web.WebPages.Razor.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Antlr3.Runtime.pdb
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Newtonsoft.Json.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\EntityFramework.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\EntityFramework.SqlServer.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.Core.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.Owin.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Host.SystemWeb.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Facebook.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Cookies.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.OAuth.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Google.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Twitter.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.csprojResolveAssemblyReference.cache
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.dll
+\\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.pdb

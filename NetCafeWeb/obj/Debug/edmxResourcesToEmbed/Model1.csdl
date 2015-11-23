@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NetCafeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="NetCafe">
+    <Key>
+      <PropertyRef Name="NetCafeID" />
+    </Key>
+    <Property Name="NetCafeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NetCafeName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NetCafeAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SupervisorID" Type="Int32" Nullable="false" />
+    <Property Name="NetCafeStatus" Type="Int32" Nullable="false" />
+    <Property Name="NetCafePhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="NetCafeDescriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_NetCafe_User" FromRole="NetCafe" ToRole="User" />
+    <NavigationProperty Name="PCs" Relationship="Self.FK_PC_NetCafe" FromRole="NetCafe" ToRole="PC" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PCID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Duration" Type="Double" Nullable="false" />
+    <Property Name="OrderStatus" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PC" Relationship="Self.FK_Order_PC" FromRole="Order" ToRole="PC" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
+  </EntityType>
+  <EntityType Name="PC">
+    <Key>
+      <PropertyRef Name="PCID" />
+    </Key>
+    <Property Name="PCID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NetCafeID" Type="Int32" Nullable="false" />
+    <Property Name="PCName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="PCStatus" Type="Int32" Nullable="false" />
+    <Property Name="PCDescriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="NetCafe" Relationship="Self.FK_PC_NetCafe" FromRole="PC" ToRole="NetCafe" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_PC" FromRole="PC" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="URLs" Relationship="Self.FK_URL_Role" FromRole="Role" ToRole="URL" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="URL">
+    <Key>
+      <PropertyRef Name="URLID" />
+    </Key>
+    <Property Name="URLID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="URLDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_URL_Role" FromRole="URL" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="IdentityNumber" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="UserPhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Balance" Type="Double" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="NetCafes" Relationship="Self.FK_NetCafe_User" FromRole="User" ToRole="NetCafe" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_NetCafe_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="NetCafe" Type="Self.NetCafe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="NetCafe">
+        <PropertyRef Name="SupervisorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PC_NetCafe">
+    <End Role="NetCafe" Type="Self.NetCafe" Multiplicity="1" />
+    <End Role="PC" Type="Self.PC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NetCafe">
+        <PropertyRef Name="NetCafeID" />
+      </Principal>
+      <Dependent Role="PC">
+        <PropertyRef Name="NetCafeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_PC">
+    <End Role="PC" Type="Self.PC" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PC">
+        <PropertyRef Name="PCID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="PCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_URL_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="URL" Type="Self.URL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="URL">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NetCafeEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="NetCafes" EntityType="Self.NetCafe" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="PCs" EntityType="Self.PC" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="URLs" EntityType="Self.URL" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_NetCafe_User" Association="Self.FK_NetCafe_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="NetCafe" EntitySet="NetCafes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PC_NetCafe" Association="Self.FK_PC_NetCafe">
+      <End Role="NetCafe" EntitySet="NetCafes" />
+      <End Role="PC" EntitySet="PCs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_PC" Association="Self.FK_Order_PC">
+      <End Role="PC" EntitySet="PCs" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_URL_Role" Association="Self.FK_URL_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="URL" EntitySet="URLs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

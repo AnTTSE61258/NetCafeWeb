@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NetCafeModelStoreContainer" CdmEntityContainer="NetCafeEntities1">
+    <EntitySetMapping Name="NetCafes">
+      <EntityTypeMapping TypeName="NetCafeModel.NetCafe">
+        <MappingFragment StoreEntitySet="NetCafe">
+          <ScalarProperty Name="NetCafeID" ColumnName="NetCafeID" />
+          <ScalarProperty Name="NetCafeName" ColumnName="NetCafeName" />
+          <ScalarProperty Name="NetCafeAddress" ColumnName="NetCafeAddress" />
+          <ScalarProperty Name="SupervisorID" ColumnName="SupervisorID" />
+          <ScalarProperty Name="NetCafeStatus" ColumnName="NetCafeStatus" />
+          <ScalarProperty Name="NetCafePhoneNumber" ColumnName="NetCafePhoneNumber" />
+          <ScalarProperty Name="NetCafeDescriptions" ColumnName="NetCafeDescriptions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="NetCafeModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="PCID" ColumnName="PCID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PCs">
+      <EntityTypeMapping TypeName="NetCafeModel.PC">
+        <MappingFragment StoreEntitySet="PC">
+          <ScalarProperty Name="PCID" ColumnName="PCID" />
+          <ScalarProperty Name="NetCafeID" ColumnName="NetCafeID" />
+          <ScalarProperty Name="PCName" ColumnName="PCName" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PCStatus" ColumnName="PCStatus" />
+          <ScalarProperty Name="PCDescriptions" ColumnName="PCDescriptions" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="NetCafeModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="URLs">
+      <EntityTypeMapping TypeName="NetCafeModel.URL">
+        <MappingFragment StoreEntitySet="URL">
+          <ScalarProperty Name="URLID" ColumnName="URLID" />
+          <ScalarProperty Name="URLDetail" ColumnName="URLDetail" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="NetCafeModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
+          <ScalarProperty Name="UserPhoneNumber" ColumnName="UserPhoneNumber" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
