@@ -1,0 +1,6 @@
+c:\users\konni\documents\visual studio 2013\Projects\NetCafe\NetCafe\bin\NetCafe.dll.config
+c:\users\konni\documents\visual studio 2013\Projects\NetCafe\NetCafe\bin\NetCafe.dll
+c:\users\konni\documents\visual studio 2013\Projects\NetCafe\NetCafe\bin\NetCafe.pdb
+c:\users\konni\documents\visual studio 2013\Projects\NetCafe\NetCafe\obj\Debug\NetCafe.dll
+c:\users\konni\documents\visual studio 2013\Projects\NetCafe\NetCafe\obj\Debug\NetCafe.pdb
+C:\Users\Konni\Documents\Visual Studio 2013\Projects\NetCafe\NetCafe\obj\Debug\NetCafe.csprojResolveAssemblyReference.cache
