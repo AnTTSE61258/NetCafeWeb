@@ -20,6 +20,12 @@ namespace NetCafeWeb.Models
             }
         }
 
+        public List<User> supervisorList()
+        {
+            var query = (from r in _userContext.Users where r.RoleID == 2 || r.RoleID == 1 select r).ToList();
+            return query;
+        }
+
         public void Add(User entity)
         {
             _userContext.Users.Add(entity);
