@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
 namespace NetCafeWeb.Controllers
 {
     public class NetCafeController : Controller
@@ -14,8 +15,10 @@ namespace NetCafeWeb.Controllers
             return View();
         }
         // GET: NetCafe
+        [Authorize]
         public ActionResult Index()
         {
+            
             IRepository<NetCafe> repository = new NetCafeRepository();
             IEnumerable<NetCafe> netCafes = repository.List;
             ViewBag.netcafes = netCafes.Cast<NetCafe>().ToList();
