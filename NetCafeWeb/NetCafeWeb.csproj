@@ -303,7 +303,7 @@
     <Content Include="Views\NetCafe\Edit.cshtml" />
     <Content Include="Views\PC\Index.cshtml" />
     <Content Include="Views\Shared\MasterPage.cshtml" />
-    <Content Include="Views\PC\edit.cshtml" />
+    <Content Include="Views\PC\Edit.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />

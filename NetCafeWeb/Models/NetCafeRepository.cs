@@ -17,6 +17,11 @@ public class NetCafeRepository : IRepository<NetCafe>
             return _netCafeContext.NetCafes;
         }
     }
+    public List<NetCafe> NetCafeList()
+    {
+        var query = (from r in _netCafeContext.NetCafes select r).ToList();
+        return query;
+    }
 
     public void Add(NetCafe entity)
     {
@@ -41,5 +46,5 @@ public class NetCafeRepository : IRepository<NetCafe>
         _netCafeContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;
         _netCafeContext.SaveChanges();
     }
-    
+
 }
