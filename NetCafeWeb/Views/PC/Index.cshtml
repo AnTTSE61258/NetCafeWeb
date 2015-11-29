@@ -1,8 +1,173 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
+    List<NetCafe> netcafes = ViewBag.netcafes;
+    List<PC> pcs = ViewBag.pcs;
     Layout = "~/Views/Shared/MasterPage.cshtml";
 }
 
-<h2>Index</h2>
+<p></p>
+
+
+<div class="container">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
+    <h2>PC Manager - for supervisor</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>NetCafe</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @* @{
+                    foreach (PC pc in pcs)
+                    {
+                        <tr>
+                            <td><button class="btn-warning" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button></td>
+                            <td><button class="btn-danger" onclick="deleteNetCafe(@pc.PCID)">Delete</button></td>
+                            <td>@pc.PCID</td>
+                            <td>@pc.PCName</td>
+                            <td>@pc.Price</td>
+                            <td>@pc.PCDescriptions</td>
+                            <td>@pc.NetCafe</td>
+                            <td>@pc.PCStatus</td>
+                        </tr>
+                    }
+                }*@
+
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New PC</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="width:100%">
+                    <label for="usr">PC Name</label>
+                    <input type="text" class="form-control" id="pcName">
+                    <label for="usr">Price</label>
+                    <input type="text" class="form-control" id="pcPrice">
+                    <label for="usr">Description</label>
+                    <input type="text" class="form-control" id="pcDescription">
+                    <div class="form-group">
+                        <label for="sel1">NetCafe</label>
+                        <select class="form-control" id="netCafeAddress">
+                            <option value="1">Origen - Nguyen Van Dau - GV</option>
+                            <option value="2">CyberC9 - Quang Trung - GV</option>
+                            <option value="3">League - CMT8 - Q3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Status</label>
+                        <select class="form-control" id="pcStatus">
+                            <option value="1">Holding</option>
+                            <option value="2">Using</option>
+                            <option value="3">Free</option>
+                        </select>
+                    </div>
+                </div>
+                <p id="error" style="color='red'"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="addPC()">Submit</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+
+    function addPC() {
+        $("#error").html("");
+        var name = $('#pcName').val();
+        var price = $('#pcPrice').val();
+        var description = $('#pcDescription').val();
+        var netcafeAddress = $('#netCafeAddress option:selected').val();
+        var status = $('#pcStatus option:selected').val();
+        if (name == "") {
+            $("#error").html("PC name must not be blank!");
+            return;
+        }
+        if (price == "") {
+            $("#error").html("Price must not be blank!");
+            return;
+        }
+        if (description == "") {
+            $("#error").html("Description must not be blank!");
+            return;
+        }
+        if (netcafeAddress == "-1" || netcafeAddress == "") {
+            $("#error").html("You must select an address!");
+            return;
+        }
+        if (status == "-1" || status == "") {
+            $("#error").html("You must select a status!");
+            return;
+        }
+
+        $.ajax({
+            url: '/PC/add',
+            data: {
+                name: name,
+                price: price,
+                description: description,
+                netcafeAddress: netcafeAddress,
+                status: status,
+            },
+            error: function () {
+                alert("Problem")
+            },
+            success: function (data) {
+                alert("Add successfully")
+                location.reload();
+
+            },
+            type: 'POST'
+        });
+        $('#myModal').modal('hide');
+    }
+    function deletePC(id) {
+        $.ajax({
+            url: '/PC/delete',
+            data: {
+                id: id
+            },
+            error: function () {
+                alert("Problem")
+            },
+            success: function (data) {
+                alert("Delete successfully")
+                location.reload();
+
+            },
+            type: 'post'
+        });
+
+    }
+    function editNetCafe(indexInArray) {
+        alert(indexInArray);
+
+    }
+</script>
+
 

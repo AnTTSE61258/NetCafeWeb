@@ -16,14 +16,12 @@ namespace NetCafeWeb
     {
         public Role()
         {
-            this.URLs = new HashSet<URL>();
             this.Users = new HashSet<User>();
         }
     
         public int RoleID { get; set; }
         public string RoleName { get; set; }
     
-        public virtual ICollection<URL> URLs { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }

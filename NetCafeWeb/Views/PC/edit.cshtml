@@ -1,0 +1,128 @@
+﻿@{
+
+    PC pc = ViewBag.pc;
+    ViewBag.Title = "Edit " + pc.pcName;
+    List<NetCafe> netcafes = ViewBag.netcafes;
+}
+
+<h2>Edit + @pc.PCName</h2>
+@{  if (pc == null)
+  {
+    <h2>This PC is not longer available. Please try again.</h2>
+  }
+  else
+  {
+    <div class="form-group" style="width:100%">
+        <label>ID</label>
+        <input type="text" class="form-control" value="@pc.PCID" disabled="disabled" />
+        <label for="usr">Name</label>
+        <input type="text" class="form-control" id="pcName" value="@pc.PCName">
+        <label for="usr">Price</label>
+        <input type="text" class="form-control" id="pcPrice" value="@pc.Price">
+        <label for="usr">Description</label>
+        <input type="text" class="form-control" id="pcDescription" value="@pc.PCDescriptions">
+        <div class="form-group">
+            <label for="sel1">Status</label>
+            <select class="form-control" id="netCafeAddress">
+                <option value="-1">NONE</option>
+                @{
+
+      foreach (NetCafe netcafe in netcafes)
+      {
+          if (pc.NetCafeID == netcafe.NetCafeID)
+          {
+            <option value="@pc.NetCafeID" selected="selected">@pc.NetCafeID - @pc.NetCafe</option>
+          }
+          else
+          {
+            <option value="@pc.NetCafeID">@pc.NetCafeID - @pc.NetCafe</option>
+          }
+
+      }
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="sel1">Status</label>
+            <select class="form-control" id="pcStatus">
+                @if (pc.PCStatus == 1)
+                {
+                    <option value="1" selected="selected">Holding</option>
+                    <option value="2">Using</option>
+                    <option value="3">Free</option>
+                }
+                @if (pc.PCStatus == 2)
+                {
+                    <option value="1">Holding</option>
+                    <option value="2" selected="selected">Using</option>
+                    <option value="3">Free</option>
+                }
+                else
+                {
+
+                    <option value="1">Holding</option>
+                    <option value="2">Using</option>
+                    <option value="3" selected="selected">Free</option>
+                }
+
+            </select>
+        </div>
+
+    </div>
+    <p id="error" style="color='red'"></p>
+    <button type="button" class="btn" onclick="location.href='/PC'">Cancel</button>
+
+    <button type="button" class="btn btn-success" onclick="editPC()">Submit</button>
+  }
+}
+<script>
+    function editPC() {
+        $("#error").html("");
+        $("#error").html("");
+        var name = $('#pcName').val();
+        var price = $('#pcPrice').val();
+        var description = $('#pcDescription').val();
+        var netcafeAddress = $('#netCafeAddress option:selected').val();
+        var status = $('#pcStatus option:selected').val();
+        if (name == "") {
+            $("#error").html("PC name must not be blank!");
+            return;
+        }
+        if (price == "") {
+            $("#error").html("Price must not be blank!");
+            return;
+        }
+        if (description == "") {
+            $("#error").html("Description must not be blank!");
+            return;
+        }
+        if (netcafeAddress == "-1" || netcafeAddress == "") {
+            $("#error").html("You must select an address!");
+            return;
+        }
+        if (status == "-1" || status == "") {
+            $("#error").html("You must select a status!");
+            return;
+        }
+
+
+        $.ajax({
+            url: '/PC/EditPC',
+            data: {
+                name: name,
+                price: price,
+                description: description,
+                netcafeAddress: netcafeAddress,
+                status: status,
+            },
+            error: function () {
+                alert("Problem")
+            },
+            success: function (data) {
+                alert("Edit successfully");
+                location.href = "/PC";
+            },
+            type: 'POST'
+        });
+    }
+</script>
