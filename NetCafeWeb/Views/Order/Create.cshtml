@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    List<NetCafe> netcafes = ViewBag.netcafes;
+    List<PC> pcs = ViewBag.pcs;
+}
+
+
+<h2>Create</h2>
+<div class="container">
+    <div class="form-group">
+        <label>NetCafe </label>
+        <select class="form-control" id="duration">
+            @{ 
+                foreach(NetCafe netcafe in netcafes)
+                {
+                    <option value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                }
+            }
+        </select>
+     
+    </div>
+    <button class="btn btn-success">Search</button>
+    @{
+        if (pcs != null)
+        {
+            <div class="row">
+                @foreach(PC pc in pcs)
+                {
+                    <div class="col-sm-8" style="width: 20vw;height: auto;margin:20px;text-align:center;border-style:groove;padding-bottom:10px;border-radius:20px">
+                        <img src="~/Content/image/my-computer-vista.png" style="width: 10vw;height: 10vw" />
+
+                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: burlywood">@pc.Price</h3>
+                    <button type="button" class="btn btn-success" value="2112" style="width: 100%" onclick="displayform('@pc.PCID','@pc.PCName','@pc.NetCafe.NetCafeName')">Book</button>
+                    </div>
+                }
+              
+              
+            </div>
+            
+
+        }
+
+    }
+
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create an order</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="usr">PCID</label>
+                    <input class="form-control" id="pcid" type="text" value="" disabled="disabled"/>
+                    <label>User ID</label>
+                    <input class="form-control" id="userid" type="text" value="1" disabled="disabled">
+                    <label>PCName</label>
+                    <input class="form-control" id="pcname" type="text" value="" disabled="disabled"/>
+                    <label>NetCafe Name</label>
+                    <input class="form-control" id="netcafeid" type="text" value="" disabled="disabled"/>
+                    <label>Booking date</label>
+                    <input class="form-control" type="date" id="date"/>
+                    <label>Start time</label>
+                    <input class="form-control" type="time" id="time"/>
+                    <label>Duration</label>
+                    <input class="form-control" type="number" id="duration"/>
+                    <h5 id="error">Error:</h5>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="addOrder()">Booki</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function addOrder() {
+        $('#error').html("");
+        var PCID = $('#pcid').val();
+        var userID = $('#userid').val();
+        var Date = $('#date').val();
+        var Time = $('#time').val();
+        var Duration = $('#duration').val();
+        if (date == "") {
+            $('#error').html("You must select Booking Date");
+            return;
+        }
+        if (time == "") {
+            $('#error').html("You must select Booking Time");
+            return;
+        }
+        if (duration == "") {
+            $('#error').html("You must select duration");
+            return;
+        }
+
+      
+
+
+        alert("addOrder" + PCID + Date + "-" + Time);
+        $.ajax({
+            url: '/Order/AddBooking',
+            data: {
+                pcid: PCID,
+                userid: userID,
+                date: Date,
+                time: Time,
+                duration: Duration
+
+            },
+            error: function () {
+                alert("problem")
+            },
+            success: function (data) {
+                alert("add booking successfully")
+                location.reload();
+
+            },
+            type: 'post'
+        });
+    }
+    function displayform(pcid, pcname, netcafename) {
+        $('#myModal').modal('show');
+        $('#pcid').val(pcid);
+        $('#pcname').val(pcname);
+        $('#netcafeid').val(netcafename);
+    }
+</script>

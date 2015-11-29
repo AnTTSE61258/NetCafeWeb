@@ -38,6 +38,13 @@ namespace NetCafeWeb.Models
             return query;
         }
 
+        public List<PC> findAvailable(int netCafeID)
+        {
+            var query = (from r in _netCafeContext.PCs where r.NetCafeID == netCafeID && r.PCStatus == 0 select r).ToList();
+
+            return query;
+        }
+
         public void Update(PC entity)
         {
             _netCafeContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;
