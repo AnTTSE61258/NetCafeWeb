@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MasterPage.cshtml";
+    Order order = ViewBag.Order;
+    
+}
+
+<h2>Edit + @order</h2>
+@{ if (order == null)
+ {
+    <h2>This order is not longer available. Please try again.</h2>
+ }
+ else
+ {
+    <div class="form-group" style="width:100%">
+                    <label for="usr">PC</label>
+                    <input type="text" class="form-control" id="PC">
+                    <label for="usr">User</label>
+                    <input type="text" class="form-control" id="user">
+                    <label for="usr">Start time</label>
+                    <input type="text" class="form-control" id="startTime">
+                    <div class="form-group">
+                        <label for="sel1">Duration</label>
+                        <select class="form-control" id="duration">
+                            <option value="1">1</option>
+                            <option value="1">2</option>
+                            <option value="1">3</option>
+                            <option value="1">4</option>
+                            <option value="1">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Status</label>
+                        <select class="form-control" id="orderStatus">
+                            <option value="1">Holding</option>
+                            <option value="2">Using</option>
+                            <option value="2">Free</option>
+                        </select>
+                    </div>
+
+                    
+    </div>
+    <p id="error" style="color='red'"></p>
+    <button type="button" class="btn" onclick="location.href='/Order'">Cancel</button>
+
+    <button type="button" class="btn btn-success" onclick="editOrder()">Submit</button>
+ }
+}
+<script>
+    function editOrder() {
+         $("#error").html("");
+        var PC = $('#PC').val();
+        var user = $('#user').val();
+        var startTime = $('#startTime').val();
+        var duration = $('#orderStatus option:selected').val();
+        var status = $('#netCafeStatus option:selected').val();
+
+        if (PC == "") {
+            $("#error").html("PC name must not be blank");
+            return;
+        }
+        if (user == "") {
+            $("#error").html("Username must not be blank");
+            return;
+        }
+        if (startTime == "") {
+            $("#error").html("Start time must not be blank");
+            return;
+        }
+        if (duration == "-1" || duration == "") {
+            $("#error").html("You must select duration");
+            return;
+        }
+        if (status == "-1" || status == "") {
+            $("#error").html("You must select status for this order");
+            return;
+        }
+
+
+        $.ajax({
+            url: '/NetCafe/editOrder',
+            data: {
+                id: id,
+                name: name,
+                address: address,
+                supervisor: supervisor,
+                status: status,
+                phoneNumber: phoneNumber,
+                description: description
+            },
+            error: function () {
+                alert("Problem")
+            },
+            success: function (data) {
+                alert("Edit successfully");
+                location.href="/NetCafe";
+            },
+            type: 'POST'
+        });
+    }
+</script>
+
+

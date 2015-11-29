@@ -9,6 +9,10 @@ namespace NetCafeWeb.Controllers
 {
     public class NetCafeController : Controller
     {
+        public ActionResult Test()
+        {
+            return View();
+        }
         // GET: NetCafe
         public ActionResult Index()
         {

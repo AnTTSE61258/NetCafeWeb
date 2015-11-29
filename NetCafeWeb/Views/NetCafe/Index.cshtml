@@ -1,9 +1,13 @@
 ﻿
 @{
+   
+     
     ViewBag.Title = "NetCafe Index";
+    Layout = "~/Views/Shared/MasterPage.cshtml";
     List<NetCafe> netCafes = ViewBag.netcafes;
     List<User> supervisors = ViewBag.supervisors;
     NetCafe selectedNetCafe;
+    
 }
 <p></p>
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Net Cafe</button>
@@ -153,21 +157,21 @@
         });
         $('#myModal').modal('hide');
     }
-    function deleteNetCafe(id) {
+    function deletenetcafe(id) {
         $.ajax({
-            url: '/NetCafe/delete',
+            url: '/netcafe/delete',
             data: {
                 id: id
             },
             error: function () {
-                alert("Problem")
+                alert("problem")
             },
             success: function (data) {
-                alert("Delete successfully")
+                alert("delete successfully")
                 location.reload();
 
             },
-            type: 'POST'
+            type: 'post'
         });
 
     }

@@ -14,7 +14,6 @@ namespace NetCafeWeb
     
     public partial class NetCafe
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NetCafe()
         {
             this.PCs = new HashSet<PC>();
@@ -29,7 +28,6 @@ namespace NetCafeWeb
         public string NetCafeDescriptions { get; set; }
     
         public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PC> PCs { get; set; }
     }
 }

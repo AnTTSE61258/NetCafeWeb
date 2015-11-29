@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MasterPage.cshtml";
+}
+
+<p></p>
+
+
+<div class="container">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Net Cafe</button>
+    <h2>Order Manager - for admin only</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>ID</th>
+                <th>PC</th>
+                <th>Username</th>
+                <th>Start time</th>
+                <th>Duration</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @*@{
+                foreach (NetCafe netcafe in netCafes)
+                {
+                    <tr>
+                        <td><button class="btn-warning" onclick="location.href='/NetCafe/edit/@netcafe.NetCafeID'">Edit</button></td>
+                        <td><button class="btn-danger" onclick="deleteNetCafe(@netcafe.NetCafeID)">Delete</button></td>
+                        <td>@netcafe.NetCafeID</td>
+                        <td>@netcafe.NetCafeName</td>
+                        <td>@netcafe.NetCafeAddress</td>
+                        <td>@netcafe.SupervisorID</td>
+                        <td></td>
+                        <td>@netcafe.NetCafeStatus</td>
+                        <td>@netcafe.NetCafePhoneNumber</td>
+                        <td>@netcafe.NetCafeDescriptions</td>
+                    </tr>
+
+
+                }
+            }*@
+   
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New Order</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="width:100%">
+                    <label for="usr">PC</label>
+                    <input type="text" class="form-control" id="PC">
+                    <label for="usr">User</label>
+                    <input type="text" class="form-control" id="user">
+                    <label for="usr">Start time</label>
+                    <input type="text" class="form-control" id="startTime">
+                    <div class="form-group">
+                        <label for="sel1">Duration</label>
+                        <select class="form-control" id="duration">
+                            <option value="1">1</option>
+                            <option value="1">2</option>
+                            <option value="1">3</option>
+                            <option value="1">4</option>
+                            <option value="1">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Status</label>
+                        <select class="form-control" id="orderStatus">
+                            <option value="1">Holding</option>
+                            <option value="2">Using</option>
+                            <option value="2">Free</option>
+                        </select>
+                    </div>
+
+                    
+                </div>
+                <p id="error" style="color='red'"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="addOrder()">Submit</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+
+    function addOrder() {
+        $("#error").html("");
+        var PC = $('#PC').val();
+        var user = $('#user').val();
+        var startTime = $('#startTime').val();
+        var duration = $('#orderStatus option:selected').val();
+        var status = $('#netCafeStatus option:selected').val();
+        
+        if (PC == "") {
+            $("#error").html("PC name must not be blank");
+            return;
+        }
+        if (user == "") {
+            $("#error").html("Username must not be blank");
+            return;
+        }
+        if (startTime == "") {
+            $("#error").html("Start time must not be blank");
+            return;
+        }
+        if (duration == "-1" || duration == "") {
+            $("#error").html("You must select duration");
+            return;
+        }
+        if (status == "-1" || status == "") {
+            $("#error").html("You must select status for this order");
+            return;
+        }
+
+        $.ajax({
+            url: '/Order/add',
+            data: {
+                name: name,
+                address: address,
+                supervisor: supervisor,
+                status: status,
+                phoneNumber: phoneNumber,
+                description: description
+            },
+            error: function () {
+                alert("Problem")
+            },
+            success: function (data) {
+                alert("Add successfully")
+                location.reload();
+
+            },
+            type: 'POST'
+        });
+        $('#myModal').modal('hide');
+    }
+    function deletenetcafe(id) {
+        $.ajax({
+            url: '/order/delete',
+            data: {
+                id: id
+            },
+            error: function () {
+                alert("problem")
+            },
+            success: function (data) {
+                alert("delete successfully")
+                location.reload();
+
+            },
+            type: 'post'
+        });
+
+    }
+    function editOrder(indexInArray) {
+        alert(indexInArray);
+
+    }
+</script>
