@@ -16,7 +16,7 @@
     });
 </script>
 <h2>PC Managerment</h2>
-<select id="netCafe">
+<select id="selectedNetCafe">
     <option value="-1">Select</option>
     @{
 
@@ -140,12 +140,17 @@
         var description = $('#pcDescription').val();
         var netcafeAddress = $('#netCafeAddress option:selected').val();
         var status = $('#pcStatus option:selected').val();
+        var kiemtraprice = isNaN(($('#pcPrice').val()));
         if (name == "") {
             $("#error").html("PC name must not be blank!");
             return;
         }
         if (price == "") {
             $("#error").html("Price must not be blank!");
+            return;
+        }
+        if (kiemtraprice == true) {
+            $("#error").html("Price must be number");
             return;
         }
         if (description == "") {
@@ -188,14 +193,22 @@
             data: {
                 id: id
             },
+           
             error: function () {
                 alert("Problem")
             },
             success: function (data) {
-                alert("Delete successfully")
+                if (data === 'True'){
+                    alert("Delete successfully")
+                    location.reload();
+                } else {  alert("PC nay khong the xoa!Co order dang thuc hien!")
                 location.reload();
-
+            }
+              
             },
+           
+            
+            
             type: 'post'
         });
 
