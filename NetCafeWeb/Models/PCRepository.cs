@@ -39,6 +39,12 @@ namespace NetCafeWeb.Models
             return query;
         }
 
+        public List<PC> findByNetcafeID(int Id)
+        {
+            List<PC> lstPC = (from r in _pcContext.PCs where r.NetCafeID == Id select r).ToList();
+            return lstPC;
+        }
+
         public List<PC> findAvailable(int netCafeID)
         {
             var query = (from r in _pcContext.PCs where r.NetCafeID == netCafeID && r.PCStatus == 0 select r).ToList();

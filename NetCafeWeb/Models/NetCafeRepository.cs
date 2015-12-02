@@ -47,4 +47,11 @@ public class NetCafeRepository : IRepository<NetCafe>
         _netCafeContext.SaveChanges();
     }
 
+    public List<NetCafe> findBySuID(int Id)
+    {
+        List<NetCafe> lstNet = (from r in _netCafeContext.NetCafes where r.SupervisorID == Id select r).ToList();
+        return lstNet;
+    }
+
+
 }

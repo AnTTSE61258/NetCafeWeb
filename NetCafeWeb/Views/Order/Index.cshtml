@@ -1,14 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MasterPage.cshtml";
+    List<Order> orders = ViewBag.orders;
 }
 
 <p></p>
 
 
 <div class="container">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Net Cafe</button>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Order</button>
     <h2>Order Manager - for admin only</h2>
     <table class="table">
         <thead>
@@ -25,27 +25,21 @@
         </thead>
         <tbody>
 
-            @*@{
-                foreach (NetCafe netcafe in netCafes)
+            @{
+                foreach (Order order in orders)
                 {
                     <tr>
-                        <td><button class="btn-warning" onclick="location.href='/NetCafe/edit/@netcafe.NetCafeID'">Edit</button></td>
-                        <td><button class="btn-danger" onclick="deleteNetCafe(@netcafe.NetCafeID)">Delete</button></td>
-                        <td>@netcafe.NetCafeID</td>
-                        <td>@netcafe.NetCafeName</td>
-                        <td>@netcafe.NetCafeAddress</td>
-                        <td>@netcafe.SupervisorID</td>
-                        <td></td>
-                        <td>@netcafe.NetCafeStatus</td>
-                        <td>@netcafe.NetCafePhoneNumber</td>
-                        <td>@netcafe.NetCafeDescriptions</td>
+                        <td><button class="btn-warning" onclick="location.href='/Order/edit/@order.OrderID'">Edit</button></td>
+                        <td><button class="btn-danger" onclick="deleteOrder(@order.OrderID)">Delete</button></td>
+                        <td>@order.OrderID</td>
+                        <td>@order.PCID</td>
+                        <td>@order.UserID</td>
+                        <td>@order.StartTime</td>
+                        <td>@order.Duration</td>
+                        <td>@order.OrderStatus</td>
                     </tr>
-
-
                 }
-            }*@
-   
-
+            }
         </tbody>
     </table>
 </div>
@@ -111,7 +105,7 @@
         var startTime = $('#startTime').val();
         var duration = $('#orderStatus option:selected').val();
         var status = $('#netCafeStatus option:selected').val();
-        
+
         if (PC == "") {
             $("#error").html("PC name must not be blank");
             return;
