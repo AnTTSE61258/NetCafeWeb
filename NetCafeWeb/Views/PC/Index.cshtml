@@ -2,6 +2,7 @@
     ViewBag.Title = "Index";
     List<NetCafe> netcafes = ViewBag.netcafes;
     List<PC> pcs = ViewBag.pcs;
+    String isAdmin = ViewBag.isAdmin;
     Layout = "~/Views/Shared/MasterPage.cshtml";
 }
 
@@ -16,64 +17,59 @@
     });
 </script>
 <h2>PC Managerment</h2>
-<select id="selectedNetCafe">
-    <option value="-1">Select</option>
-    @{
-
-        foreach (NetCafe netcafe in netcafes)
-        {
-            <option value="@netcafe.NetCafeID">@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
-        }
-    }
-</select>
 
 <div class="container">
     <div class="row">
-
-
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
         <div class="table-responsive">
-            <table id="PC_table" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>NetCafe</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @{
-                        foreach (PC pc in pcs)
-                        {
-                            <tr>
-                                <td><button class="btn-warning" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button></td>
-                                <td><button class="btn-danger" onclick="deletePC(@pc.PCID)">Delete</button></td>
-                                <td>@pc.PCID</td>
-                                <td>@pc.PCName</td>
-                                <td>@pc.Price</td>
-                                <td>@pc.PCDescriptions</td>
-                                @{  foreach (NetCafe netcafe in netcafes)
-                                    {
-                                        if (pc.NetCafeID == netcafe.NetCafeID)
+            @{
+                int i = 1;
+                foreach (PC pc in pcs)
+                {
+                    <div class="col-xs-10" style="border: ridge; height:250px; width:300px; padding-left:0px" >
+                        <ul>
+                            <li>
+                                <a href="#@i">PC: @i - @pc.PCName<br></a>
+                                <div id="@i" class="collapse">
+                                    <p>Price: @pc.Price</p>
+                                    <p>Description: @pc.PCDescriptions</p>
+                                    @{  foreach (NetCafe netcafe in netcafes)
                                         {
-                                            <td>@netcafe.NetCafeName - @netcafe.NetCafeAddress</td>
+                                            if (pc.NetCafeID == netcafe.NetCafeID)
+                                            {
+                                                <p>Address: @netcafe.NetCafeName - @netcafe.NetCafeAddress</p>
+                                            }
                                         }
+                                        
                                     }
-                                }
-                                <td>@pc.PCStatus</td>
-                            </tr>
+                                    @if (@pc.PCStatus == 1) {
+                                        <p>Status: Available</p>
                                     }
-                    }
+                                    else {
+                                        <p>Status: N/A</p>
+                                    }
+                                </div>
+                                <button class="btn btn-info" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button>
+                                <button class="btn btn-success" onclick="deletePC(@pc.PCID)">Delete</button>
+                                <script>
+                                    $(document).ready(function collapse() {
+                                        $('#@i').mouseover(function () {
+                                            $('.collapse').collapse('show');
+                                        });
+                                        $('#@i').mouseout(function () {
+                                            $('.collapse').collapse('hide');
+                                        });
+                                    })
+                                </script>
+                            </li>
+                        </ul>
+                     </div>
 
-
-                </tbody>
-            </table>
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
+                    
+                    i++;
+                }
+            }
+            
         </div>
     </div>
 </div>
@@ -112,9 +108,8 @@
                     <div class="form-group">
                         <label for="sel1">Status</label>
                         <select class="form-control" id="pcStatus">
-                            <option value="1">Holding</option>
-                            <option value="2">Using</option>
-                            <option value="3">Free</option>
+                            <option value="1">Available</option>
+                            <option value="2">N/A</option>
                         </select>
                     </div>
                 </div>
@@ -130,9 +125,7 @@
 </div>
 
 
-
-<script>
-
+<script>    
     function addPC() {
         $("#error").html("");
         var name = $('#pcName').val();
@@ -193,7 +186,7 @@
             data: {
                 id: id
             },
-           
+
             error: function () {
                 alert("Problem")
             },
@@ -201,18 +194,18 @@
                 if (data === 'True'){
                     alert("Delete successfully")
                     location.reload();
-                } else {  alert("PC nay khong the xoa!Co order dang thuc hien!")
+                } else {
+                    alert("Cannot delete this PC because it is in used!")
                 location.reload();
             }
-              
+
             },
-           
-            
-            
+
             type: 'post'
         });
 
     }
+
     function editNetCafe(indexInArray) {
         alert(indexInArray);
 
