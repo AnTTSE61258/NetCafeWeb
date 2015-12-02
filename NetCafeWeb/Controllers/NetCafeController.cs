@@ -15,7 +15,6 @@ namespace NetCafeWeb.Controllers
             return View();
         }
         // GET: NetCafe
-        [Authorize]
         public ActionResult Index()
         {
             

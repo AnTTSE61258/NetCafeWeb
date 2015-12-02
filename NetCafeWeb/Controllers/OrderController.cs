@@ -1,6 +1,7 @@
 ﻿using NetCafeWeb.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,10 @@ namespace NetCafeWeb.Controllers
         // GET: /Order/
         public ActionResult Index()
         {
-            FormsAuthentication.SetAuthCookie("asd", false);
+            IRepository<Order> repository = new OrderRepository();
+            IEnumerable<Order> order = repository.List;
+            ViewBag.orders = order.Cast<Order>().ToList();
+            //FormsAuthentication.SetAuthCookie("asd", false);
             return View();
         }
         public ActionResult Create(int? id)
@@ -65,21 +69,78 @@ namespace NetCafeWeb.Controllers
         [HttpPost]
         public Boolean editOrder()
         {
+            String idParam = Request.Params["pcid"];
+            String useridParam = Request.Params["userid"];
+            String date = Request.Params["date"];
+            String time = Request.Params["time"];
+            String duration = Request.Params["duration"];
+
+            int pcid = int.Parse(idParam);
+            int userid = int.Parse(useridParam);
+
+            DateTime newDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm", null);
+            int intDuration = int.Parse(duration);
+
+            Order order = new Order();
+            order.PCID = pcid;
+            order.UserID = userid;
+            order.StartTime = newDate;
+            order.Duration = intDuration;
+            order.OrderStatus = 0;
+            // tru balance
+            IRepository<Order> repository = new OrderRepository();
+            repository.Update(order);
+
             return true;
         }
+
+
+
         [HttpPost]
         public Boolean delete()
         {
+            String idParam = Request.Params["id"];
+            int id = int.Parse(idParam);
+            IRepository<Order> repository = new OrderRepository();
+            Order deletedOrder = repository.findById(id);
+            if (deletedOrder == null)
+            {
+                return false;
+            }
+            repository.Delete(deletedOrder);
             return true;
         }
         [HttpPost]
         public Order getOrder()
         {
-            return null;
+            String idParam = Request.Params["id"];
+            int id = int.Parse(idParam);
+            IRepository<Order> repository = new OrderRepository();
+            Order order = repository.findById(id);
+            if (order == null)
+            {
+                return order;
+            }
+            else
+            {
+                return null;
+            }
         }
-        [HttpPost]
+
+        [HttpGet]
         public ActionResult edit(int? id)
         {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Order");
+            }
+            else
+            {
+                IRepository<Order> repository = new OrderRepository();
+                Order order = repository.findById(id.Value);
+                ViewBag.orders = order;
+
+            }
             return View();
         }
     }
