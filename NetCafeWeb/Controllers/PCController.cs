@@ -13,10 +13,9 @@ namespace NetCafeWeb.Controllers
     {
         //
         // GET: /PC/
-        private int role = 2; 
+        private int role = 1; 
         public ActionResult Index()
         {
-
             if (role == 1)
             {
                 IRepository<PC> repository = new PCRepository();
@@ -24,9 +23,10 @@ namespace NetCafeWeb.Controllers
                 ViewBag.pcs = pcs.Cast<PC>().ToList();
                 NetCafeRepository repository2 = new NetCafeRepository();
                 ViewBag.netcafes = repository2.NetCafeList();
+                ViewBag.isAdmin = "Admin";
                 return View();
             }
-           else
+            else
             {
                 string username = User.Identity.Name;
                 UserRepository repo = new UserRepository();
@@ -35,21 +35,18 @@ namespace NetCafeWeb.Controllers
                 int superID = suID;
                 //Lay danh sach nhung quan thang nay dang quan ly
                 NetCafeRepository net = new NetCafeRepository();
-                List<NetCafe> lstNet = net.findBySuID(superID);
+                List<NetCafe> netList = net.findBySuID(superID);
 
                 //lay danh sach nhung may co trong nhung quan ma no quan ly
                 PCRepository pc = new PCRepository();
-                List<PC> lstPC = new List<PC>();
-                foreach (NetCafe quan in lstNet)
+                List<PC> pcList = new List<PC>();
+                foreach (NetCafe netCafe in netList)
                 {
-                    lstPC = pc.findByNetcafeID(quan.NetCafeID);
+                    pcList = pc.findByNetcafeID(netCafe.NetCafeID);
                 }
-
-
-
-                ViewBag.pcs = lstPC;
-        
-                ViewBag.netcafes = lstNet;
+                
+                ViewBag.pcs = pcList;
+                ViewBag.netcafes = netList;
                 return View();
             }
         
@@ -97,7 +94,7 @@ namespace NetCafeWeb.Controllers
         [HttpPost]
         public Boolean delete()
         {
-          
+
             String idParam = Request.Params["id"];
             int id = int.Parse(idParam);
             IRepository<PC> repository = new PCRepository();
@@ -109,38 +106,13 @@ namespace NetCafeWeb.Controllers
             try
             {
                 repository.Delete(deletedPC);
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 e.GetHashCode();
                 return false;
             }
             return true;
-
-        }
-        [HttpPost]
-        public PC getPC()
-        {
-            String idParam = Request.Params["id"];
-            int id = int.Parse(idParam);
-            IRepository<PC> repository = new PCRepository();
-            PC pc = repository.findById(id);
-            if (pc == null)
-            {
-                return pc;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public PC getPCByNetCafe(int netcafeID)
-        {
-            String idParam = Request.Params["id"];
-            int id = int.Parse(idParam);
-            IRepository<PC> repository = new PCRepository();
-            
-            return null;
         }
         [HttpGet]
         public ActionResult edit(int? id)

@@ -21,7 +21,7 @@
             <label>Description</label>
             <input type="text" class="form-control" id="pcDescription" value="@pc.PCDescriptions">
             <div class="form-group">
-                <label for="sel1">Status</label>
+                <label for="sel1">Net Address</label>
                 <select class="form-control" id="netCafeAddress">
                     <option value="-1">NONE</option>
                     @{
@@ -45,23 +45,14 @@
                 <label for="sel1">Status</label>
                 <select class="form-control" id="pcStatus">
                     @if (pc.PCStatus == 1)
-                {
-                        <option value="1" selected="selected">Holding</option>
-                        <option value="2">Using</option>
-                        <option value="3">Free</option>
-                    }
-                    @if (pc.PCStatus == 2)
-                {
-                        <option value="1">Holding</option>
-                        <option value="2" selected="selected">Using</option>
-                        <option value="3">Free</option>
+                     {
+                        <option value="1" selected="selected">Available</option>
+                        <option value="2">N/A</option>
                     }
                     else
                     {
-
-                        <option value="1">Holding</option>
-                        <option value="2">Using</option>
-                        <option value="3" selected="selected">Free</option>
+                        <option value="1">Available</option>
+                        <option value="2" selected="selected">N/A</option>
                     }
 
                 </select>
