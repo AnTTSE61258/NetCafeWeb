@@ -2,7 +2,7 @@
 using NetCafeWeb.Service;
 using System;
 using System.Collections.Generic;
-
+using Microsoft.AspNet.Identity;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -17,11 +17,39 @@ namespace NetCafeWeb.Controllers
         // GET: /Order/
         public ActionResult Index()
         {
-            IRepository<Order> repository = new OrderRepository();
-            IEnumerable<Order> order = repository.List;
-            ViewBag.orders = order.Cast<Order>().ToList();
-            //FormsAuthentication.SetAuthCookie("asd", false);
+            var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
+            var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
+
+
+            var a = manager.IsInRoleAsync(User.Identity.GetUserId(), "Admin");
+            bool isAdmin = a.Result;
+            if (isAdmin)
+            {
+                //show het order
+                IRepository<Order> repository = new OrderRepository();
+                IEnumerable<Order> order = repository.List;
+                ViewBag.orders = order.Cast<Order>().ToList();
+                //FormsAuthentication.SetAuthCookie("asd", false);
+                return View();
+            }
+            else //La supervisor
+            {
+                //Lay supervior user
+                String supervisorName = User.Identity.Name;
+                //Lay supervior id
+                UserRepository repo = new UserRepository();
+                NetCafeRepository netRepo = new NetCafeRepository();
+                OrderRepository orderRepo = new OrderRepository();
+                int supervisorId = repo.getIDByUsername(supervisorName);
+                //Lay netcafe id
+                int netID = netRepo.getNetCafeIDByName(supervisorId);
+                //hien thi order cua netcafe id
+                List<Order> orders = orderRepo.getOrderByNetCafe(netID);
+                ViewBag.orders = orders;
+            }
             return View();
+
+           
         }
         public ActionResult Create(int? id)
         {

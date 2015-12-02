@@ -6,7 +6,7 @@
     List<Role> roles = ViewBag.roles;
 }
 
-<h2>Edit + " " + @selectedUser.UserName</h2>
+<h2>Edit @selectedUser.UserName</h2>
 
 @if (selectedUser == null)
 {
@@ -56,13 +56,13 @@ else
         var userID = @selectedUser.UserID;
         var balance = $("#balance").val();
         var role = $("#userRole option:selected").val();
-        if (!intRegex.test(balance)) {
-            $("#error").html("Money cannbe negative!");
-            return;
-        }
+        //if (!intRegex.test(balance)) {
+        //    $("#error").html("Money cannot be negative!");
+        //    return;
+        //}
 
         $.ajax({
-            url: '/user/editUser',
+            url: '/User/editUser',
             data: {
                 userID: userID,
                 balance: balance,
@@ -73,7 +73,7 @@ else
             },
             success: function (data) {
                 alert("Edit successfully");
-                location.href="/NetCafe";
+                location.href="/User";
             },
             type: 'POST'
         })

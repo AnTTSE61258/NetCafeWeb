@@ -54,7 +54,7 @@ namespace NetCafeWeb.Controllers
         {
             return null;
         }
-        [HttpPost]
+        
         public ActionResult edit(int? id)
         {
             if (id == null)

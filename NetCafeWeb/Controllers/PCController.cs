@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NetCafeWeb.CustomFilters;
 
 namespace NetCafeWeb.Controllers
 {
+    [AuthLog(Roles = "Admin,Supervisor")]
     public class PCController : Controller
     {
         //
@@ -26,7 +28,11 @@ namespace NetCafeWeb.Controllers
             }
            else
             {
-                int superID = 4;
+                string username = User.Identity.Name;
+                UserRepository repo = new UserRepository();
+                int suID = repo.getIDByUsername(username);
+
+                int superID = suID;
                 //Lay danh sach nhung quan thang nay dang quan ly
                 NetCafeRepository net = new NetCafeRepository();
                 List<NetCafe> lstNet = net.findBySuID(superID);
