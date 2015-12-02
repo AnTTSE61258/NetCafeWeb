@@ -1,4 +1,5 @@
 ﻿using NetCafeWeb.Models;
+using NetCafeWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -43,8 +44,15 @@ namespace NetCafeWeb.Controllers
             String duration = Request.Params["duration"];
             int pcid = int.Parse(idParam);
             int userid = int.Parse(useridParam);
-            DateTime newDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm", null);
+           DateTime newDate = DateTime.ParseExact(date + " " + time, "dd/MM/yyyy HH:mm", null);
             int intDuration = int.Parse(duration);
+
+            OrderService orderService = new OrderService();
+            OrderStatus orderStatus = orderService.isCanOrder(pcid, newDate, intDuration);
+            if (orderStatus.status == OrderStatusCode.FAIL)
+            {
+                return orderStatus.message;
+            }
             Order order = new Order();
             order.PCID = pcid;
             order.UserID = userid;

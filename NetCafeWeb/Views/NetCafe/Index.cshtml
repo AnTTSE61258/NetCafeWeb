@@ -9,13 +9,7 @@
     NetCafe selectedNetCafe;
 
 }
- @{
-     if (Membership.GetUser() == null)
-     {
-       <h1>Mother fuck</h1> 
-     }
- }
-@Membership.GetUser() asdas
+
 <p></p>
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Net Cafe</button>
 
@@ -164,7 +158,7 @@
         });
         $('#myModal').modal('hide');
     }
-    function deletenetcafe(id) {
+    function deleteNetCafe(id) {
         $.ajax({
             url: '/netcafe/delete',
             data: {
@@ -174,8 +168,13 @@
                 alert("problem")
             },
             success: function (data) {
-                alert("delete successfully")
-                location.reload();
+                if(data=== "True"){
+                    alert("delete successfully");
+                    location.reload();
+                }else{
+                    alert("Can't delete this netcafe");
+                }
+               
 
             },
             type: 'post'

@@ -20,6 +20,8 @@ namespace NetCafeWeb.Models
             }
         }
 
+
+
         public void Add(Order entity)
         {
             _orderContext.Orders.Add(entity);

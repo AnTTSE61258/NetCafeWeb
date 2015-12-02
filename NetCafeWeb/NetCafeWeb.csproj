@@ -217,6 +217,8 @@
     <Compile Include="Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\IOrderInterface.cs" />
+    <Compile Include="Service\OrderService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>

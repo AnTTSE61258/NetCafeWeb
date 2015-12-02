@@ -15,7 +15,6 @@ namespace NetCafeWeb.Controllers
             return View();
         }
         // GET: NetCafe
-        [Authorize]
         public ActionResult Index()
         {
             
@@ -87,6 +86,7 @@ namespace NetCafeWeb.Controllers
                 return false;
             }
             repository.Delete(deletedNetCafe);
+
             return true;
             
         }
