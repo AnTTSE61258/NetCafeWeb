@@ -2,7 +2,52 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MasterPage.cshtml";
+    List<User> users = ViewBag.users;
+    List<Role> roles = ViewBag.roles;
 }
 
 <h2>Index</h2>
 
+<div class="container">
+    <h2>User Manager - for admin only</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Fullname</th>
+                <th>Username</th>
+                <th>Identify Number</th>
+                <th>Phone Number</th>
+                <th>Balance</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (User user in users)
+                {
+                    <tr>
+                        <td><button class="btn btn-warning" onclick="location.href='/User/edit/@user.UserID'">Edit</button></td>
+                        <td><button class="btn btn-danger" onclick="deleteNetCafe(@user.UserID)">Delete</button></td>
+                        
+                        <td>@user.Fullname</td>
+                        <td>@user.UserName</td>
+                        <td>@user.IdentityNumber</td>
+                        <td>@user.UserPhoneNumber</td>
+                        <td>@user.Balance</td>
+                        <td>@{for (int i = 0; i < roles.Count; i++)
+                            {
+                                if (user.RoleID == roles[i].RoleID)
+                                {
+                                    @roles[i].RoleName;
+                                }
+                            }
+                                }</td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>

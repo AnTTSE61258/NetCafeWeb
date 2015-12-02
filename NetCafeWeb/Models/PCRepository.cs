@@ -50,6 +50,7 @@ namespace NetCafeWeb.Models
             var query = (from r in _pcContext.PCs where r.NetCafeID == netCafeID && r.PCStatus == 0 select r).ToList();
 
             return query;
+
         }
 
         public void Update(PC entity)

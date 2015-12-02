@@ -2,7 +2,81 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MasterPage.cshtml";
+    User selectedUser = ViewBag.user;
+    List<Role> roles = ViewBag.roles;
 }
 
-<h2>Edit</h2>
+<h2>Edit + " " + @selectedUser.UserName</h2>
+
+@if (selectedUser == null)
+{
+    <h2>This user is not available! Please try again!</h2>
+}
+else
+{
+    <div class="form-group">
+        <label>Fullname</label>
+        <input type="text" class="form-control" value="@selectedUser.Fullname" disabled="disabled" />
+        <label>Username</label>
+        <input type="text" class="form-control" value="@selectedUser.UserName" disabled="disabled" />
+        <label>Identify Number</label>
+        <input type="text" class="form-control" value="@selectedUser.IdentityNumber" disabled="disabled" />
+        <label>Phone Number</label>
+        <input type="text" class="form-control" value="@selectedUser.UserPhoneNumber" disabled="disabled" />
+        <label>Balance</label>
+        <input type="text" class="form-control" value="@selectedUser.Balance" id="balance"/>
+        <label>Role</label>
+        <select class="form-control" id="userRole">
+            @{ 
+                foreach (Role role in roles)
+                {
+                    if (selectedUser.RoleID == role.RoleID)
+                    {
+                        <option value="@role.RoleID" selected="selected">@role.RoleName</option>
+                    }
+                    else
+                    {
+                        <option value="@role.RoleID">@role.RoleName</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+    <div>
+        <p class="alert-danger" id="error"></p>
+        <button class="btn btn-default" onclick="location.href='/user'">Cancel</button>
+        <button class="btn btn-success" onclick="editUser()">Submit</button>
+    </div>
+}
+
+<script>
+    function editUser() {
+        $("#error").html("");
+        var intRegex = /^-\d+/;
+        var userID = @selectedUser.UserID;
+        var balance = $("#balance").val();
+        var role = $("#userRole option:selected").val();
+        if (!intRegex.test(balance)) {
+            $("#error").html("Money cannbe negative!");
+            return;
+        }
+
+        $.ajax({
+            url: '/user/editUser',
+            data: {
+                userID: userID,
+                balance: balance,
+                role: role
+            },
+            error: function() {
+                alert("Problem occur!")
+            },
+            success: function (data) {
+                alert("Edit successfully");
+                location.href="/NetCafe";
+            },
+            type: 'POST'
+        })
+    }
+</script>
 

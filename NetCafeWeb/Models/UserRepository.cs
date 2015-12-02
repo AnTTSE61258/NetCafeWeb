@@ -44,6 +44,16 @@ namespace NetCafeWeb.Models
             return query;
         }
 
+        public Boolean findByName(string username)
+        {
+            var query = (from u in _userContext.Users where u.UserName == username select u).FirstOrDefault();
+            if(query != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void Update(User entity)
         {
             _userContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;

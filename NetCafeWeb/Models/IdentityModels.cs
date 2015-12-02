@@ -16,6 +16,9 @@ namespace NetCafeWeb.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string Fullname { get; set; }
+        public string IdentifyNumber { get; set; }
+        public string PhoneNo { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

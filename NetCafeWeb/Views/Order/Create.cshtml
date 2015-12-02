@@ -66,7 +66,15 @@
                     <label>NetCafe Name</label>
                     <input class="form-control" id="netcafeid" type="text" value="" disabled="disabled"/>
                     <label>Booking date</label>
-                    <input class="form-control" type="date" id="date"/>
+                    <div class="radio">
+                        <label><input id="dateradio1" type="radio" name="dateradio" value="@DateTime.Today.ToString("dd/MM/yyyy")">Today - @DateTime.Today.ToString("dd/MM/yyyy")</label>
+                    </div>
+                    <div class="radio">
+                        <label><input id="dateradio2" type="radio" name="dateradio" value="@DateTime.Today.AddDays(1).ToString("dd/MM/yyyy")">@DateTime.Today.AddDays(1).ToString("dd/MM/yyyy")</label>
+                    </div>
+                    <div class="radio">
+                        <label><input id="dateradio3" type="radio" name="dateradio" value="@DateTime.Today.AddDays(2).ToString("dd/MM/yyyy")">@DateTime.Today.AddDays(2).ToString("dd/MM/yyyy")</label>
+                    </div>
                     <label>Start time</label>
                     <input class="form-control" type="time" id="time"/>
                     <label>Duration</label>
@@ -87,12 +95,24 @@
         $('#error').html("");
         var PCID = $('#pcid').val();
         var userID = $('#userid').val();
-        var Date = $('#date').val();
+        var Date = null;
+        if ($("#dateradio1").is(':checked')) {
+            Date = $("#dateradio1").val();
+        } else if ($("#dateradio2").is(':checked')) {
+            Date = $("#dateradio2").val();
+        } else if ($("#dateradio3").is(':checked')) {
+            Date = $("#dateradio3").val();
+
+        }
+
         var Time = $('#time').val();
         var Duration = $('#duration').val();
-        if (date == "") {
+        
+        if (Date == "") {
             $('#error').html("You must select Booking Date");
             return;
+        } else {
+            alert(Date)
         }
         if (time == "") {
             $('#error').html("You must select Booking Time");
@@ -102,10 +122,6 @@
             $('#error').html("You must select duration");
             return;
         }
-
-      
-
-
         alert("addOrder" + PCID + Date + "-" + Time);
         $.ajax({
             url: '/Order/AddBooking',
@@ -120,9 +136,16 @@
             error: function () {
                 alert("problem")
             },
-            success: function (data) {
-                alert("add booking successfully")
-                location.reload();
+            success: function (data)
+            {
+                if (data === "True") {
+                    alert("add order successfully")
+                    location.reload();
+                }
+                else {
+                    alert(data);
+                }
+               
 
             },
             type: 'post'

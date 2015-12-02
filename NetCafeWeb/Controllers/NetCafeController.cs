@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
+using NetCafeWeb.CustomFilters;
+
 namespace NetCafeWeb.Controllers
 {
     public class NetCafeController : Controller
@@ -15,7 +17,7 @@ namespace NetCafeWeb.Controllers
             return View();
         }
         // GET: NetCafe
-        [Authorize]
+        [AuthLog(Roles ="Admin")]
         public ActionResult Index()
         {
             
@@ -87,6 +89,7 @@ namespace NetCafeWeb.Controllers
                 return false;
             }
             repository.Delete(deletedNetCafe);
+
             return true;
             
         }
