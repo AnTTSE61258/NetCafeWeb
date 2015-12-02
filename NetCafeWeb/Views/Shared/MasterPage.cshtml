@@ -42,7 +42,7 @@
       <script src="js/lte-ie7.js"></script>
     <![endif]-->
 
-    <title>ViewBag.Title</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
     <!-- container section start -->
@@ -70,11 +70,7 @@
                 <!--  search form end -->
             </div>
             <div class="top-nav notification-row">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-
-                    <span class="username">Jenifer Smith</span>
-
-                </a>
+                @Html.Partial("_LoginPartial")
             </div>
         </header>
         <!--header end-->
@@ -84,13 +80,13 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a class="" href="index.html">
+                        <a class="" href="/netcafe">
 
                             <span>Net Management</span>
                         </a>
                     </li>
                     <li class="sub-menu">
-                        <a href="javascript:;" class="">
+                        <a href="/netcafe;" class="">
                             <i class="icon_document_alt"></i>
                             <span>Net Management</span>
 
@@ -98,7 +94,7 @@
 
                     </li>
                     <li class="sub-menu">
-                        <a href="javascript:;" class="">
+                        <a href="/pc" class="">
                             <i class="icon_desktop"></i>
                             <span>PC Management</span>
 
@@ -134,20 +130,19 @@
                     </li>
                     -->
                     <li class="sub-menu">
-                        <a href="javascript:;" class="">
+                        <a href="/order;" class="">
                             <i class="icon_documents_alt"></i>
                             <span>Order Management</span>
-
                         </a>
-                        <ul class="sub">
+                        @*<ul class="sub">
                             <li><a class="" href="profile.html">Profile</a></li>
                             <li><a class="" href="login.html"><span>Login Page</span></a></li>
                             <li><a class="" href="blank.html">Blank Page</a></li>
                             <li><a class="" href="404.html">404 Error</a></li>
-                        </ul>
+                        </ul>*@
                     </li>
                     <li class="sub-menu">
-                        <a href="javascript:;" class="">
+                        <a href="/user;" class="">
                             <i class="icon-user"></i>
                             <span>User Management</span>
 
