@@ -159,6 +159,7 @@
         $('#myModal').modal('hide');
     }
     function deleteNetcafe(id) {
+
         $.ajax({
             url: '/netcafe/delete',
             data: {
@@ -168,8 +169,13 @@
                 alert("problem")
             },
             success: function (data) {
-                alert("delete successfully")
-                location.reload();
+                if(data=== "True"){
+                    alert("delete successfully");
+                    location.reload();
+                }else{
+                    alert("Can't delete this netcafe");
+                }
+               
 
             },
             type: 'post'

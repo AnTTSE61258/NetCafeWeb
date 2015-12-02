@@ -7,44 +7,75 @@
 
 <p></p>
 
+<!--Set size of datatable -->
+<script type="text/javascript">
+    $(function () {
+        $("#PC_table").dataTable({
+            "iDisplayLength": 100,
+        });
+    });
+</script>
+<h2>PC Managerment</h2>
+<select id="selectedNetCafe">
+    <option value="-1">Select</option>
+    @{
+
+        foreach (NetCafe netcafe in netcafes)
+        {
+            <option value="@netcafe.NetCafeID">@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
+        }
+    }
+</select>
 
 <div class="container">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
-    <h2>PC Manager - for supervisor</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Edit</th>
-                <th>Delete</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>NetCafe</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="row">
 
-            @* @{
-                    foreach (PC pc in pcs)
-                    {
-                        <tr>
-                            <td><button class="btn-warning" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button></td>
-                            <td><button class="btn-danger" onclick="deleteNetCafe(@pc.PCID)">Delete</button></td>
-                            <td>@pc.PCID</td>
-                            <td>@pc.PCName</td>
-                            <td>@pc.Price</td>
-                            <td>@pc.PCDescriptions</td>
-                            <td>@pc.NetCafe</td>
-                            <td>@pc.PCStatus</td>
-                        </tr>
+
+        <div class="table-responsive">
+            <table id="PC_table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>NetCafe</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        foreach (PC pc in pcs)
+                        {
+                            <tr>
+                                <td><button class="btn-warning" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button></td>
+                                <td><button class="btn-danger" onclick="deletePC(@pc.PCID)">Delete</button></td>
+                                <td>@pc.PCID</td>
+                                <td>@pc.PCName</td>
+                                <td>@pc.Price</td>
+                                <td>@pc.PCDescriptions</td>
+                                @{  foreach (NetCafe netcafe in netcafes)
+                                    {
+                                        if (pc.NetCafeID == netcafe.NetCafeID)
+                                        {
+                                            <td>@netcafe.NetCafeName - @netcafe.NetCafeAddress</td>
+                                        }
+                                    }
+                                }
+                                <td>@pc.PCStatus</td>
+                            </tr>
+                                    }
                     }
-                }*@
 
 
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
+        </div>
+    </div>
 </div>
 
 <!-- Modal -->
@@ -68,9 +99,14 @@
                     <div class="form-group">
                         <label for="sel1">NetCafe</label>
                         <select class="form-control" id="netCafeAddress">
-                            <option value="1">Origen - Nguyen Van Dau - GV</option>
-                            <option value="2">CyberC9 - Quang Trung - GV</option>
-                            <option value="3">League - CMT8 - Q3</option>
+                            <option value="-1">Select</option>
+                            @{
+
+                                foreach (NetCafe netcafe in netcafes)
+                                {
+                                    <option value="@netcafe.NetCafeID">@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="form-group">
@@ -104,12 +140,17 @@
         var description = $('#pcDescription').val();
         var netcafeAddress = $('#netCafeAddress option:selected').val();
         var status = $('#pcStatus option:selected').val();
+        var kiemtraprice = isNaN(($('#pcPrice').val()));
         if (name == "") {
             $("#error").html("PC name must not be blank!");
             return;
         }
         if (price == "") {
             $("#error").html("Price must not be blank!");
+            return;
+        }
+        if (kiemtraprice == true) {
+            $("#error").html("Price must be number");
             return;
         }
         if (description == "") {
@@ -152,14 +193,22 @@
             data: {
                 id: id
             },
+           
             error: function () {
                 alert("Problem")
             },
             success: function (data) {
-                alert("Delete successfully")
+                if (data === 'True'){
+                    alert("Delete successfully")
+                    location.reload();
+                } else {  alert("PC nay khong the xoa!Co order dang thuc hien!")
                 location.reload();
-
+            }
+              
             },
+           
+            
+            
             type: 'post'
         });
 

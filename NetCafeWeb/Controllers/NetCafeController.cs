@@ -89,6 +89,7 @@ namespace NetCafeWeb.Controllers
                 return false;
             }
             repository.Delete(deletedNetCafe);
+
             return true;
             
         }

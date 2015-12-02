@@ -218,6 +218,8 @@
     <Compile Include="Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\IOrderInterface.cs" />
+    <Compile Include="Service\OrderService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="URL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -295,7 +297,7 @@
     <Content Include="Views\NetCafe\Edit.cshtml" />
     <Content Include="Views\PC\Index.cshtml" />
     <Content Include="Views\Shared\MasterPage.cshtml" />
-    <Content Include="Views\PC\edit.cshtml" />
+    <Content Include="Views\PC\Edit.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />

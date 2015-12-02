@@ -19,7 +19,11 @@ namespace NetCafeWeb.Models
                 return _orderContext.Orders;
             }
         }
-
+        public List<Order> OrderList()
+        {
+            var query = (from r in _orderContext.Orders select r).ToList();
+            return query;
+        }
         public void Add(Order entity)
         {
             _orderContext.Orders.Add(entity);
