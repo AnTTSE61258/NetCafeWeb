@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="NetCafeModelStoreContainer" CdmEntityContainer="NetCafeEntities1">
+  <EntityContainerMapping StorageEntityContainer="NetCafeModel1StoreContainer" CdmEntityContainer="NetCafeEntities1">
     <EntitySetMapping Name="NetCafes">
-      <EntityTypeMapping TypeName="NetCafeModel.NetCafe">
+      <EntityTypeMapping TypeName="NetCafeModel1.NetCafe">
         <MappingFragment StoreEntitySet="NetCafe">
           <ScalarProperty Name="NetCafeID" ColumnName="NetCafeID" />
           <ScalarProperty Name="NetCafeName" ColumnName="NetCafeName" />
@@ -15,7 +15,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="NetCafeModel.Order">
+      <EntityTypeMapping TypeName="NetCafeModel1.Order">
         <MappingFragment StoreEntitySet="Order">
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="PCID" ColumnName="PCID" />
@@ -27,7 +27,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PCs">
-      <EntityTypeMapping TypeName="NetCafeModel.PC">
+      <EntityTypeMapping TypeName="NetCafeModel1.PC">
         <MappingFragment StoreEntitySet="PC">
           <ScalarProperty Name="PCID" ColumnName="PCID" />
           <ScalarProperty Name="NetCafeID" ColumnName="NetCafeID" />
@@ -39,7 +39,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Roles">
-      <EntityTypeMapping TypeName="NetCafeModel.Role">
+      <EntityTypeMapping TypeName="NetCafeModel1.Role">
         <MappingFragment StoreEntitySet="Role">
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -47,7 +47,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="NetCafeModel.sysdiagram">
+      <EntityTypeMapping TypeName="NetCafeModel1.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -58,7 +58,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="NetCafeModel.User">
+      <EntityTypeMapping TypeName="NetCafeModel1.User">
         <MappingFragment StoreEntitySet="User">
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Fullname" ColumnName="Fullname" />

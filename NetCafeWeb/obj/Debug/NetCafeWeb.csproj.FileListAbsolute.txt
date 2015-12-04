@@ -1,4 +1,4 @@
-\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\csc.exe
+﻿\\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\csc.exe
 \\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 \\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 \\Mac\Home\Documents\Visual Studio 2015\Projects\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.dll
@@ -135,7 +135,7 @@
 \\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.csprojResolveAssemblyReference.cache
 \\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.dll
 \\Mac\Home\Desktop\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.pdb
-<<<<<<< HEAD
+
 C:\Users\thynh\Documents\GitHub\NetCafeWeb\NetCafeWeb\bin\roslyn\csc.exe
 C:\Users\thynh\Documents\GitHub\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\thynh\Documents\GitHub\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -205,7 +205,7 @@ C:\Users\thynh\Documents\GitHub\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Securit
 C:\Users\thynh\Documents\GitHub\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.csprojResolveAssemblyReference.cache
 C:\Users\thynh\Documents\GitHub\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.dll
 C:\Users\thynh\Documents\GitHub\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.pdb
-=======
+
 C:\Users\Quân\Documents\GitHub\NetCafeWeb\NetCafeWeb\bin\roslyn\csc.exe
 C:\Users\Quân\Documents\GitHub\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\Quân\Documents\GitHub\NetCafeWeb\NetCafeWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -274,7 +274,6 @@ C:\Users\Quân\Documents\GitHub\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Securit
 C:\Users\Quân\Documents\GitHub\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.csprojResolveAssemblyReference.cache
 C:\Users\Quân\Documents\GitHub\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.dll
 C:\Users\Quân\Documents\GitHub\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.pdb
-<<<<<<< HEAD
 E:\Quy\SAD\Project\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.csprojResolveAssemblyReference.cache
 E:\Quy\SAD\Project\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.dll
 E:\Quy\SAD\Project\NetCafeWeb\NetCafeWeb\obj\Debug\NetCafeWeb.pdb
@@ -344,6 +343,4 @@ E:\Quy\SAD\Project\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.OAuth.xml
 E:\Quy\SAD\Project\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Google.xml
 E:\Quy\SAD\Project\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.Twitter.xml
 E:\Quy\SAD\Project\NetCafeWeb\NetCafeWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-=======
->>>>>>> 542f5df42055d0761b43ad1a08983c802b81246f
->>>>>>> 9b65576be50f03dcb4f2bb3241e66049d9d321a2
+

@@ -27,12 +27,13 @@ namespace NetCafeWeb
         public string Password { get; set; }
         public string IdentityNumber { get; set; }
         public string UserPhoneNumber { get; set; }
-        public Nullable<double> Balance { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        public double Balance { get; set; }
+        public int RoleID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NetCafe> NetCafes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

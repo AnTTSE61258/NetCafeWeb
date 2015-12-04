@@ -1,11 +1,9 @@
 ﻿@{
     ViewBag.Title = "Edit";
-    
     Order order = ViewBag.orders;
-    
 }
 
-<h2>Edit + @order</h2>
+<h2>Edit Order @order.OrderID</h2>
 @{ if (order == null)
  {
     <h2>This order is not longer available. Please try again.</h2>
@@ -14,19 +12,19 @@
  {
     <div class="form-group" style="width: 100%">
         <label for="usr">PC</label>
-        <input type="text" class="form-control" id="PC">
+        <input type="text" class="form-control" id="pcid">
         <label for="usr">User</label>
-        <input type="text" class="form-control" id="user">
+        <input type="text" class="form-control" id="userid">
         <label for="usr">Start Time</label>
         <input type="text" class="form-control" id="startTime">
         <div class="form-group">
             <label for="sel1">Duration</label>
             <select class="form-control" id="duration">
                 <option value="1">1</option>
-                <option value="1">2</option>
-                <option value="1">3</option>
-                <option value="1">4</option>
-                <option value="1">5</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
             </select>
         </div>
         <div class="form-group">
@@ -34,7 +32,7 @@
             <select class="form-control" id="orderStatus">
                 <option value="1">Holding</option>
                 <option value="2">Using</option>
-                <option value="2">Free</option>
+                <option value="3">Free</option>
             </select>
         </div>
 
@@ -49,17 +47,18 @@
 <script>
     function editOrder() {
         $("#error").html("");
-        var PC = $('#PC').val();
-        var user = $('#user').val();
+        var id = @order.OrderID;
+        var pcid = $('#pcid').val();
+        var userid = $('#userid').val();
         var startTime = $('#startTime').val();
-        var duration = $('#orderStatus option:selected').val();
-        var status = $('#netCafeStatus option:selected').val();
+        var duration = $('#duration option:selected').val();
+        var orderStatus = $('#orderStatus option:selected').val();
 
-        if (PC == "") {
+        if (pcid == "") {
             $("#error").html("PC name must not be blank");
             return;
         }
-        if (user == "") {
+        if (userid == "") {
             $("#error").html("Username must not be blank");
             return;
         }
@@ -71,7 +70,7 @@
             $("#error").html("You must select duration");
             return;
         }
-        if (status == "-1" || status == "") {
+        if (orderStatus == "-1" || orderStatus == "") {
             $("#error").html("You must select status for this order");
             return;
         }
@@ -80,11 +79,12 @@
         $.ajax({
             url: '/order/editOrder',
             data: {
-                pcid: PC,
-                userid: UserID,
-                startTime: StartTime,
-                duration: Duration,
-                status: Status,
+                id: id,
+                pcid: pcid,
+                userid: userid,
+                startTime: startTime,
+                duration: duration,
+                orderStatus: orderStatus,
             },
             error: function () {
                 alert("Problem")
