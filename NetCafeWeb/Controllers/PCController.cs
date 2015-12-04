@@ -32,12 +32,6 @@ namespace NetCafeWeb.Controllers
             }
             else
             {
-<<<<<<< HEAD
-                int superID = 1;
-                //Lay danh sach nhung quan supervisor dang quan ly
-                List<NetCafe> NetList = NetRepo.findBySuID(superID);
-                foreach (NetCafe netCafe in NetList)
-=======
                 string username = User.Identity.Name;
                 UserRepository repo = new UserRepository();
                 int suID = repo.getIDByUsername(username);
@@ -45,13 +39,10 @@ namespace NetCafeWeb.Controllers
                 int superID = suID;
                 //Lay danh sach nhung quan thang nay dang quan ly
                 NetCafeRepository net = new NetCafeRepository();
-                List<NetCafe> netList = net.findBySuID(superID);
+                List<NetCafe> NetList = net.findBySuID(superID);
 
                 //lay danh sach nhung may co trong nhung quan ma no quan ly
-                PCRepository pc = new PCRepository();
-                List<PC> pcList = new List<PC>();
-                foreach (NetCafe netCafe in netList)
->>>>>>> f1bf3f64a4700dee897337f0e0b71de8761fdd49
+                foreach (NetCafe netCafe in NetList)
                 {
                     PCList = PCRepo.findByNetcafeID(netCafe.NetCafeID);
                 }
