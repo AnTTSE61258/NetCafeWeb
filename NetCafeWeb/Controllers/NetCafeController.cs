@@ -10,6 +10,7 @@ using NetCafeWeb.CustomFilters;
 
 namespace NetCafeWeb.Controllers
 {
+    [AuthLog(Roles = "Admin")]
     public class NetCafeController : Controller
     {
         public ActionResult Test()
@@ -17,7 +18,7 @@ namespace NetCafeWeb.Controllers
             return View();
         }
         // GET: NetCafe
-        [AuthLog(Roles ="Admin")]
+        
         public ActionResult Index()
         {
             

@@ -47,5 +47,11 @@ namespace NetCafeWeb.Models
             _orderContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _orderContext.SaveChanges();
         }
+
+        public List<Order> getOrderByNetCafe(int netID)
+        {
+            var query = (from o in _orderContext.Orders where o.PC.NetCafeID == netID select o).ToList();
+            return query;
+        }
     }
 }

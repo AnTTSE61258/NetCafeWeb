@@ -44,6 +44,16 @@ namespace NetCafeWeb.Models
             return query;
         }
 
+        public int getIDByUsername(string username)
+        {
+            var query = (from u in _userContext.Users where u.UserName == username select u).FirstOrDefault();
+            if(query != null)
+            {
+                return query.UserID;
+            }
+            return -1;
+        }
+
         public Boolean findByName(string username)
         {
             var query = (from u in _userContext.Users where u.UserName == username select u).FirstOrDefault();

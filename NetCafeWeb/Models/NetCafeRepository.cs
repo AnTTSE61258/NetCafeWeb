@@ -53,5 +53,15 @@ public class NetCafeRepository : IRepository<NetCafe>
         return lstNet;
     }
 
+    public int getNetCafeIDByName(int supervisorId)
+    {
+        List<NetCafe> nets = findBySuID(supervisorId);
+        if (nets !=null && nets.Count > 0)
+        {
+            return nets[0].NetCafeID;
+        }
+        return -1;
+    }
+
 
 }
