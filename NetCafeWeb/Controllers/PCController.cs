@@ -19,15 +19,17 @@ namespace NetCafeWeb.Controllers
             var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
             var a = manager.IsInRoleAsync(User.Identity.GetUserId(), "Admin");
             bool isAdmin = a.Result;
-
+            PCRepository PCRepo = new PCRepository();
+            NetCafeRepository NetRepo = new NetCafeRepository();
+            List<PC> PCList = new List<PC>();
 
             if (isAdmin)
             {
-                IRepository<PC> repository = new PCRepository();
-                IEnumerable<PC> pcs = repository.List;
-                ViewBag.pcs = pcs.Cast<PC>().ToList();
-                NetCafeRepository repository2 = new NetCafeRepository();
-                ViewBag.netcafes = repository2.NetCafeList();
+                IEnumerable<PC> pcs = PCRepo.List;
+                PCList = pcs.Cast<PC>().ToList();
+                var query = PCList.OrderBy(p => p.NetCafeID).ThenBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
+                ViewBag.PCList = query.ToList();
+                ViewBag.NetList = NetRepo.NetCafeList();
                 ViewBag.isAdmin = "Admin";
                 return View();
             }
@@ -40,14 +42,15 @@ namespace NetCafeWeb.Controllers
                 int superID = suID;
                 //Lay danh sach nhung quan thang nay dang quan ly
                 NetCafeRepository net = new NetCafeRepository();
-                List<NetCafe> netList = net.findBySuID(superID);
+                List<NetCafe> NetList = net.findBySuID(superID);
 
                 //lay danh sach nhung may co trong nhung quan ma no quan ly
+
                 PCRepository pc = new PCRepository();
                 List<PC> pcList = new List<PC>();
-                if (netList != null && netList.Count > 0)
+                if (NetList != null && NetList.Count > 0)
                 {
-                    pcList = pc.findByNetcafeID(netList.ElementAt(0).NetCafeID);
+                    pcList = pc.findByNetcafeID(NetList.ElementAt(0).NetCafeID);
                 }
 
                 //foreach (NetCafe netCafe in netList)
@@ -56,11 +59,18 @@ namespace NetCafeWeb.Controllers
                 //}
                 
                 ViewBag.pcs = pcList;
-                ViewBag.netcafes = netList;
+                ViewBag.netcafes = NetList;
+                foreach (NetCafe netCafe in NetList)
+                {
+                    PCList = PCRepo.findByNetcafeID(netCafe.NetCafeID);
+                }
+                var query = PCList.OrderBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
+                ViewBag.PCList = query.ToList();
+                ViewBag.NetList = NetList;
                 return View();
             }
-        
         }
+        
         [HttpPost]
         public Boolean Add()
         {
@@ -87,7 +97,6 @@ namespace NetCafeWeb.Controllers
             String name = Request.Params["name"];
             String price = Request.Params["price"];
             String description = Request.Params["description"];
-            String netcafeAddress = Request.Params["netcafeAddress"];
             String status = Request.Params["status"];
 
             IRepository<PC> repository = new PCRepository();
@@ -96,7 +105,6 @@ namespace NetCafeWeb.Controllers
             pc.PCName = name;
             pc.Price = float.Parse(price);
             pc.PCDescriptions = description;
-            pc.NetCafeID = int.Parse(netcafeAddress);
             pc.PCStatus = int.Parse(status);
             repository.Update(pc);
             return true;

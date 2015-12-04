@@ -22,21 +22,14 @@
             <input type="text" class="form-control" id="pcDescription" value="@pc.PCDescriptions">
             <div class="form-group">
                 <label for="sel1">Net Address</label>
-                <select class="form-control" id="netCafeAddress">
-                    <option value="-1">NONE</option>
+                <select class="form-control" id="netCafeAddress" disabled="disabled">
                     @{
-
                         foreach (NetCafe netcafe in netcafes)
                         {
                             if (pc.NetCafeID == netcafe.NetCafeID)
                             {
-                                <option value="@pc.NetCafeID" selected="selected">@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
+                                <option value="@pc.NetCafeID" selected="selected" >@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
                             }
-                            else
-                            {
-                                <option value="@pc.NetCafeID">@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
-                            }
-
                         }
                     }
                 </select>
@@ -59,7 +52,7 @@
             </div>
 
         </div>
-        <p id="error" style="color='red'"></p>
+        <p id="error" style="color:red"></p>
         <button type="button" class="btn" onclick="location.href='/PC'">Cancel</button>
 
         <button type="button" class="btn btn-success" onclick="editPC()">Submit</button>
@@ -72,7 +65,7 @@
         var name = $('#pcName').val();
         var price = $('#pcPrice').val();
         var description = $('#pcDescription').val();
-        var netcafeAddress = $('#netCafeAddress option:selected').val();
+        var netcafeAddress = $('#netCafeAddress option:selected').val().toString();
         var status = $('#pcStatus option:selected').val();
         if (name == "") {
             $("#error").html("PC name must not be blank!");
@@ -84,10 +77,6 @@
         }
         if (description == "") {
             $("#error").html("Description must not be blank!");
-            return;
-        }
-        if (netcafeAddress == "-1" || netcafeAddress == "") {
-            $("#error").html("You must select an address!");
             return;
         }
         if (status == "-1" || status == "") {
@@ -103,7 +92,6 @@
                 name: name,
                 price: price,
                 description: description,
-                netcafeAddress: netcafeAddress,
                 status: status,
             },
             error: function () {

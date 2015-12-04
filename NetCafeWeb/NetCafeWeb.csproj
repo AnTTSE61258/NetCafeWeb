@@ -224,9 +224,6 @@
     <Compile Include="Service\OrderService.cs" />
     <Compile Include="SLIM_CONFIG.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="URL.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
