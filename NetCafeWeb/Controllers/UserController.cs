@@ -7,9 +7,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using NetCafeWeb.CustomFilters;
 
 namespace NetCafeWeb.Controllers
 {
+    [AuthLog(Roles ="Admin")]
     public class UserController : Controller
     {
         //

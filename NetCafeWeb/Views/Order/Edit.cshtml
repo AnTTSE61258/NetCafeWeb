@@ -1,11 +1,13 @@
 ﻿@{
+    Layout = "~/Views/Shared/MasterPage.cshtml";
+
     ViewBag.Title = "Edit";
-    
+
     Order order = ViewBag.orders;
-    
+
 }
 
-<h2>Edit + @order</h2>
+<h2>Edit + @order.OrderID</h2>
 @{ if (order == null)
  {
     <h2>This order is not longer available. Please try again.</h2>
@@ -14,27 +16,38 @@
  {
     <div class="form-group" style="width: 100%">
         <label for="usr">PC</label>
-        <input type="text" class="form-control" id="PC">
+        <input type="text" class="form-control" id="PC" value="@order.PC.PCName">
         <label for="usr">User</label>
-        <input type="text" class="form-control" id="user">
+        <input type="text" class="form-control" id="user" value="@order.User.UserName">
         <label for="usr">Start Time</label>
-        <input type="text" class="form-control" id="startTime">
-        <div class="form-group">
-            <label for="sel1">Duration</label>
-            <select class="form-control" id="duration">
-                <option value="1">1</option>
-                <option value="1">2</option>
-                <option value="1">3</option>
-                <option value="1">4</option>
-                <option value="1">5</option>
-            </select>
-        </div>
+        <input type="text" class="form-control" id="startTime" value="@order.StartTime">
+        <label for="sel1">Duration</label>
+        <input type="number" class="form-control" id="duration" value="@order.Duration" />
         <div class="form-group">
             <label for="sel1">Status</label>
             <select class="form-control" id="orderStatus">
-                <option value="1">Holding</option>
-                <option value="2">Using</option>
-                <option value="2">Free</option>
+                @{
+                    if (order.OrderStatus == 1)
+                    {
+                        <option selected="selected" value="1">Holding</option>
+                        <option value="2">Using</option>
+                        <option value="2">Free</option>
+                    }
+                    else if (order.OrderStatus == 2)
+                    {
+                        <option value="1">Holding</option>
+                        <option selected="selected" value="2">Using</option>
+                        <option value="2">Free</option>
+                    }
+                    else
+                    {
+                        <option value="1">Holding</option>
+                        <option value="2">Using</option>
+                        <option selected="selected" value="2">Free</option>
+                    }
+                }
+                
+                
             </select>
         </div>
 

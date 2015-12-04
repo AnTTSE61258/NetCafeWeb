@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "PC Management";
     List<NetCafe> netcafes = ViewBag.netcafes;
     List<PC> pcs = ViewBag.pcs;
     String isAdmin = ViewBag.isAdmin;
@@ -16,11 +16,31 @@
         });
     });
 </script>
-<h2>PC Managerment</h2>
 
 <div class="container">
+    
+   @{
+        if (netcafes == null || netcafes.Count == 0)
+        {
+             <h2>You haven't managed any netcafe</h2>
+        }
+        else
+        {
+            <h2>PC Manageme - @netcafes.ElementAt(0).NetCafeName</h2>
+        }
+    } 
+
+    @{
+        if (netcafes != null && netcafes.Count > 0)
+        {
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
+
+
+        }
+    }
     <div class="row">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
+       
         <div class="table-responsive">
             @{
                 int i = 1;

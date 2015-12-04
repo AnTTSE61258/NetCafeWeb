@@ -9,9 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
+using NetCafeWeb.CustomFilters;
 
 namespace NetCafeWeb.Controllers
 {
+    
     public class OrderController : Controller
     {
         //
@@ -52,16 +54,27 @@ namespace NetCafeWeb.Controllers
 
            
         }
+        [AuthLog(Roles = "Admin, Supervisor, Member")]
         public ActionResult Create(int? id)
         {
+            //Lay login user name
+            String username = User.Identity.GetUserName();
+            UserRepository userRepo = new UserRepository();
+            int userId = userRepo.getIDByUsername(username);
+            ViewBag.userId = userId;
+
+            //Lay user id
+            IRepository<NetCafe> repository = new NetCafeRepository();
             if (id != null)
             {
                 PCRepository repo = new PCRepository();
                 List<PC> pcs = repo.findAvailable(id.Value);
+                NetCafe selectedNetcafe = repository.findById(id.Value);
+                ViewBag.selectedNetCafe = selectedNetcafe;
                 ViewBag.pcs = pcs;
 
             }
-            IRepository<NetCafe> repository = new NetCafeRepository();
+           
             IEnumerable<NetCafe> iNetCafes = repository.List;
             List<NetCafe> netcafes = iNetCafes.Cast<NetCafe>().ToList();
             ViewBag.netcafes = netcafes;

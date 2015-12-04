@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NetCafeWeb.CustomFilters;
-
+using Microsoft.AspNet.Identity;
 namespace NetCafeWeb.Controllers
 {
     [AuthLog(Roles = "Admin,Supervisor")]
@@ -13,10 +13,15 @@ namespace NetCafeWeb.Controllers
     {
         //
         // GET: /PC/
-        private int role = 1; 
         public ActionResult Index()
         {
-            if (role == 1)
+            var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
+            var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
+            var a = manager.IsInRoleAsync(User.Identity.GetUserId(), "Admin");
+            bool isAdmin = a.Result;
+
+
+            if (isAdmin)
             {
                 IRepository<PC> repository = new PCRepository();
                 IEnumerable<PC> pcs = repository.List;
@@ -40,10 +45,15 @@ namespace NetCafeWeb.Controllers
                 //lay danh sach nhung may co trong nhung quan ma no quan ly
                 PCRepository pc = new PCRepository();
                 List<PC> pcList = new List<PC>();
-                foreach (NetCafe netCafe in netList)
+                if (netList != null && netList.Count > 0)
                 {
-                    pcList = pc.findByNetcafeID(netCafe.NetCafeID);
+                    pcList = pc.findByNetcafeID(netList.ElementAt(0).NetCafeID);
                 }
+
+                //foreach (NetCafe netCafe in netList)
+                //{
+                //    pcList = pc.findByNetcafeID(netCafe.NetCafeID);
+                //}
                 
                 ViewBag.pcs = pcList;
                 ViewBag.netcafes = netList;

@@ -7,7 +7,7 @@ using NetCafeWeb.CustomFilters;
 
 namespace NetCafeWeb.Controllers
 {
-    [AuthLog(Roles = "Member,Admin")]
+    [AuthLog(Roles = "Member,Admin,Supervisor")]
     public class HomeController : Controller
     {
         public ActionResult Index()
