@@ -52,24 +52,26 @@ else
 <script>
     function editUser() {
         $("#error").html("");
-        var intRegex = /^-\d+/;
+        var moneyRegex = /^\d+/;
         var userID = @selectedUser.UserID;
         var balance = $("#balance").val();
         var role = $("#userRole option:selected").val();
-        //if (!intRegex.test(balance)) {
-        //    $("#error").html("Money cannot be negative!");
-        //    return;
-        //}
+        //var roleName = $("#userRole option:selected").text();
+        if (!moneyRegex.test(balance) || balance == null) {
+            $("#error").html("Money cannot be negative or empty!");
+            return;
+        }
 
         $.ajax({
             url: '/User/editUser',
             data: {
                 userID: userID,
                 balance: balance,
-                role: role
+                role: role,
+                //roleName: roleName
             },
             error: function() {
-                alert("Problem occur!")
+                alert("Problem occurred!")
             },
             success: function (data) {
                 alert("Edit successfully");
