@@ -4,29 +4,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NetCafeWeb.CustomFilters;
 
 namespace NetCafeWeb.Controllers
 {
+    [AuthLog(Roles = "Admin,Supervisor")]
     public class PCController : Controller
     {
         //
         // GET: /PC/
-        private int role = 1; 
+        private int role = 2;
         public ActionResult Index()
         {
+            PCRepository PCRepo = new PCRepository();
+            NetCafeRepository NetRepo = new NetCafeRepository();
+            List<PC> PCList = new List<PC>();
+
             if (role == 1)
             {
-                IRepository<PC> repository = new PCRepository();
-                IEnumerable<PC> pcs = repository.List;
-                ViewBag.pcs = pcs.Cast<PC>().ToList();
-                NetCafeRepository repository2 = new NetCafeRepository();
-                ViewBag.netcafes = repository2.NetCafeList();
+                IEnumerable<PC> pcs = PCRepo.List;
+                PCList = pcs.Cast<PC>().ToList();
+                var query = PCList.OrderBy(p => p.NetCafeID).ThenBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
+                ViewBag.PCList = query.ToList();
+                ViewBag.NetList = NetRepo.NetCafeList();
                 ViewBag.isAdmin = "Admin";
                 return View();
             }
             else
             {
-                int superID = 4;
+<<<<<<< HEAD
+                int superID = 1;
+                //Lay danh sach nhung quan supervisor dang quan ly
+                List<NetCafe> NetList = NetRepo.findBySuID(superID);
+                foreach (NetCafe netCafe in NetList)
+=======
+                string username = User.Identity.Name;
+                UserRepository repo = new UserRepository();
+                int suID = repo.getIDByUsername(username);
+
+                int superID = suID;
                 //Lay danh sach nhung quan thang nay dang quan ly
                 NetCafeRepository net = new NetCafeRepository();
                 List<NetCafe> netList = net.findBySuID(superID);
@@ -35,16 +51,17 @@ namespace NetCafeWeb.Controllers
                 PCRepository pc = new PCRepository();
                 List<PC> pcList = new List<PC>();
                 foreach (NetCafe netCafe in netList)
+>>>>>>> f1bf3f64a4700dee897337f0e0b71de8761fdd49
                 {
-                    pcList = pc.findByNetcafeID(netCafe.NetCafeID);
+                    PCList = PCRepo.findByNetcafeID(netCafe.NetCafeID);
                 }
-                
-                ViewBag.pcs = pcList;
-                ViewBag.netcafes = netList;
+                var query = PCList.OrderBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
+                ViewBag.PCList = query.ToList();
+                ViewBag.NetList = NetList;
                 return View();
             }
-        
         }
+        
         [HttpPost]
         public Boolean Add()
         {
@@ -71,7 +88,6 @@ namespace NetCafeWeb.Controllers
             String name = Request.Params["name"];
             String price = Request.Params["price"];
             String description = Request.Params["description"];
-            String netcafeAddress = Request.Params["netcafeAddress"];
             String status = Request.Params["status"];
 
             IRepository<PC> repository = new PCRepository();
@@ -80,7 +96,6 @@ namespace NetCafeWeb.Controllers
             pc.PCName = name;
             pc.Price = float.Parse(price);
             pc.PCDescriptions = description;
-            pc.NetCafeID = int.Parse(netcafeAddress);
             pc.PCStatus = int.Parse(status);
             repository.Update(pc);
             return true;

@@ -38,6 +38,19 @@ namespace NetCafeWeb.Models
             var query = (from r in _pcContext.PCs where r.PCID == Id select r).FirstOrDefault();
             return query;
         }
+        
+        public List<PC> sortBy(string columnName)
+        {
+            List<PC> pcList = new List<PC>();
+            switch(columnName)
+            {
+                case "PCName": pcList = (from r in _pcContext.PCs orderby r.PCName ascending select r).ToList(); break;
+                case "Price": pcList = (from r in _pcContext.PCs orderby r.Price ascending select r).ToList(); break;
+                case "NetCafeID": pcList = (from r in _pcContext.PCs orderby r.NetCafeID ascending select r).ToList(); break;
+                case "PCStatus": pcList = (from r in _pcContext.PCs orderby r.PCStatus ascending select r).ToList(); break;
+            }
+            return pcList;
+        }
 
         public List<PC> findByNetcafeID(int Id)
         {
@@ -47,7 +60,7 @@ namespace NetCafeWeb.Models
 
         public List<PC> findAvailable(int netCafeID)
         {
-            var query = (from r in _pcContext.PCs where r.NetCafeID == netCafeID && r.PCStatus == 0 select r).ToList();
+            var query = (from r in _pcContext.PCs where r.NetCafeID == netCafeID && r.PCStatus == 1 select r).ToList();
 
             return query;
 
