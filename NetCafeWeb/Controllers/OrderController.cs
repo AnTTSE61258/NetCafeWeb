@@ -17,14 +17,6 @@ namespace NetCafeWeb.Controllers
         // GET: /Order/
         public ActionResult Index()
         {
-            IRepository<User> userRepository = new UserRepository();
-            IEnumerable<User> users = userRepository.List;
-            ViewBag.users = users.Cast<User>().ToList();
-
-            IRepository<PC> pcRepository = new PCRepository();
-            IEnumerable<PC> pcs = pcRepository.List;
-            ViewBag.pcs = pcs.Cast<PC>().ToList();
-
             var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
             var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
 
@@ -113,29 +105,26 @@ namespace NetCafeWeb.Controllers
         [HttpPost]
         public Boolean editOrder()
         {
-            String idParam = Request.Params["id"];
-            String pcid = Request.Params["pcid"];
+            String idParam = Request.Params["pcid"];
             String useridParam = Request.Params["userid"];
-            String startTime = Request.Params["startTime"];
+            String date = Request.Params["date"];
+            String time = Request.Params["time"];
             String duration = Request.Params["duration"];
-            String status = Request.Params["orderStatus"];
 
-            int intpcid = int.Parse(pcid);
+            int pcid = int.Parse(idParam);
             int userid = int.Parse(useridParam);
-            DateTime newDate = DateTime.Parse(startTime);
+
+            DateTime newDate = DateTime.ParseExact(date + " " + time, "yyyy-MM-dd HH:mm", null);
             int intDuration = int.Parse(duration);
-            int intstatus = int.Parse(status);
 
-            IRepository<Order> repository = new OrderRepository();
-            int id = int.Parse(idParam);
-            Order order = repository.findById(id);
-
-            order.PCID = intpcid;
+            Order order = new Order();
+            order.PCID = pcid;
             order.UserID = userid;
             order.StartTime = newDate;
             order.Duration = intDuration;
-            order.OrderStatus = intstatus;
-
+            order.OrderStatus = 0;
+            // tru balance
+            IRepository<Order> repository = new OrderRepository();
             repository.Update(order);
 
             return true;

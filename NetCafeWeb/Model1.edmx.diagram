@@ -1,21 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4dddd94d4ba140bab2d07739edb30f14" Name="Diagram1">
-        <EntityTypeShape EntityType="NetCafeModel1.NetCafe" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="NetCafeModel1.Order" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="NetCafeModel1.PC" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="NetCafeModel1.Role" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NetCafeModel1.sysdiagram" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NetCafeModel1.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="NetCafeModel1.FK_NetCafe_User" ManuallyRouted="false" />
-        <AssociationConnector Association="NetCafeModel1.FK_PC_NetCafe" ManuallyRouted="false" />
-        <AssociationConnector Association="NetCafeModel1.FK_Order_PC" ManuallyRouted="false" />
-        <AssociationConnector Association="NetCafeModel1.FK_Order_User" ManuallyRouted="false" />
-        <AssociationConnector Association="NetCafeModel1.FK_User_Role" ManuallyRouted="false" />
+      <Diagram DiagramId="4af33ff170344e6cb847909948d6695f" Name="Diagram1">
+        <EntityTypeShape EntityType="NetCafeModel.NetCafe" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetCafeModel.Order" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetCafeModel.PC" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetCafeModel.Role" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetCafeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetCafeModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="NetCafeModel.FK_NetCafe_User" ManuallyRouted="false" />
+        <AssociationConnector Association="NetCafeModel.FK_PC_NetCafe" ManuallyRouted="false" />
+        <AssociationConnector Association="NetCafeModel.FK_Order_PC" ManuallyRouted="false" />
+        <AssociationConnector Association="NetCafeModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="NetCafeModel.FK_User_Role" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

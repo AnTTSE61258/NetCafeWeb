@@ -12,18 +12,12 @@ namespace NetCafeWeb
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class URL
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
-        {
-            this.URLs = new HashSet<URL>();
-        }
-    
+        public int URLID { get; set; }
+        public string URLDetail { get; set; }
         public int RoleID { get; set; }
-        public string RoleName { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<URL> URLs { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
