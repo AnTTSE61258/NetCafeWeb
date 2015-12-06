@@ -231,7 +231,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\green-circle-icon-md.png" />
     <Content Include="Content\image\my-computer-vista.png" />
+    <Content Include="Content\image\red-47690_640.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

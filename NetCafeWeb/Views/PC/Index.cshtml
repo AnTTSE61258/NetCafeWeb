@@ -46,20 +46,20 @@
                 int i = 1;
                 foreach (PC pc in pcList)
                 {
-                    <div class="floating-box" style="float: left; margin: 10px 10px 0px 0px; border: 1px solid; height:250px; width:200px; text-align:center ">
+                    <div class="floating-box" style="float: left; margin: 10px 10px 0px 0px; border: 1px solid; height:250px; width:200px; text-align: center">
                         @{
                             if (pc.PCStatus == 1)
                             {
-                                <object class="circle" style="color:#33ff4e"></object>
+                                <img width="20" height="20" src = "~/Content/image/green-circle-icon-md.png" />
                             }
                             else
                             {
-                                <object class="circle" style="color:#db3700"></object>
+                                <img width="20" height="20" src = "~/Content/image/red-47690_640.png" />
                             }
 
                         }
                         <label><strong>@pc.PCName</strong></label><br/>
-                        <div class="pcBasic">
+                        <div class="pcBasic" >
                             <img style="margin-left: 25px" width="150" height="150" src=" ~/Content/image/my-computer-vista.png" />
                             <p>Price: @pc.Price đ/h</p>
                         </div>
@@ -82,8 +82,8 @@
                                     <p>Status: N/A</p>
                                 }
                         </div>
-                            <button class="btn btn-info" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button>
-                            <button class="btn btn-success" onclick="deletePC(@pc.PCID)">Delete</button>
+                        <button class="btn btn-info" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button>
+                        <button class="btn btn-success" onclick="deletePC(@pc.PCID)">Delete</button>
                         <style>
                             .circle:before {content: '\25CF'; font-size: 20px;}
                             .pcBasic {position:absolute; overflow:visible;opacity:1;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";filter:alpha(opacity=1);pointer-events:none}
