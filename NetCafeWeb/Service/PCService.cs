@@ -8,11 +8,10 @@ namespace NetCafeWeb.Service
 {
     public class PCService : IPCService
     {
-        public bool AddPC(PC addPC)
+        public Boolean AddPC(PC addPC)
         {
             PCRepository repository = new PCRepository();
-            PC dupPc = repository.findByName(addPC.PCName);
-            if (dupPc.PCID.ToString() == "")
+            if (repository.findByName(addPC.PCName))
             {
                 return false;
             }
@@ -23,7 +22,7 @@ namespace NetCafeWeb.Service
             }
         }
 
-        public bool DeletePC(int ID)
+        public Boolean DeletePC(int ID)
         {
             IRepository<PC> repository = new PCRepository();
             PC deletedPC = repository.findById(ID);
@@ -43,7 +42,7 @@ namespace NetCafeWeb.Service
             return true;
         }
 
-        public bool EditPC(PC editPC)
+        public Boolean EditPC(PC editPC)
         {
             IRepository<PC> repository = new PCRepository();
             PC pc = repository.findById(editPC.PCID);

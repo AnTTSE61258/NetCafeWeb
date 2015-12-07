@@ -8,9 +8,9 @@ namespace NetCafeWeb.Service
 {
     interface IPCService
     {
-        bool AddPC(PC addPC);
-        bool EditPC(PC editPC);
-        bool DeletePC(int ID);
+        Boolean AddPC(PC addPC);
+        Boolean EditPC(PC editPC);
+        Boolean DeletePC(int ID);
 
         List<PC> FindByNetID(int NetCafeID);
         List<NetCafe> GetManageNet(string username);

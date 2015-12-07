@@ -12,8 +12,7 @@ namespace NetCafeWeb.Controllers
     [AuthLog(Roles = "Admin,Supervisor")]
     public class PCController : Controller
     {
-        //
-        // GET: /PC/
+        
         public ActionResult Index()
         {
             var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
@@ -27,16 +26,7 @@ namespace NetCafeWeb.Controllers
             List<PC> PCList = new List<PC>();
             List<NetCafe> NetList = new List<NetCafe>();
             PCService service = new PCService();
-
-            //if (isAdmin)
-            //{
-            //    PCList = service.GetPCtList();
-            //    var query = PCList.OrderBy(p => p.NetCafeID).ThenBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
-            //    ViewBag.PCList = query.ToList();
-            //    ViewBag.NetList = service.GetNetList();
-            //    ViewBag.Role = "Admin";
-            //    return View();
-            //}
+            
             if (isSupervisor)
             {
                 string username = User.Identity.Name;
