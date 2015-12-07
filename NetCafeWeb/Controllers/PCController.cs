@@ -13,7 +13,7 @@ namespace NetCafeWeb.Controllers
     public class PCController : Controller
     {
         
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
             var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
@@ -26,19 +26,24 @@ namespace NetCafeWeb.Controllers
             List<PC> PCList = new List<PC>();
             List<NetCafe> NetList = new List<NetCafe>();
             PCService service = new PCService();
+
             
             if (isSupervisor)
             {
                 string username = User.Identity.Name;
                 NetList = service.GetManageNet(username);
+                int selectedNetID = 0;
 
                 if (NetList != null && NetList.Count > 0)
                 {
                     foreach (NetCafe netCafe in NetList)
                     {
                         PCList = service.FindByNetID(netCafe.NetCafeID);
+                        selectedNetID = netCafe.NetCafeID;
                     }
                 }
+
+                
                 var query = PCList.OrderBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
                 ViewBag.PCList = query.ToList();
                 ViewBag.NetList = NetList;
@@ -47,20 +52,41 @@ namespace NetCafeWeb.Controllers
             }
             else
             {
-                PCList = service.GetPCList();
-                var query = PCList.OrderBy(p => p.NetCafeID).ThenBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
-                ViewBag.PCList = query.ToList();
-                ViewBag.NetList = service.GetNetList();
-                if (isAdmin)
+                if (id != null)
                 {
-                    ViewBag.Role = "Admin";
+                    PCList = service.FindByNetID(id.Value);
+                    ViewBag.pcList = PCList;
+                    ViewBag.SelectedNetcafe = service.GetNetCafeByID(id.Value);
                 }
                 else
                 {
-                    ViewBag.Role = "Member";
+                    PCList = service.GetPCList();
+                    ViewBag.pcList = PCList;
                 }
+
+                var query = PCList.OrderBy(p => p.NetCafeID).ThenBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
+                ViewBag.PCList = query.ToList();
+                ViewBag.NetList = service.GetNetList();
+                ViewBag.Role = "Admin";
+                
                 return View();
             }
+        }
+
+        public ActionResult Filter (int? id)
+        {
+            PCService service = new PCService();
+            if (id != null)
+            {
+                List<PC> PCList = service.FindByNetID(id.Value);
+                ViewBag.pcList = PCList;
+            }
+            else
+            {
+                List<PC> PCList = service.GetPCList();
+                ViewBag.pcList = PCList;
+            }
+            return View();
         }
         
         [HttpPost]

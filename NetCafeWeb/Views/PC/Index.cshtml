@@ -3,6 +3,7 @@
     List<NetCafe> netList = ViewBag.NetList;
     List<PC> pcList = ViewBag.PCList;
     String role = ViewBag.Role;
+    NetCafe selectedNetcafe = ViewBag.SelectedNetcafe;
     Layout = "~/Views/Shared/MasterPage.cshtml";
 }
 
@@ -22,28 +23,53 @@
    @{
         if (netList == null || netList.Count == 0)
         {
-            <h2>You haven't managed any netcafe</h2>
+            <h2>Net Cafe list is empty!</h2>
        }
        else
        {
            if (role == "Admin")
            {
-            <h2>PC Management - Administrator</h2>
+                <h2>PC Management - Administrator</h2>
+                <section style="width: 500px" >
+                    <select class="form-control" id="selectedNet">
+                        @{
+                            foreach (NetCafe netcafe in netList)
+                            {
+                                if (selectedNetcafe != null && netcafe.NetCafeID == selectedNetcafe.NetCafeID)
+                                {
+                                    <option selected="selected" value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                                }
+                                else
+                                {
+                                    <option value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                                }
+
+                            }
+                        }
+                    </select>
+
+                    <button style="margin-top: 10px" class="btn btn-success" onclick="filter()">Select</button>
+                </section>
+                
            }
            else if (role == "Supervisor")
            {
-            <h2>PC Management - @netList.ElementAt(0).NetCafeName</h2>
+                <h2>PC Management - @netList.ElementAt(0).NetCafeName</h2>
            }
-
        }
-} 
-
-    @{
-        if (role != "Member")
-        {
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
+    } 
+    <script>
+        function filter() {
+            var id = $("#selectedNet").val();
+            location.href = "/PC/Index/" + id;
         }
-    }
+    </script>
+
+
+    
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top: 10px">+ Add New PC</button>
+
         <div class="table talbe-hover table-responsive">
             @{
                 int i = 1;
