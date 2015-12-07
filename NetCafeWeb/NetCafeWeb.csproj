@@ -220,8 +220,10 @@
     </Compile>
     <Compile Include="Service\INetCafeService.cs" />
     <Compile Include="Service\IOrderInterface.cs" />
+    <Compile Include="Service\IPCService.cs" />
     <Compile Include="Service\NetCafeService.cs" />
     <Compile Include="Service\OrderService.cs" />
+    <Compile Include="Service\PCService.cs" />
     <Compile Include="SLIM_CONFIG.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="User.cs">
