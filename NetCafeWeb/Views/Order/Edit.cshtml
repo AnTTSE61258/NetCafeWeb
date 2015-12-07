@@ -7,7 +7,7 @@
 
 }
 
-<h2>Edit + @order.OrderID</h2>
+<h2>Edit Order @order.OrderID</h2>
 @{ if (order == null)
  {
     <h2>This order is not longer available. Please try again.</h2>
@@ -31,19 +31,19 @@
                     {
                         <option selected="selected" value="1">Holding</option>
                         <option value="2">Using</option>
-                        <option value="2">Free</option>
+                        <option value="3">Free</option>
                     }
                     else if (order.OrderStatus == 2)
                     {
                         <option value="1">Holding</option>
                         <option selected="selected" value="2">Using</option>
-                        <option value="2">Free</option>
+                        <option value="3">Free</option>
                     }
                     else
                     {
                         <option value="1">Holding</option>
                         <option value="2">Using</option>
-                        <option selected="selected" value="2">Free</option>
+                        <option selected="selected" value="3">Free</option>
                     }
                 }
                 
@@ -62,11 +62,12 @@
 <script>
     function editOrder() {
         $("#error").html("");
-        var PC = $('#PC').val();
-        var user = $('#user').val();
+        var id = @order.OrderID;
+        var pcid = @order.PCID;
+        var userid = @order.UserID;
         var startTime = $('#startTime').val();
-        var duration = $('#orderStatus option:selected').val();
-        var status = $('#netCafeStatus option:selected').val();
+        var duration = $('#duration').val();
+        var orderStatus = $('#orderStatus option:selected').val();
 
         if (PC == "") {
             $("#error").html("PC name must not be blank");
@@ -84,7 +85,7 @@
             $("#error").html("You must select duration");
             return;
         }
-        if (status == "-1" || status == "") {
+        if (orderStatus == "-1" || orderStatus == "") {
             $("#error").html("You must select status for this order");
             return;
         }
@@ -93,11 +94,12 @@
         $.ajax({
             url: '/order/editOrder',
             data: {
-                pcid: PC,
-                userid: UserID,
-                startTime: StartTime,
-                duration: Duration,
-                status: Status,
+                id: id,
+                pcid: pcid,
+                userid: userid,
+                startTime: startTime,
+                duration: duration,
+                orderStatus: orderStatus,
             },
             error: function () {
                 alert("Problem")
