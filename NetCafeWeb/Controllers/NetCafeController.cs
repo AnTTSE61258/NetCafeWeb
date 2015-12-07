@@ -7,12 +7,14 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using NetCafeWeb.CustomFilters;
+using NetCafeWeb.Service;
 
 namespace NetCafeWeb.Controllers
 {
     [AuthLog(Roles = "Admin")]
     public class NetCafeController : Controller
     {
+        
         public ActionResult Test()
         {
             return View();
@@ -31,7 +33,7 @@ namespace NetCafeWeb.Controllers
             return View();
         }
         [HttpPost]
-        public Boolean add()
+        public String add()
         {
             String name = Request.Params["name"];
             String address = Request.Params["address"];
@@ -39,7 +41,14 @@ namespace NetCafeWeb.Controllers
             String status = Request.Params["status"];
             String phoneNumber = Request.Params["phoneNumber"];
             String description = Request.Params["description"];
+            //valid du lieu
 
+            //
+            NetCafeService netcafeService = new NetCafeService();
+            if (netcafeService.isExistWithName(name))
+            {
+                return "Net cafe with this name is existed!";
+            }
             IRepository<NetCafe> repository = new NetCafeRepository();
             NetCafe netcafe = new NetCafe();
             netcafe.NetCafeName = name;
@@ -50,7 +59,7 @@ namespace NetCafeWeb.Controllers
             netcafe.NetCafePhoneNumber = phoneNumber;
             netcafe.NetCafeDescriptions = description;
             repository.Add(netcafe);
-            return true;
+            return "true";
         }
 
         [HttpPost]

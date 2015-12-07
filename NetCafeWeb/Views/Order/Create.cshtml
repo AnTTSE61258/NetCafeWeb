@@ -1,47 +1,79 @@
 ﻿
 @{
-    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MasterPage.cshtml";
+    ViewBag.Title = "Create Order";
     List<NetCafe> netcafes = ViewBag.netcafes;
     List<PC> pcs = ViewBag.pcs;
+    NetCafe selectedNetcafe = ViewBag.selectedNetCafe;
+    int userid = ViewBag.userId;
 }
 
 
-<h2>Create</h2>
 <div class="container">
-    <div class="form-group">
-        <label>NetCafe </label>
-        <select class="form-control" id="duration">
-            @{ 
-                foreach(NetCafe netcafe in netcafes)
-                {
-                    <option value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
-                }
-            }
-        </select>
-     
-    </div>
-    <button class="btn btn-success">Search</button>
-    @{
-        if (pcs != null)
+    @{ 
+        if (selectedNetcafe != null)
         {
-            <div class="row">
-                @foreach(PC pc in pcs)
-                {
-                    <div class="col-sm-8" style="width: 20vw;height: auto;margin:20px;text-align:center;border-style:groove;padding-bottom:10px;border-radius:20px">
-                        <img src="~/Content/image/my-computer-vista.png" style="width: 10vw;height: 10vw" />
+            <h2>
+                @selectedNetcafe.NetCafeName - @selectedNetcafe.NetCafeAddress
+            </h2>
+        }
+    }
+    <div class="form-group">
+        <section class="col-md-5">
+            <label>NetCafe</label>
+            <select class="form-control" id="netcafeselect">
+                @{
+                    foreach (NetCafe netcafe in netcafes)
+                    {
+                        if (selectedNetcafe != null && netcafe.NetCafeID == selectedNetcafe.NetCafeID)
+                        {
+                            <option selected="selected" value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                        }
+                        else
+                        {
+                            <option value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                        }
 
-                    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: burlywood">@pc.Price</h3>
-                    <button type="button" class="btn btn-success" value="2112" style="width: 100%" onclick="displayform('@pc.PCID','@pc.PCName','@pc.NetCafe.NetCafeName')">Book</button>
-                    </div>
+                    }
                 }
-              
-              
-            </div>
-            
+            </select>
+            <button style="margin-top: 10px" class="btn btn-success" onclick="goToCreate()">Select</button>
+        </section>
+    </div>
+    
+    <script>
+        function goToCreate() {
+            var id = $("#netcafeselect").val();
+            location.href = "/Order/Create/" + id;
+        }
+
+
+    </script>
+    <div class="container" style="margin-top: 150px">
+        @{
+            if (pcs != null)
+            {
+                <div class="row">
+                    @foreach (PC pc in pcs)
+                    {
+                        <div class="col-sm-8" style="width: 20vw;height: auto;margin:20px;text-align:center;border-style:groove;padding-bottom:10px;border-radius:20px">
+                            <img src="~/Content/image/my-computer-vista.png" style="width: 10vw;height: 10vw" />
+
+                            <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: burlywood">@pc.Price</h3>
+                            <button type="button" class="btn btn-success" value="2112" style="width: 100%" onclick="displayform('@pc.PCID','@pc.PCName','@pc.NetCafe.NetCafeName')">Book</button>
+                        </div>
+                    }
+
+
+                </div>
+
+
+            }
 
         }
 
-    }
+    </div>
+   
 
 </div>
 
@@ -60,7 +92,7 @@
                     <label for="usr">PCID</label>
                     <input class="form-control" id="pcid" type="text" value="" disabled="disabled"/>
                     <label>User ID</label>
-                    <input class="form-control" id="userid" type="text" value="1" disabled="disabled">
+                    <input class="form-control" id="userid" type="text" value="@userid" disabled="disabled">
                     <label>PCName</label>
                     <input class="form-control" id="pcname" type="text" value="" disabled="disabled"/>
                     <label>NetCafe Name</label>
@@ -138,7 +170,7 @@
             },
             success: function (data)
             {
-                if (data === "True") {
+                if (data === "true") {
                     alert("add order successfully")
                     location.reload();
                 }

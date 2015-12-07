@@ -218,12 +218,12 @@
     <Compile Include="Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\INetCafeService.cs" />
     <Compile Include="Service\IOrderInterface.cs" />
+    <Compile Include="Service\NetCafeService.cs" />
     <Compile Include="Service\OrderService.cs" />
+    <Compile Include="SLIM_CONFIG.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="URL.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -231,6 +231,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\AvailableCircle.png" />
+    <Content Include="Content\image\NAcircle.png" />
     <Content Include="Content\image\my-computer-vista.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

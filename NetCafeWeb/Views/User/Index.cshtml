@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 <th>Edit</th>
-                <th>Delete</th>
+                <!--<th>Delete</th>-->
                 <th>Fullname</th>
                 <th>Username</th>
                 <th>Identify Number</th>
@@ -29,7 +29,7 @@
                 {
                     <tr>
                         <td><button class="btn btn-warning" onclick="location.href='/User/edit/@user.UserID'">Edit</button></td>
-                        <td><button class="btn btn-danger" onclick="deleteNetCafe(@user.UserID)">Delete</button></td>
+                        <!--<td><button class="btn btn-danger" onclick="deleteUser(@user.UserID)">Delete</button></td>-->
                         
                         <td>@user.Fullname</td>
                         <td>@user.UserName</td>
@@ -51,3 +51,29 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function deleteUser(id) {
+
+        $.ajax({
+            url: '/netcafe/delete',
+            data: {
+                id: id
+            },
+            error: function () {
+                alert("problem")
+            },
+            success: function (data) {
+                if (data === "True") {
+                    alert("delete successfully");
+                    location.reload();
+                } else {
+                    alert("Can't delete this user");
+                }
+
+
+            },
+            type: 'post'
+        });
+    }
+</script>

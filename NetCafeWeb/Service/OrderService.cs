@@ -28,14 +28,14 @@ namespace NetCafeWeb.Service
                if (startTime < order.StartTime && startTime.AddHours(duration) > order.StartTime)
                 {
                     orderstatus.status = OrderStatusCode.FAIL;
-                    orderstatus.message = "Sorry, this PC have been ordered from "+order.StartTime + " to " + order.StartTime.AddHours(duration);
+                    orderstatus.message = "Sorry, this PC have been ordered from "+order.StartTime + " to " + order.StartTime.AddHours(order.Duration);
 
                     return orderstatus ;
                 }
                if (startTime >= order.StartTime && startTime <= order.StartTime.AddHours(duration))
                 {
                     orderstatus.status = OrderStatusCode.FAIL;
-                    orderstatus.message = "Sorry, this PC have been ordered from " + order.StartTime + " to " + order.StartTime.AddHours(duration);
+                    orderstatus.message = "Sorry, this PC have been ordered from " + order.StartTime + " to " + order.StartTime.AddHours(order.Duration);
 
                     return orderstatus;
                 }

@@ -1,5 +1,5 @@
 ﻿
-
+@using Microsoft.AspNet.Identity;
 <!DOCTYPE html>
 
 <html>
@@ -45,6 +45,34 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
+    @{ bool isAdmin = false;
+        bool isSupervisor = false;
+        var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
+        var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
+        string userId = User.Identity.GetUserId();
+
+        if (userId != null)
+        {
+            var a = manager.IsInRoleAsync(User.Identity.GetUserId(), "Admin");
+            if (a.Result)
+            {
+                isAdmin = true;
+                isSupervisor = true;
+            }
+            else
+            {
+                a = manager.IsInRoleAsync(User.Identity.GetUserId(), "Supervisor");
+                if (a.Result)
+                {
+                    isAdmin = false;
+                    isSupervisor = true;
+                }
+            }
+        }
+
+
+    }
+
     <!-- container section start -->
     <section id="container" class="">
 
@@ -79,28 +107,49 @@
             <div id="sidebar" class="nav-collapse ">
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
-                    <li class="active">
-                        <a class="" href="/netcafe">
+                   
+                    @{
+                        if (isAdmin)
+                        {
+                            <li class="sub-menu">
+                                <a href="/netcafe" class="">
+                                    <i class="icon_document_alt"></i>
+                                    <span>Net Management</span>
 
-                            <span>Net Management</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="/netcafe" class="">
-                            <i class="icon_document_alt"></i>
-                            <span>Net Management</span>
+                                </a>
 
-                        </a>
+                            </li>
+                        }
+                    }
 
-                    </li>
-                    <li class="sub-menu">
-                        <a href="/pc" class="">
-                            <i class="icon_desktop"></i>
-                            <span>PC Management</span>
+                  
+                    @{
+                        if (isSupervisor)
+                        {
 
-                        </a>
+                            <li class="sub-menu">
+                                <a href="/pc" class="">
+                                    <i class="icon_desktop"></i>
+                                    <span>PC Management</span>
 
-                    </li>
+                                </a>
+
+                            </li>
+                            <li class="sub-menu">
+                                <a href="/order" class="">
+                                    <i class="icon_documents_alt"></i>
+                                    <span>Order Management</span>
+                                </a>
+                                @*<ul class="sub">
+                                        <li><a class="" href="profile.html">Profile</a></li>
+                                        <li><a class="" href="login.html"><span>Login Page</span></a></li>
+                                        <li><a class="" href="blank.html">Blank Page</a></li>
+                                        <li><a class="" href="404.html">404 Error</a></li>
+                                    </ul>*@
+                            </li>
+                        }
+                    }
+
                     <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                     <li>
                         <a class="" href="widgets.html">
@@ -129,26 +178,27 @@
                         </ul>
                     </li>
                     -->
+                    
+                    @if (isAdmin)
+                    {
+                        <li class="sub-menu">
+                            <a href="/user" class="">
+                                <i class="icon-user"></i>
+                                <span>User Management</span>
+
+                            </a>
+
+                        </li>
+                    }
                     <li class="sub-menu">
-                        <a href="/order" class="">
-                            <i class="icon_documents_alt"></i>
-                            <span>Order Management</span>
-                        </a>
-                        @*<ul class="sub">
-                            <li><a class="" href="profile.html">Profile</a></li>
-                            <li><a class="" href="login.html"><span>Login Page</span></a></li>
-                            <li><a class="" href="blank.html">Blank Page</a></li>
-                            <li><a class="" href="404.html">404 Error</a></li>
-                        </ul>*@
-                    </li>
-                    <li class="sub-menu">
-                        <a href="/user" class="">
+                        <a href="/Order/Create" class="">
                             <i class="icon-user"></i>
-                            <span>User Management</span>
+                            <span>Order</span>
 
                         </a>
 
                     </li>
+                    
 
                 </ul>
                 <!-- sidebar menu end-->

@@ -2,7 +2,7 @@
 @{
 
 
-    ViewBag.Title = "NetCafe Index";
+    ViewBag.Title = "NetCafe Manager";
     Layout = "~/Views/Shared/MasterPage.cshtml";
     List<NetCafe> netCafes = ViewBag.netcafes;
     List<User> supervisors = ViewBag.supervisors;
@@ -10,11 +10,11 @@
 
 }
 
-<p></p>
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Net Cafe</button>
+
 
 <div class="container">
-    <h2>NetCafe Manager - for admin only</h2>
+    <h2>NetCafe Manager</h2>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Net Cafe</button>
     <table class="table">
         <thead>
             <tr>
@@ -35,14 +35,23 @@
                 foreach (NetCafe netcafe in netCafes)
                 {
                     <tr>
-                        <td><button class="btn-warning" onclick="location.href='/NetCafe/edit/@netcafe.NetCafeID'">Edit</button></td>
-                        <td><button class="btn-danger" onclick="deleteNetCafe(@netcafe.NetCafeID)">Delete</button></td>
+                        <td><button class="btn btn-warning" onclick="location.href='/NetCafe/edit/@netcafe.NetCafeID'">Edit</button></td>
+                        <td><button class="btn btn-danger" onclick="deleteNetCafe(@netcafe.NetCafeID)">Delete</button></td>
                         <td>@netcafe.NetCafeID</td>
                         <td>@netcafe.NetCafeName</td>
                         <td>@netcafe.NetCafeAddress</td>
                         <td>@netcafe.SupervisorID</td>
-                        <td></td>
-                        <td>@netcafe.NetCafeStatus</td>
+                        <td>@netcafe.User.UserName</td>
+                        <td>
+                        @if(netcafe.NetCafeStatus == SLIM_CONFIG.NETCAFE_ACTIVE)
+                        {
+                            <span>ACTIVE</span>
+                        }
+                        else
+                        {
+                            <span>DEACTIVE</span>
+                        }
+                        </td>
                         <td>@netcafe.NetCafePhoneNumber</td>
                         <td>@netcafe.NetCafeDescriptions</td>
                     </tr>
@@ -65,7 +74,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">ADD NEW NETCAFE</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group" style="width:100%">
@@ -88,8 +97,8 @@
                     <div class="form-group">
                         <label for="sel1">Status</label>
                         <select class="form-control" id="netCafeStatus">
-                            <option value="1">ACTIVE</option>
-                            <option value="2">DEACIVE</option>
+                            <option value="@SLIM_CONFIG.NETCAFE_ACTIVE">ACTIVE</option>
+                            <option value="@SLIM_CONFIG.NETCAFE_DEACTIVE">DEACIVE</option>
                         </select>
                     </div>
                    
@@ -98,7 +107,7 @@
                     <label for="usr">Description</label>
                     <input type="text" class="form-control" id="netCafeDescription">
                 </div>
-                <p id="error" style="color='red'"></p>
+                <p class="alert-danger" id="error" style="color='red'"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -150,13 +159,17 @@
                alert("Problem")
             },
             success: function (data) {
-                alert("Add successfully")
-                location.reload();
+                if (data === 'true'){
+                    alert("Add successfully")
+                    location.reload();
+                }
+                else{
+                    $("#error").html(data);
+                }
 
             },
             type: 'POST'
         });
-        $('#myModal').modal('hide');
     }
     function deleteNetcafe(id) {
 
