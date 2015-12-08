@@ -220,8 +220,10 @@
     </Compile>
     <Compile Include="Service\INetCafeService.cs" />
     <Compile Include="Service\IOrderInterface.cs" />
+    <Compile Include="Service\IUserService.cs" />
     <Compile Include="Service\NetCafeService.cs" />
     <Compile Include="Service\OrderService.cs" />
+    <Compile Include="Service\UserService.cs" />
     <Compile Include="SLIM_CONFIG.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="User.cs">
@@ -231,6 +233,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\asus_gaming_wallpaper_hd.jpg" />
+    <Content Include="Content\image\black-icon-crystal-circle-button-round-buttons.png" />
     <Content Include="Content\image\my-computer-vista.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -303,7 +307,9 @@
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Web.Config" />
+    <Content Include="Web.Config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Shared\AuthorizeFailed.cshtml" />

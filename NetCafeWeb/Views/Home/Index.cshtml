@@ -4,4 +4,81 @@
     Layout = "~/Views/Shared/MasterPage.cshtml";
 }
 
-<h1>HELLO @User.Identity.GetUserName()</h1>
+@{
+    var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
+    var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
+    bool isAdmin = false;
+    if (User.Identity.GetUserId() != null)
+    {
+        var a = manager.IsInRoleAsync(User.Identity.GetUserId(), "Admin");
+        isAdmin = a.Result;
+    }
+
+    if (!isAdmin)
+    {
+        <style>
+
+.myButton {
+	-moz-box-shadow: 0px 10px 14px -7px #2a2773;
+	-webkit-box-shadow: 0px 10px 14px -7px #2a2773;
+	box-shadow: 0px 10px 14px -7px #2a2773;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #222421), color-stop(1, #000000));
+	background:-moz-linear-gradient(top, #222421 5%, #000000 100%);
+	background:-webkit-linear-gradient(top, #222421 5%, #000000 100%);
+	background:-o-linear-gradient(top, #222421 5%, #000000 100%);
+	background:-ms-linear-gradient(top, #222421 5%, #000000 100%);
+	background:linear-gradient(to bottom, #222421 5%, #000000 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#222421', endColorstr='#000000',GradientType=0);
+	background-color:#222421;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #274ec2;
+	display:inline-block;
+	cursor:pointer;
+	color:#4173bf;
+	font-family:Arial;
+	font-size:28px;
+	font-weight:bold;
+	padding:32px 76px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #000000;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #222421));
+	background:-moz-linear-gradient(top, #000000 5%, #222421 100%);
+	background:-webkit-linear-gradient(top, #000000 5%, #222421 100%);
+	background:-o-linear-gradient(top, #000000 5%, #222421 100%);
+	background:-ms-linear-gradient(top, #000000 5%, #222421 100%);
+	background:linear-gradient(to bottom, #000000 5%, #222421 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#222421',GradientType=0);
+	background-color:#000000;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+
+        </style>
+        <div style="position:relative;">
+            
+            
+            <img src="~/Content/image/asus_gaming_wallpaper_hd.jpg" style="width:100%;position:absolute;" />
+
+            <div class="img-rounded button" style="position:absolute;margin-left:5%;margin-top:5%;">
+                <a href="/order/create" class="myButton">Order Now</a>
+            </div>
+            
+        </div>
+
+    }
+    else
+    {
+        //trang thống kê cho admin
+    }
+}
+
+
