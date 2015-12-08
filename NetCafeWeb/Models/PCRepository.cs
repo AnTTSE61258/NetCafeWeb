@@ -23,7 +23,7 @@ namespace NetCafeWeb.Models
 
         public List<PC> PCList()
         {
-            var list = (from r in _pcContext.PCs select r).ToList();
+            var list = (from r in _pcContext.PCs where r.NetCafe.NetCafeStatus==1 select r).ToList();
             return list;
         }
 
@@ -70,7 +70,7 @@ namespace NetCafeWeb.Models
 
         public List<PC> findByNetcafeID(int Id)
         {
-            List<PC> lstPC = (from r in _pcContext.PCs where r.NetCafeID == Id select r).ToList();
+            List<PC> lstPC = (from r in _pcContext.PCs where r.NetCafeID == Id && r.NetCafe.NetCafeStatus == 1 select r).ToList();
             return lstPC;
         }
 

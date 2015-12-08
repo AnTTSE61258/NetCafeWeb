@@ -89,7 +89,7 @@ namespace NetCafeWeb.Service
         {
             NetCafeRepository NetRepo = new NetCafeRepository();
             List<NetCafe> NetList = new List<NetCafe>();
-            NetList = NetRepo.NetCafeList();
+            NetList = NetRepo.GetAvailableNetList();
             return NetList;
         }
 
