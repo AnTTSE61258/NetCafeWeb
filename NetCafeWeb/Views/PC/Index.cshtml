@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "PC Management";
-    List<NetCafe> netcafes = ViewBag.netcafes;
-      List<NetCafe> netList = ViewBag.NetList;
-    List<PC> pcs = ViewBag.pcs;
-     List<PC> pcList = ViewBag.PCList;
-    String isAdmin = ViewBag.isAdmin;
+    List<NetCafe> netList = ViewBag.NetList;
+    List<PC> pcList = ViewBag.PCList;
+    String role = ViewBag.Role;
+    NetCafe selectedNetcafe = ViewBag.SelectedNetcafe;
     Layout = "~/Views/Shared/MasterPage.cshtml";
 }
 
@@ -22,26 +21,56 @@
 <div class="container">
     
    @{
-        if (netcafes == null || netcafes.Count == 0)
+        if (netList == null || netList.Count == 0)
         {
-             <h2>You haven't managed any netcafe</h2>
-        }
-        else
-        {
-            <h2>PC Manageme - @netcafes.ElementAt(0).NetCafeName</h2>
-        }
+            <h2>Net Cafe list is empty!</h2>
+       }
+       else
+       {
+           if (role == "Admin")
+           {
+                <h2>PC Management - Administrator</h2>
+                <section style="width: 500px" >
+                    <select class="form-control" id="selectedNet">
+                        @{
+                            foreach (NetCafe netcafe in netList)
+                            {
+                                if (selectedNetcafe != null && netcafe.NetCafeID == selectedNetcafe.NetCafeID)
+                                {
+                                    <option selected="selected" value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                                }
+                                else
+                                {
+                                    <option value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                                }
+
+                            }
+                        }
+                    </select>
+
+                    <button style="margin-top: 10px" class="btn btn-success" onclick="filter()">Select</button>
+                </section>
+                
+           }
+           else if (role == "Supervisor")
+           {
+                <h2>PC Management - @netList.ElementAt(0).NetCafeName</h2>
+           }
+       }
     } 
-
-    @{
-        if (netcafes != null && netcafes.Count > 0)
-        {
-
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+ Add New PC</button>
-
-
+    <script>
+        function filter() {
+            var id = $("#selectedNet").val();
+            location.href = "/PC/Index/" + id;
         }
-    }
-        <div class="table-responsive">
+    </script>
+
+
+    
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top: 10px">+ Add New PC</button>
+
+        <div class="table talbe-hover table-responsive">
             @{
                 int i = 1;
                 foreach (PC pc in pcList)
@@ -82,8 +111,17 @@
                                     <p>Status: N/A</p>
                                 }
                         </div>
-                        <button class="btn btn-success" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button>
-                        <button class="btn btn-primary" onclick="deletePC(@pc.PCID)">Delete</button>
+                        @{
+                            if (role == "Member")
+                            {
+                                <button class="btn btn-success" onclick="location.href='/Order/Create/@pc.PCID'">Order</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-success" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button>
+                                <button class="btn btn-primary" onclick="deletePC(@pc.PCID)">Delete</button>
+                            }
+                        }
                         <style>
                             .circle:before {content: '\25CF'; font-size: 20px;}
                             .pcBasic {position:absolute; overflow:visible;opacity:1;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";filter:alpha(opacity=1);pointer-events:none}
@@ -198,9 +236,13 @@
                 alert("Problem")
             },
             success: function (data) {
-                alert("Add successfully")
+                if (data === 'True') {
+                    alert("Add successfully")
+                }
+                else {
+                    alert("PC Name is exist!")
+                }
                 location.reload();
-
             },
             type: 'POST'
         });

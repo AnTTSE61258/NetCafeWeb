@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NetCafeWeb.Service
 {
-    interface INetCafeService
+    public interface IRoleService
     {
-        bool isExistWithName(String name);
-        NetCafe findByID(int id);
+        int getRoleIdByRoleName(string roleName);
+        bool addRole(Role role);
     }
 }

@@ -21,6 +21,12 @@ namespace NetCafeWeb.Models
             }
         }
 
+        public List<PC> PCList()
+        {
+            var list = (from r in _pcContext.PCs select r).ToList();
+            return list;
+        }
+
         public void Add(PC entity)
         {
             _pcContext.PCs.Add(entity);
@@ -38,7 +44,17 @@ namespace NetCafeWeb.Models
             var query = (from r in _pcContext.PCs where r.PCID == Id select r).FirstOrDefault();
             return query;
         }
-        
+
+        public Boolean findByName(string name)
+        {
+            var query = (from r in _pcContext.PCs where r.PCName == name select r).FirstOrDefault();
+            if (query == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public List<PC> sortBy(string columnName)
         {
             List<PC> pcList = new List<PC>();

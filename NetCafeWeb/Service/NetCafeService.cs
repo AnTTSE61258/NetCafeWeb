@@ -18,5 +18,11 @@ namespace NetCafeWeb.Service
 
             return false;
         }
+        
+        public NetCafe findByID(int id)
+        {
+            var netCafe = netcafeRepo.findById(id);
+            return netCafe;
+        }
     }
 }

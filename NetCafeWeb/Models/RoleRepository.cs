@@ -43,5 +43,15 @@ namespace NetCafeWeb.Models
             _netCafeContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _netCafeContext.SaveChanges();
         }
+        public int findIdRoleByName(string roleName)
+        {
+            var query = (from r in _netCafeContext.Roles where r.RoleName.ToUpper().Equals(roleName.ToUpper()) select r).FirstOrDefault();
+            if (query != null)
+            {
+                return query.RoleID;
+            }
+            
+            return -1;
+        }
     }
 }
