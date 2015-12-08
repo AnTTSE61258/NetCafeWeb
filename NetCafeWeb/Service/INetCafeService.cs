@@ -9,5 +9,6 @@ namespace NetCafeWeb.Service
     interface INetCafeService
     {
         bool isExistWithName(String name);
+        NetCafe findByID(int id);
     }
 }

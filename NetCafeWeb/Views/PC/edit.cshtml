@@ -1,7 +1,7 @@
 ﻿@{
     PC pc = ViewBag.pc;
     ViewBag.Title = "Edit " + pc.PCName;
-    List<NetCafe> netcafes = ViewBag.netcafes;
+    NetCafe netcafe = ViewBag.netcafe;
 }
 
 <h2>Edit @pc.PCName</h2>
@@ -24,12 +24,9 @@
                 <label for="sel1">Net Address</label>
                 <select class="form-control" id="netCafeAddress" disabled="disabled">
                     @{
-                        foreach (NetCafe netcafe in netcafes)
+                        if (pc.NetCafeID == netcafe.NetCafeID)
                         {
-                            if (pc.NetCafeID == netcafe.NetCafeID)
-                            {
-                                <option value="@pc.NetCafeID" selected="selected" >@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
-                            }
+                            <option value="@pc.NetCafeID" selected="selected" >@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
                         }
                     }
                 </select>
@@ -56,7 +53,7 @@
         <button type="button" class="btn" onclick="location.href='/PC'">Cancel</button>
 
         <button type="button" class="btn btn-success" onclick="editPC()">Submit</button>
-                        }
+     }
 }
 <script>
     function editPC() {
