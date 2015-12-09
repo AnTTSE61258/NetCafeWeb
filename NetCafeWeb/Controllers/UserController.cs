@@ -165,9 +165,9 @@ namespace NetCafeWeb.Controllers
         }
 
         [AuthLog(Roles = "Member")]
-        public ActionResult profile(string username)
+        public ActionResult profile(String username)
         {
-            IUserService services = new UserService();
+           IUserService services = new UserService();
             User user = services.findAnUserByName(username);
             ViewBag.user = user;
             return View();
