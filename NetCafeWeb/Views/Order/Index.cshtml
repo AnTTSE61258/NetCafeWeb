@@ -6,15 +6,16 @@
     Layout = "~/Views/Shared/MasterPage.cshtml";
     List<Order> orders = ViewBag.orders;
 
-
+    List<User> users = ViewBag.users;
+    List<PC> pcs = ViewBag.pcs;
 }
 
 <p></p>
 <h1>@ViewBag.isMember</h1>
 <div class="container">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Order</button>
+    @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">+ Add New Order</button>*@
     <h2>Order Manager - for admin only</h2>
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Edit</th>
@@ -33,14 +34,42 @@
                 foreach (Order order in orders)
                 {
                     <tr>
-                        <td><button class="btn-warning" onclick="location.href='/Order/edit/@order.OrderID'">Edit</button></td>
-                        <td><button class="btn-danger" onclick="deleteOrder(@order.OrderID)">Delete</button></td>
+                        <td><button class="btn btn-warning" onclick="location.href='/Order/edit/@order.OrderID'">Edit</button></td>
+                        <td><button class="btn btn-danger" onclick="deleteOrder(@order.OrderID)">Delete</button></td>
                         <td>@order.OrderID</td>
-                        <td>@order.PCID</td>
-                        <td>@order.UserID</td>
+                        @{  foreach (PC pc in pcs)
+                            {
+                                if (pc.PCID == order.PCID)
+                                {
+                                    <td>@pc.PCName</td>
+                                }
+                            }
+                        }
+
+                        @{  foreach (User user in users)
+                            {
+                                if (user.UserID == order.UserID)
+                                {
+                                    <td>@user.Fullname</td>
+                                }
+                            }
+                        }
                         <td>@order.StartTime</td>
-                        <td>@order.Duration</td>
-                        <td>@order.OrderStatus</td>
+                        <td>@order.Duration Hours</td>
+                        @{
+                            if (@order.OrderStatus == 1)
+                            {
+                                <td>Holding</td>
+                            }
+                            if (@order.OrderStatus == 2)
+                            {
+                                <td>Using</td>
+                            }
+                            if (@order.OrderStatus == 3)
+                            {
+                                <td>Free</td>
+                            }
+                        }
                     </tr>
                 }
             }
@@ -81,7 +110,7 @@
                         <select class="form-control" id="orderStatus">
                             <option value="1">Holding</option>
                             <option value="2">Using</option>
-                            <option value="2">Free</option>
+                            <option value="3">Free</option>
                         </select>
                     </div>
 
@@ -104,11 +133,11 @@
 
     function addOrder() {
         $("#error").html("");
-        var PC = $('#PC').val();
+        var pcid = $('#PC').val();
         var user = $('#user').val();
         var startTime = $('#startTime').val();
-        var duration = $('#orderStatus option:selected').val();
-        var status = $('#netCafeStatus option:selected').val();
+        var duration = $('#duration option:selected').val();
+        var status = $('#orderStatus option:selected').val();
 
         if (PC == "") {
             $("#error").html("PC name must not be blank");
@@ -153,7 +182,7 @@
         });
         $('#myModal').modal('hide');
     }
-    function deletenetcafe(id) {
+    function deleteOrder(id) {
         $.ajax({
             url: '/order/delete',
             data: {

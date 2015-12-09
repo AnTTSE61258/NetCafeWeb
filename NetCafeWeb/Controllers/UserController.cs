@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using NetCafeWeb.CustomFilters;
+using NetCafeWeb.Service;
 
 namespace NetCafeWeb.Controllers
 {
@@ -18,13 +19,18 @@ namespace NetCafeWeb.Controllers
         // GET: /User/
         public ActionResult Index()
         {
-            IRepository<User> repository = new UserRepository();
-            IEnumerable<User> users = repository.List;
-            ViewBag.users = users.Cast<User>().ToList();
+            UserService services = new UserService();
+            //list users
+            //IRepository<User> repository = new UserRepository();
+            //IEnumerable<User> users = repository.List;
+            List<User> users = services.getUsers();
+            ViewBag.users = users;
 
-            RoleRepository role_repo = new RoleRepository();
-            IEnumerable<Role> roles = role_repo.List;
-            ViewBag.roles = roles.Cast<Role>().ToList();
+            //list role
+            //RoleRepository role_repo = new RoleRepository();
+            //IEnumerable<Role> roles = role_repo.List;
+            List<Role> roles = services.getRoles();
+            ViewBag.roles = roles;
 
             return View();
         }
@@ -37,11 +43,21 @@ namespace NetCafeWeb.Controllers
         public Boolean editUser()
         {
             //get data from request
-            String selectedUserID = Request.Params["userID"];
+            int selectedUserID = Int32.Parse(Request.Params["userID"]);
             double newBalance = Double.Parse(Request.Params["balance"]);
             int newRoleID = Int32.Parse(Request.Params["role"]);
             string selectedRoleName = Request.Params["roleName"];
 
+
+            UserService services = new UserService();
+
+            User selectedUser = services.findAnUser(selectedUserID);
+            selectedUser.Balance = newBalance;
+            selectedUser.RoleID = newRoleID;
+
+            return services.updateUser(selectedUser);
+
+            /*
             //get the old info of the account
             IRepository<User> repository = new UserRepository();
             int n_selectedUserID = int.Parse(selectedUserID);
@@ -87,6 +103,7 @@ namespace NetCafeWeb.Controllers
             UserManager.AddToRole(aspSelectedUser.Id, newRoleName);
 
             return true;
+            */
         }
         [HttpPost]
         public Boolean delete()
@@ -125,13 +142,17 @@ namespace NetCafeWeb.Controllers
             }
             else
             {
-                IRepository<User> repository = new UserRepository();
-                User user = repository.findById(id.Value);
+                IUserService services = new UserService();
+                User user = services.findAnUser(id.Value);
                 ViewBag.user = user;
-            
-                RoleRepository role_repo = new RoleRepository();
-                IEnumerable<Role> roles = role_repo.List;
-                ViewBag.roles = roles.Cast<Role>().ToList(); ;
+                //IRepository<User> repository = new UserRepository();
+                //User user = repository.findById(id.Value);
+                //ViewBag.user = user;
+
+                List<Role> roles = services.getRoles();
+                //RoleRepository role_repo = new RoleRepository();
+                //IEnumerable<Role> roles = role_repo.List;
+                ViewBag.roles = roles;
 
             }
             return View();

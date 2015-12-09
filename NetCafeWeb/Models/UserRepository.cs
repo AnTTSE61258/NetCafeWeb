@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace NetCafeWeb.Models
 {
     public class UserRepository : IRepository<User>
     {
+        //protected readonly IDbSet<User> _dbSet;
         NetCafeEntities1 _userContext;
         public UserRepository()
         {
@@ -66,7 +68,11 @@ namespace NetCafeWeb.Models
 
         public void Update(User entity)
         {
-            _userContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            var user = _userContext.Users.Find(entity.UserID);
+            user.Balance = entity.Balance;
+            user.RoleID = entity.RoleID;
+            //_dbSet.Attach(entity);
+            _userContext.Entry(user).State = System.Data.Entity.EntityState.Modified;
             _userContext.SaveChanges();
         }
     }

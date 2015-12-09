@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using NetCafeWeb.Models;
+using NetCafeWeb.Service;
 
 namespace NetCafeWeb.Controllers
 {
@@ -149,10 +150,13 @@ namespace NetCafeWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email, Fullname = model.Fullname, IdentifyNumber = model.IdentifyNumber, PhoneNo = model.PhoneNo };
-                UserRepository repository = new UserRepository();
+                //UserRepository repository = new UserRepository();
+                UserService service = new UserService();
+                RoleService role_service = new RoleService();
                 User usr = new User();
                 usr.Fullname = model.Fullname;
                 usr.UserName = model.Username;
@@ -160,22 +164,24 @@ namespace NetCafeWeb.Controllers
                 usr.IdentityNumber = model.IdentifyNumber;
                 usr.UserPhoneNumber = model.PhoneNo;
                 usr.Balance = 0;
-                usr.RoleID = 3;
-                
-                if (repository.findByName(usr.UserName))
+                usr.RoleID = role_service.getRoleIdByRoleName("Member");
+
+                if (service.checkExistedUsername(model.Username))
                 {
                     AddErrors(IdentityResult.Failed("This username is existed!"));
                     return View(model);
                 }
                 else
                 {
-
-
-                    repository.Add(usr);
+                    bool isSuccess = service.addUser(usr);
+                    if (!isSuccess)
+                    {
+                        AddErrors(IdentityResult.Failed("Problem occured! Cannot add this user!"));
+                    }
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         await this.UserManager.AddToRoleAsync(user.Id, "Member");
                         
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -184,7 +190,7 @@ namespace NetCafeWeb.Controllers
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Login", "Account");
                     }
                     AddErrors(result);
                 }
