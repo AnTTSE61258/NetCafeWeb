@@ -37,18 +37,18 @@
                             {
                                 if (selectedNetcafe != null && netcafe.NetCafeID == selectedNetcafe.NetCafeID)
                                 {
-                                    <option selected="selected" value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                                    <option selected="selected" value="@netcafe.NetCafeID">@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
                                 }
                                 else
                                 {
-                                    <option value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
+                                    <option value="@netcafe.NetCafeID">@netcafe.NetCafeName - @netcafe.NetCafeAddress</option>
                                 }
 
                             }
                         }
                     </select>
 
-                    <button style="margin-top: 10px" class="btn btn-success" onclick="filter()">Select</button>
+                    <button id="netSelect" style="margin-top: 10px" class="btn btn-success" onclick="filter()">Select</button>
                 </section>
                 
            }
@@ -58,43 +58,52 @@
            }
        }
     } 
-    <script>
+        <script>
         function filter() {
             var id = $("#selectedNet").val();
             location.href = "/PC/Index/" + id;
         }
     </script>
 
-
-    
-
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top: 10px">+ Add New PC</button>
+    <div>
+        <div id="ajaxLoad">
+
+        </div>
+    </div>
+
 
         <div class="table talbe-hover table-responsive">
             @{
-                int i = 1;
-                foreach (PC pc in pcList)
+                if (pcList.Count() == 0)
                 {
-                    <div class="floating-box" style="float: left; margin: 10px 10px 0px 0px; border: 1px solid; height:250px; width:200px; text-align: center">
-                        @{
-                            if (pc.PCStatus == 1)
-                            {
-                                <img width="15" height="15" src=" ~/Content/image/AvailableCircle.png" />
-                            }
-                            else
-                            {
-                                <img width="15" height="15" src=" ~/Content/image/NAcircle.png" />
-                            }
+                    <h5>There isn't any PC in this NetCafe!</h5>
+                }
+                else
+                {
+                    int i = 1;
+                    foreach (PC pc in pcList)
+                    {
+                        <div class="floating-box" style="float: left; margin: 10px 10px 0px 0px; border: 1px solid; height:250px; width:200px; text-align: center">
+                            @{
+                                if (pc.PCStatus == 1)
+                                {
+                                    <img width="15" height="15" src=" ~/Content/image/AvailableCircle.png" />
+                                }
+                                else
+                                {
+                                    <img width="15" height="15" src=" ~/Content/image/NAcircle.png" />
+                                }
 
-                        }
-                        <label><strong>@pc.PCName</strong></label><br/>
-                        <div class="pcBasic" >
-                            <img style="margin-left: 25px" width="150" height="150" src=" ~/Content/image/my-computer-vista.png" />
-                            <p>Price: @pc.Price đ/h</p>
-                        </div>
-                        <div class="pcDetail" style="height: 170px">
-                            <p>Price: @pc.Price đ/h</p>
-                            <p>Description: @pc.PCDescriptions</p>
+                            }
+                            <label><strong>@pc.PCName</strong></label><br />
+                            <div class="pcBasic">
+                                <img style="margin-left: 25px" width="150" height="150" src=" ~/Content/image/my-computer-vista.png" />
+                                <p>Price: @pc.Price đ/h</p>
+                            </div>
+                            <div class="pcDetail" style="height: 170px">
+                                <p>Price: @pc.Price đ/h</p>
+                                <p>Description: @pc.PCDescriptions</p>
                                 @{foreach (NetCafe netcafe in netList)
                                     {
                                         if (pc.NetCafeID == netcafe.NetCafeID)
@@ -102,36 +111,77 @@
                                             <p>Address: @netcafe.NetCafeName - @netcafe.NetCafeAddress</p>
                                         }
                                     }
-                                        
+
                                 }
-                                @if (@pc.PCStatus == 1) {
+                                @if (@pc.PCStatus == 1)
+                                {
                                     <p>Status: Available</p>
                                 }
-                                else {
+                                else
+                                {
                                     <p>Status: N/A</p>
                                 }
+                            </div>
+                            @{
+                                if (role == "Member")
+                                {
+                                    <button class="btn btn-success" onclick="location.href='/Order/Create/@pc.PCID'">Order</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-success" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button>
+                                    <button class="btn btn-primary" onclick="deletePC(@pc.PCID)">Delete</button>
+                                }
+                            }
+                            <style>
+                                .circle:before {
+                                    content: '\25CF';
+                                    font-size: 20px;
+                                }
+
+                                .pcBasic {
+                                    position: absolute;
+                                    overflow: visible;
+                                    opacity: 1;
+                                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+                                    filter: alpha(opacity=1);
+                                    pointer-events: none;
+                                }
+
+                                .pcDetail {
+                                    display: inline-block;
+                                    overflow: hidden;
+                                    opacity: 0;
+                                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                                    filter: alpha(opacity=0);
+                                    pointer-events: none;
+                                }
+
+                                .floating-box:hover .pcDetail {
+                                    opacity: 1;
+                                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+                                    filter: alpha(opacity=100);
+                                    -webkit-transition-duration: .5s;
+                                    -moz-transition-duration: .5s;
+                                    -o-transition-duration: .5s;
+                                    transition-duration: .5s;
+                                }
+
+                                .floating-box:hover .pcBasic {
+                                    opacity: 0;
+                                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                                    filter: alpha(opacity=0);
+                                    -webkit-transition-duration: .5s;
+                                    -moz-transition-duration: .5s;
+                                    -o-transition-duration: .5s;
+                                    transition-duration: .5s;
+                                }
+                            </style>
                         </div>
-                        @{
-                            if (role == "Member")
-                            {
-                                <button class="btn btn-success" onclick="location.href='/Order/Create/@pc.PCID'">Order</button>
-                            }
-                            else
-                            {
-                                <button class="btn btn-success" onclick="location.href='/PC/edit/@pc.PCID'">Edit</button>
-                                <button class="btn btn-primary" onclick="deletePC(@pc.PCID)">Delete</button>
-                            }
-                        }
-                        <style>
-                            .circle:before {content: '\25CF'; font-size: 20px;}
-                            .pcBasic {position:absolute; overflow:visible;opacity:1;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";filter:alpha(opacity=1);pointer-events:none}
-                            .pcDetail {display:inline-block; overflow:hidden;opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";filter:alpha(opacity=0);pointer-events:none}
-                            .floating-box:hover .pcDetail {opacity:1;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";filter:alpha(opacity=100);-webkit-transition-duration:.5s;-moz-transition-duration:.5s;-o-transition-duration:.5s;transition-duration:.5s }
-                            .floating-box:hover .pcBasic {opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";filter:alpha(opacity=0);-webkit-transition-duration:.5s;-moz-transition-duration:.5s;-o-transition-duration:.5s;transition-duration:.5s }
-                        </style>
-                     </div>
-                     
-                    i++;
+
+                        i++;
+                    }
+
                 }
             }
             
@@ -190,7 +240,6 @@
 
 
 <script>
-
     function addPC() {
         $("#error").html("");
         var name = $('#pcName').val();
@@ -272,11 +321,6 @@
 
             type: 'post'
         });
-
-    }
-
-    function editNetCafe(indexInArray) {
-        alert(indexInArray);
 
     }
 </script>

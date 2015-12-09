@@ -12,7 +12,7 @@ namespace NetCafeWeb.Controllers
     [AuthLog(Roles = "Admin,Supervisor")]
     public class PCController : Controller
     {
-        
+        PCService PCService = new PCService();
         public ActionResult Index(int? id)
         {
             var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
@@ -25,20 +25,19 @@ namespace NetCafeWeb.Controllers
 
             List<PC> PCList = new List<PC>();
             List<NetCafe> NetList = new List<NetCafe>();
-            PCService service = new PCService();
 
             
             if (isSupervisor)
             {
                 string username = User.Identity.Name;
-                NetList = service.GetManageNet(username);
+                NetList = PCService.GetManageNet(username);
                 int selectedNetID = 0;
 
                 if (NetList != null && NetList.Count > 0)
                 {
                     foreach (NetCafe netCafe in NetList)
                     {
-                        PCList = service.FindByNetID(netCafe.NetCafeID);
+                        PCList = PCService.FindByNetID(netCafe.NetCafeID);
                         selectedNetID = netCafe.NetCafeID;
                     }
                 }
@@ -53,43 +52,48 @@ namespace NetCafeWeb.Controllers
             {
                 if (id != null)
                 {
-                    PCList = service.FindByNetID(id.Value);
+                    PCList = PCService.FindByNetID(id.Value);
                     ViewBag.pcList = PCList;
-                    ViewBag.SelectedNetcafe = service.GetNetCafeByID(id.Value);
+                    ViewBag.SelectedNetcafe = PCService.GetNetCafeByID(id.Value);
                 }
                 else
                 {
-                    PCList = service.GetPCList();
+                    PCList = PCService.GetPCList();
                     ViewBag.pcList = PCList;
                 }
 
                 var query = PCList.OrderBy(p => p.NetCafeID).ThenBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
                 ViewBag.PCList = query.ToList();
-                ViewBag.NetList = service.GetNetList();
+                ViewBag.NetList = PCService.GetNetList();
                 ViewBag.Role = "Admin";
                 
                 return View();
             }
         }
 
-        //public List<PC> GetPCList()
-        //{
-        //    PCService pcService = new PCService();
+        public JsonResult GetJsonPCList()
+        {
 
-        //    return;
-        //}
+            var PCList = PCService.GetPCList();
+            return Json(PCList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetJsonNetList()
+        {
+            var NetList = PCService.GetNetList();
+            return Json(NetList, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Filter (int? id)
         {
-            PCService service = new PCService();
             if (id != null)
             {
-                List<PC> PCList = service.FindByNetID(id.Value);
+                List<PC> PCList = PCService.FindByNetID(id.Value);
                 ViewBag.pcList = PCList;
             }
             else
             {
-                List<PC> PCList = service.GetPCList();
+                List<PC> PCList = PCService.GetPCList();
                 ViewBag.pcList = PCList;
             }
             return View();
@@ -98,7 +102,6 @@ namespace NetCafeWeb.Controllers
         [HttpPost]
         public Boolean Add()
         {
-            PCService Service = new PCService();
             PC NewPC = new PC();
             NewPC.PCName = Request.Params["name"];
             NewPC.Price = float.Parse(Request.Params["price"]);
@@ -106,7 +109,7 @@ namespace NetCafeWeb.Controllers
             NewPC.NetCafeID = int.Parse(Request.Params["netcafeAddress"]);
             NewPC.PCStatus = int.Parse(Request.Params["status"]);
             
-            if (Service.AddPC(NewPC))
+            if (PCService.AddPC(NewPC))
             {
                 return true;
             }
@@ -116,7 +119,6 @@ namespace NetCafeWeb.Controllers
         [HttpPost]
         public Boolean EditPC()
         {
-            PCService Service = new PCService();
             PC EditedPC = new PC();
             EditedPC.PCID = int.Parse(Request.Params["id"]);
             EditedPC.PCName = Request.Params["name"];
@@ -124,7 +126,7 @@ namespace NetCafeWeb.Controllers
             EditedPC.PCDescriptions = Request.Params["description"];
             EditedPC.PCStatus = int.Parse(Request.Params["status"]);
             
-            if (Service.EditPC(EditedPC))
+            if (PCService.EditPC(EditedPC))
             {
                 return true;
             }
@@ -134,10 +136,9 @@ namespace NetCafeWeb.Controllers
         [HttpPost]
         public Boolean Delete()
         {
-            PCService Service = new PCService();
             int ID = int.Parse(Request.Params["id"]);
             
-            if (Service.DeletePC(ID))
+            if (PCService.DeletePC(ID))
             {
                 return true;
             }
@@ -153,11 +154,10 @@ namespace NetCafeWeb.Controllers
             }
             else
             {
-                PCService service = new PCService();
                 PC editPC = new PC();
-                editPC = service.GetEditPCByID(id.Value);
+                editPC = PCService.GetEditPCByID(id.Value);
                 ViewBag.pc = editPC;
-                ViewBag.netcafe = service.GetNetCafeByID(editPC.NetCafeID);
+                ViewBag.netcafe = PCService.GetNetCafeByID(editPC.NetCafeID);
             }
             return View();
         }

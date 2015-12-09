@@ -17,7 +17,15 @@ namespace NetCafeWeb.Service
             }
             else
             {
-                repository.Add(addPC);
+                try
+                {
+                    repository.Add(addPC);
+                }
+                catch (Exception e)
+                {
+                    e.GetHashCode();
+                    return false;
+                }
                 return true;
             }
         }
@@ -46,12 +54,20 @@ namespace NetCafeWeb.Service
         {
             IRepository<PC> repository = new PCRepository();
             PC pc = repository.findById(editPC.PCID);
-            if (pc != null)
+            if (pc == null)
+            {
+                return false;
+            }
+            try
             {
                 repository.Update(pc);
-                return true;
             }
-            return false;
+            catch (Exception e)
+            {
+                e.GetBaseException();
+                return false;
+            }
+            return true;
         }
 
         public PC GetEditPCByID(int PCID)
@@ -65,24 +81,54 @@ namespace NetCafeWeb.Service
         {
             NetCafeRepository NetRepo = new NetCafeRepository();
             UserRepository UserRepo = new UserRepository();
+            List<NetCafe> ManageNet = new List<NetCafe>();
             int SuperID = UserRepo.getIDByUsername(username);
-            List<NetCafe> ManageNet = NetRepo.findBySuID(SuperID);
-            return ManageNet;
+            if (SuperID.ToString() == null)
+            {
+                return null;
+            }
+            else
+            {
+                try
+                {
+                    ManageNet = NetRepo.findBySuID(SuperID);
+                }
+                catch (Exception e)
+                {
+                    e.GetHashCode();
+                    return null;
+                }
+                return ManageNet;
+            }
         }
 
         public List<PC> FindByNetID(int NetCafeID)
         {
             PCRepository PCRepo = new PCRepository();
             List<PC> List = new List<PC>();
-            List = PCRepo.findByNetcafeID(NetCafeID);
+            if (NetCafeID.ToString() == null)
+            {
+                return null;
+            }
+            else
+            {
+                List = PCRepo.findByNetcafeID(NetCafeID);
+            }
             return List;
         }
 
         public NetCafe GetNetCafeByID(int NetCafeID)
         {
             IRepository<NetCafe> repository = new NetCafeRepository();
-            NetCafe net = repository.findById(NetCafeID);
-            return net;
+            if (NetCafeID.ToString() == null)
+            {
+                return null;
+            }
+            else
+            {
+                NetCafe net = repository.findById(NetCafeID);
+                return net;
+            }
         }
 
         public List<NetCafe> GetNetList()
