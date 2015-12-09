@@ -188,7 +188,7 @@
             $('#error').html("You must select Booking Date");
             return;
         } else {
-            alert(Date)
+            //alert(Date)
         }
         if (time == "") {
             $('#error').html("You must select Booking Time");
@@ -198,7 +198,7 @@
             $('#error').html("You must select duration");
             return;
         }
-        alert("addOrder" + PCID + Date + "-" + Time);
+        //alert("addOrder" + PCID + Date + "-" + Time);
         $.ajax({
             url: '/Order/AddBooking',
             data: {
@@ -210,12 +210,12 @@
 
             },
             error: function () {
-                alert("problem")
+                alert("Problem")
             },
             success: function (data)
             {
                 if (data === "true") {
-                    alert("add order successfully")
+                    alert("Add Order Successfully")
                     location.reload();
                 }
                 else {

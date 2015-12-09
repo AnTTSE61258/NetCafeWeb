@@ -27,24 +27,17 @@
             <label for="sel1">Status</label>
             <select class="form-control" id="orderStatus">
                 @{
-                    if (order.OrderStatus == 1)
+                    if (order.OrderStatus == SLIM_CONFIG.ORDER_ACTIVE)
                     {
-                        <option selected="selected" value="1">Holding</option>
-                        <option value="2">Using</option>
-                        <option value="3">Free</option>
-                    }
-                    else if (order.OrderStatus == 2)
-                    {
-                        <option value="1">Holding</option>
-                        <option selected="selected" value="2">Using</option>
-                        <option value="3">Free</option>
+                        <option selected="selected" value="@SLIM_CONFIG.ORDER_ACTIVE">Active</option>
+                        <option value="@SLIM_CONFIG.ORDER_DEACTIVE">Deactive</option>
                     }
                     else
                     {
-                        <option value="1">Holding</option>
-                        <option value="2">Using</option>
-                        <option selected="selected" value="3">Free</option>
+                        <option value="@SLIM_CONFIG.ORDER_ACTIVE">Active</option>
+                        <option selected="selected" value="@SLIM_CONFIG.ORDER_DEACTIVE">Deactive</option>
                     }
+                    
                 }
                 
                 
@@ -105,7 +98,7 @@
                 alert("Problem")
             },
             success: function (data) {
-                alert("Edit successfully");
+                alert("Edit Successfully");
                 location.href = "/Order";
             },
             type: 'POST'

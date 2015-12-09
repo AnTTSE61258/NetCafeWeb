@@ -18,7 +18,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Edit</th>
+                @*<th>Edit</th>*@
                 <th>Delete</th>
                 <th>ID</th>
                 <th>PC</th>
@@ -34,7 +34,7 @@
                 foreach (Order order in orders)
                 {
                     <tr>
-                        <td><button class="btn btn-warning" onclick="location.href='/Order/edit/@order.OrderID'">Edit</button></td>
+                        @*<td><button class="btn btn-warning" onclick="location.href='/Order/edit/@order.OrderID'">Edit</button></td>*@
                         <td><button class="btn btn-danger" onclick="deleteOrder(@order.OrderID)">Delete</button></td>
                         <td>@order.OrderID</td>
                         @{  foreach (PC pc in pcs)
@@ -57,17 +57,13 @@
                         <td>@order.StartTime</td>
                         <td>@order.Duration Hours</td>
                         @{
-                            if (@order.OrderStatus == 1)
+                            if (@order.OrderStatus == SLIM_CONFIG.ORDER_ACTIVE)
                             {
-                                <td>Holding</td>
+                                <td>Active</td>
                             }
-                            if (@order.OrderStatus == 2)
+                            if (@order.OrderStatus == SLIM_CONFIG.ORDER_DEACTIVE)
                             {
-                                <td>Using</td>
-                            }
-                            if (@order.OrderStatus == 3)
-                            {
-                                <td>Free</td>
+                                <td>Deactive</td>
                             }
                         }
                     </tr>
@@ -99,18 +95,18 @@
                         <label for="sel1">Duration</label>
                         <select class="form-control" id="duration">
                             <option value="1">1</option>
-                            <option value="1">2</option>
-                            <option value="1">3</option>
-                            <option value="1">4</option>
-                            <option value="1">5</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="sel1">Status</label>
                         <select class="form-control" id="orderStatus">
-                            <option value="1">Holding</option>
-                            <option value="2">Using</option>
-                            <option value="3">Free</option>
+                            <option value="@SLIM_CONFIG.ORDER_ACTIVE">Active</option>
+                            <option value="@SLIM_CONFIG.ORDER_DEACTIVE">Deactive</option>
+    
                         </select>
                     </div>
 
@@ -174,7 +170,7 @@
                 alert("Problem")
             },
             success: function (data) {
-                alert("Add successfully")
+                alert("Add Successfully")
                 location.reload();
 
             },
@@ -192,7 +188,7 @@
                 alert("problem")
             },
             success: function (data) {
-                alert("delete successfully")
+                alert("Delete Successfully")
                 location.reload();
 
             },

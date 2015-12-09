@@ -20,7 +20,8 @@ namespace NetCafeWeb.Service
     public class OrderService : IOrderInterface
     {
         private OrderRepository orderRepository = new OrderRepository();
-
+        private UserRepository userRepository = new UserRepository();
+        private PCRepository pcRepository = new PCRepository();
         public List<NetCafe> getAllNetCafe()
         {
             IRepository<NetCafe> repository = new NetCafeRepository();
@@ -28,24 +29,49 @@ namespace NetCafeWeb.Service
             return netcafes.Cast<NetCafe>().ToList();
         }
 
-        public OrderStatus isCanOrder(int pcid, DateTime startTime, int duration)
+        public OrderStatus isCanOrder(int pcid, DateTime startTime, int duration, int userId)
         {
             OrderStatus orderstatus = new OrderStatus();
             List<Order> orders = orderRepository.List.Cast<Order>().ToList();
-            foreach(Order order in orders){
-               if (startTime < order.StartTime && startTime.AddHours(duration) > order.StartTime)
-                {
-                    orderstatus.status = OrderStatusCode.FAIL;
-                    orderstatus.message = "Sorry, this PC have been ordered from "+order.StartTime + " to " + order.StartTime.AddHours(order.Duration);
 
-                    return orderstatus ;
-                }
-               if (startTime >= order.StartTime && startTime <= order.StartTime.AddHours(duration))
+            foreach (Order order in orders)
+            {
+                if (startTime < order.StartTime && startTime.AddHours(duration) > order.StartTime)
                 {
                     orderstatus.status = OrderStatusCode.FAIL;
                     orderstatus.message = "Sorry, this PC have been ordered from " + order.StartTime + " to " + order.StartTime.AddHours(order.Duration);
 
                     return orderstatus;
+                }
+                if (startTime >= order.StartTime && startTime <= order.StartTime.AddHours(duration))
+                {
+                    orderstatus.status = OrderStatusCode.FAIL;
+                    orderstatus.message = "Sorry, this PC have been ordered from " + order.StartTime + " to " + order.StartTime.AddHours(order.Duration);
+
+                    return orderstatus;
+                }
+            }
+
+            List<User> users = userRepository.List.Cast<User>().ToList();
+            PC pc = pcRepository.findById(pcid);
+            foreach (User user in users)
+            {
+                if (user.UserID == userId)
+                {
+
+                    if (user.Balance < (duration * pc.Price))
+                    {
+                        orderstatus.status = OrderStatusCode.FAIL;
+                        orderstatus.message = "Sorry, your current balance is " + user.Balance + "; can not order " + pc.PCName + " PC";
+
+                        return orderstatus;
+                    }
+                    else
+                    {
+                        user.Balance = user.Balance - (duration * pc.Price);
+                        IRepository<User> userRepository = new UserRepository();
+                        userRepository.Update(user);
+                    }
                 }
             }
 

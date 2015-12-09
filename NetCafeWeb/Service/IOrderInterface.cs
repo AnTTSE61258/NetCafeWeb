@@ -9,7 +9,7 @@ namespace NetCafeWeb.Service
     public interface IOrderInterface
     {
 
-        OrderStatus isCanOrder(int pcid, DateTime startDate, int duration);
+        OrderStatus isCanOrder(int pcid, DateTime startDate, int duration, int  userId);
         List<NetCafe> getAllNetCafe();
     }
 }

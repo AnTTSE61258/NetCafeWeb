@@ -107,7 +107,7 @@ namespace NetCafeWeb.Controllers
             int intDuration = int.Parse(duration);
 
             OrderService orderService = new OrderService();
-            OrderStatus orderStatus = orderService.isCanOrder(pcid, newDate, intDuration);
+            OrderStatus orderStatus = orderService.isCanOrder(pcid, newDate, intDuration, userid);
             if (orderStatus.status == OrderStatusCode.FAIL)
             {
                 return orderStatus.message;
