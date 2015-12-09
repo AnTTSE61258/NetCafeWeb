@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NetCafeWeb.CustomFilters;
+using System.Device.Location;
 
 namespace NetCafeWeb.Controllers
 {
@@ -18,6 +19,7 @@ namespace NetCafeWeb.Controllers
     {
         //
         // GET: /Order/
+        [AuthLog(Roles ="Admin, Supervisor")]
         public ActionResult Index()
         {
             var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
@@ -120,6 +122,34 @@ namespace NetCafeWeb.Controllers
             IRepository<Order> repository = new OrderRepository();
             repository.Add(order);
             return "true";
+        }
+
+        [HttpPost]
+        public String getNearestNet()
+        {
+            double sLatitude = Double.Parse(Request.Params["latitude"]);
+            double sLongitude = Double.Parse(Request.Params["longtitude"]);
+            var sCoord = new GeoCoordinate(sLatitude, sLongitude);
+
+            OrderService services = new OrderService();
+            List<NetCafe> netcafes = services.getAllNetCafe();
+            var firstCoord = new GeoCoordinate(netcafes[0].LocationX.Value, netcafes[0].LocationY.Value);
+            string nearestNetName = netcafes[0].NetCafeName;
+            double nearestDistance = sCoord.GetDistanceTo(firstCoord);
+
+
+            foreach(NetCafe netCafe in netcafes)
+            {
+                var eCoord = new GeoCoordinate(netCafe.LocationX.Value, netCafe.LocationY.Value);
+                double currentDistance = sCoord.GetDistanceTo(eCoord);
+                if (nearestDistance > currentDistance)
+                {
+                    nearestDistance = currentDistance;
+                    nearestNetName = netCafe.NetCafeName;
+                }
+            }
+
+            return nearestNetName;
         }
 
         [HttpPost]

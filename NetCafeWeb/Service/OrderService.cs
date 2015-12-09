@@ -20,6 +20,14 @@ namespace NetCafeWeb.Service
     public class OrderService : IOrderInterface
     {
         private OrderRepository orderRepository = new OrderRepository();
+
+        public List<NetCafe> getAllNetCafe()
+        {
+            IRepository<NetCafe> repository = new NetCafeRepository();
+            IEnumerable<NetCafe> netcafes = repository.List;
+            return netcafes.Cast<NetCafe>().ToList();
+        }
+
         public OrderStatus isCanOrder(int pcid, DateTime startTime, int duration)
         {
             OrderStatus orderstatus = new OrderStatus();

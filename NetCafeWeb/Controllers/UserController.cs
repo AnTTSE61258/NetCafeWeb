@@ -12,11 +12,12 @@ using NetCafeWeb.Service;
 
 namespace NetCafeWeb.Controllers
 {
-    [AuthLog(Roles ="Admin")]
+    
     public class UserController : Controller
     {
         //
         // GET: /User/
+        [AuthLog(Roles = "Admin")]
         public ActionResult Index()
         {
             UserService services = new UserService();
@@ -35,11 +36,13 @@ namespace NetCafeWeb.Controllers
             return View();
         }
         [HttpPost]
+        [AuthLog(Roles = "Admin")]
         public Boolean Add()
         {
             return true;
         }
         [HttpPost]
+        [AuthLog(Roles = "Admin")]
         public Boolean editUser()
         {
             //get data from request
@@ -106,6 +109,7 @@ namespace NetCafeWeb.Controllers
             */
         }
         [HttpPost]
+        [AuthLog(Roles = "Admin")]
         public Boolean delete()
         {
             //delete from user table
@@ -129,11 +133,13 @@ namespace NetCafeWeb.Controllers
             return true;
         }
         [HttpPost]
+        [AuthLog(Roles = "Admin")]
         public User getUser()
         {
             return null;
         }
-        
+
+        [AuthLog(Roles = "Admin")]
         public ActionResult edit(int? id)
         {
             if (id == null)
@@ -155,6 +161,15 @@ namespace NetCafeWeb.Controllers
                 ViewBag.roles = roles;
 
             }
+            return View();
+        }
+
+        [AuthLog(Roles = "Member")]
+        public ActionResult profile(string username)
+        {
+            IUserService services = new UserService();
+            User user = services.findAnUserByName(username);
+            ViewBag.user = user;
             return View();
         }
 	}
