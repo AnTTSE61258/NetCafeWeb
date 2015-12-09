@@ -27,6 +27,8 @@ namespace NetCafeWeb
         public int NetCafeStatus { get; set; }
         public string NetCafePhoneNumber { get; set; }
         public string NetCafeDescriptions { get; set; }
+        public Nullable<double> LocationX { get; set; }
+        public Nullable<double> LocationY { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

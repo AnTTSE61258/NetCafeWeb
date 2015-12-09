@@ -47,6 +47,7 @@
 <body>
     @{ bool isAdmin = false;
         bool isSupervisor = false;
+        bool isMember = false;
         var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
         var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
         string userId = User.Identity.GetUserId();
@@ -58,6 +59,7 @@
             {
                 isAdmin = true;
                 isSupervisor = true;
+                isMember = false;
             }
             else
             {
@@ -66,6 +68,13 @@
                 {
                     isAdmin = false;
                     isSupervisor = true;
+                    isMember = false;
+                }
+                else
+                {
+                    isAdmin = false;
+                    isSupervisor = false;
+                    isMember = true;
                 }
             }
         }
@@ -188,6 +197,15 @@
 
                             </a>
 
+                        </li>
+                    }
+                    @if (isMember)
+                    {
+                        <li class="sub-menu">
+                            <a href="/user/profile?username=@User.Identity.GetUserName()" class="">
+                                <i class="fa fa-user"></i>
+                                <span>View Profile</span>
+                            </a>
                         </li>
                     }
                     <li class="sub-menu">

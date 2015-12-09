@@ -20,31 +20,73 @@
     }
     <div class="form-group">
         <section class="col-md-5">
-            <label>NetCafe</label>
-            <select class="form-control" id="netcafeselect">
-                @{
-                    foreach (NetCafe netcafe in netcafes)
-                    {
-                        if (selectedNetcafe != null && netcafe.NetCafeID == selectedNetcafe.NetCafeID)
+            <div class="form-inline">
+                <label>NetCafe</label>
+                <select class="form-control" id="netcafeselect">
+                    @{
+                        foreach (NetCafe netcafe in netcafes)
                         {
-                            <option selected="selected" value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
-                        }
-                        else
-                        {
-                            <option value="@netcafe.NetCafeID">@netcafe.NetCafeID - @netcafe.NetCafeName</option>
-                        }
+                            if (selectedNetcafe != null && netcafe.NetCafeID == selectedNetcafe.NetCafeID)
+                            {
+                                <option selected="selected" value="@netcafe.NetCafeID">@netcafe.NetCafeName</option>
+                            }
+                            else
+                            {
+                                <option value="@netcafe.NetCafeID">@netcafe.NetCafeName</option>
+                            }
 
+                        }
                     }
-                }
-            </select>
-            <button style="margin-top: 10px" class="btn btn-success" onclick="goToCreate()">Select</button>
+                </select>
+                <button style="margin-top: 10px" class="btn btn-success" onclick="goToCreate()">Select</button>
+            </div>
         </section>
+    </div>
+    <div class="form-group">
+        <button style="margin-top: 10px" class="btn btn-info" onclick="getNearestNetCafe()">Get the nearest Netcafe</button>
     </div>
     
     <script>
         function goToCreate() {
             var id = $("#netcafeselect").val();
             location.href = "/Order/Create/" + id;
+        }
+
+       //get location
+        function getNearestNetCafe() {
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            var lati = position.coords.latitude;
+            var loti = position.coords.longitude;
+
+            $.ajax({
+                url: '/order/getNearestNet',
+                data: {
+                    latitude: lati,
+                    longtitude: loti
+                },
+                error: function () {
+                    alert("Problem")
+                },
+                success: function (data) {
+                    //alert(data);
+                    //var mm = 'Riot Quang Trung';
+                    var net = document.getElementById("netcafeselect");
+                    for (var i = 0; i < net.options.length; i++) {
+                        if (net.options[i].text === mm) {
+                            net.selectedIndex = i;
+                            break;
+                        }
+                    }
+                },
+                type: 'post'
+            });
         }
 
 

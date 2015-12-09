@@ -56,7 +56,7 @@ namespace NetCafeWeb.Models
             return -1;
         }
 
-        public Boolean findByName(string username)
+        public Boolean findExistedName(string username)
         {
             var query = (from u in _userContext.Users where u.UserName == username select u).FirstOrDefault();
             if(query != null)
@@ -64,6 +64,12 @@ namespace NetCafeWeb.Models
                 return true;
             }
             return false;
+        }
+
+        public User findByName(string username)
+        {
+            var query = (from u in _userContext.Users where u.UserName == username select u).FirstOrDefault();
+            return query;
         }
 
         public void Update(User entity)

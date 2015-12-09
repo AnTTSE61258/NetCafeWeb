@@ -42,5 +42,11 @@ namespace NetCafeWeb.Service
         /// <param name="user"></param>
         /// <returns>true if success</returns>
         bool addUser(User user);
+        /// <summary>
+        /// find an user by its username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>an user</returns>
+        User findAnUserByName(string username);
     }
 }

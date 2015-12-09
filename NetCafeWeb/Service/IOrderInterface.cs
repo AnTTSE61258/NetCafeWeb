@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace NetCafeWeb.Service
 {
-    interface IOrderInterface
+    public interface IOrderInterface
     {
 
         OrderStatus isCanOrder(int pcid, DateTime startDate, int duration);
+        List<NetCafe> getAllNetCafe();
     }
 }

@@ -28,7 +28,7 @@ namespace NetCafeWeb.Service
         public bool checkExistedUsername(string username)
         {
             UserRepository repository = new UserRepository();
-            if (repository.findByName(username))
+            if (repository.findExistedName(username))
             {
                 return true;
             }
@@ -39,6 +39,13 @@ namespace NetCafeWeb.Service
         {
             IRepository<User> repository = new UserRepository();
             User user = repository.findById(id);
+            return user;
+        }
+
+        public User findAnUserByName(string username)
+        {
+            UserRepository repository = new UserRepository();
+            User user = repository.findByName(username);
             return user;
         }
 
