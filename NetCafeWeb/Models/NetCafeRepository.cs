@@ -23,6 +23,12 @@ public class NetCafeRepository : IRepository<NetCafe>
         return query;
     }
 
+    public List<NetCafe> GetAvailableNetList()
+    {
+        var query = (from r in _netCafeContext.NetCafes where r.NetCafeStatus == 1 select r).ToList();
+        return query;
+    }
+
     public void Add(NetCafe entity)
     {
         _netCafeContext.NetCafes.Add(entity);

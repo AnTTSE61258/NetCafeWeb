@@ -42,7 +42,6 @@ namespace NetCafeWeb.Controllers
                         selectedNetID = netCafe.NetCafeID;
                     }
                 }
-
                 
                 var query = PCList.OrderBy(p => p.PCStatus).ThenBy(p => p.PCName).ThenBy(p => p.Price);
                 ViewBag.PCList = query.ToList();
@@ -72,6 +71,13 @@ namespace NetCafeWeb.Controllers
                 return View();
             }
         }
+
+        //public List<PC> GetPCList()
+        //{
+        //    PCService pcService = new PCService();
+
+        //    return;
+        //}
 
         public ActionResult Filter (int? id)
         {

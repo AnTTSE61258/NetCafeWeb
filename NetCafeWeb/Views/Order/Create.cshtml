@@ -99,10 +99,12 @@
                     @foreach (PC pc in pcs)
                     {
                         <div class="col-sm-8" style="width: 20vw;height: auto;margin:20px;text-align:center;border-style:groove;padding-bottom:10px;border-radius:20px">
+                            <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: blueviolet">@pc.PCID - @pc.PCName</h3>
                             <img src="~/Content/image/my-computer-vista.png" style="width: 10vw;height: 10vw" />
-
-                            <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: burlywood">@pc.Price</h3>
-                            <button type="button" class="btn btn-success" value="2112" style="width: 100%" onclick="displayform('@pc.PCID','@pc.PCName','@pc.NetCafe.NetCafeName')">Book</button>
+                            <p>@pc.PCDescriptions</p>
+                            <h4 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: crimson">@pc.Price VND/h</h4>
+                            
+                            <button type="button" class="btn btn-success" value="2112" style="width: 90%" onclick="displayform('@pc.PCID','@pc.PCName','@pc.NetCafe.NetCafeName')">Book</button>
                         </div>
                     }
 
@@ -158,7 +160,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" onclick="addOrder()">Booki</button>
+                <button type="button" class="btn btn-success" onclick="addOrder()">Book</button>
             </div>
         </div>
 
