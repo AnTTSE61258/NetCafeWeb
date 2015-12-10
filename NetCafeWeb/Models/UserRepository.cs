@@ -81,5 +81,15 @@ namespace NetCafeWeb.Models
             _userContext.Entry(user).State = System.Data.Entity.EntityState.Modified;
             _userContext.SaveChanges();
         }
+
+        public bool checkUser(string name, string pass)
+        {
+            var query = (from u in _userContext.Users where u.UserName == name & u.Password == pass select u).FirstOrDefault();
+            if (query != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
