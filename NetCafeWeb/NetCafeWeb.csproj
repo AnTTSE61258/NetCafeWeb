@@ -49,6 +49,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Device" />
@@ -115,9 +119,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -170,9 +171,16 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="Controllers\NetCafeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PCController.cs" />
@@ -203,6 +211,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NetCafeRepository.cs" />
     <Compile Include="Models\OrderRepository.cs" />
+    <Compile Include="Models\PCJson.cs" />
     <Compile Include="Models\PCRepository.cs" />
     <Compile Include="Models\RoleRepository.cs" />
     <Compile Include="Models\UserRepository.cs" />
@@ -223,6 +232,7 @@
     <Compile Include="Service\IOrderInterface.cs" />
     <Compile Include="Service\IRoleService.cs" />
     <Compile Include="Service\IUserService.cs" />
+    <Compile Include="Service\MobileService.cs" />
     <Compile Include="Service\NetCafeService.cs" />
     <Compile Include="Service\OrderService.cs" />
     <Compile Include="Service\RoleService.cs" />
@@ -329,6 +339,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Mobile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

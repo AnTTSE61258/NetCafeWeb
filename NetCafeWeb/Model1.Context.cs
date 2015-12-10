@@ -25,6 +25,8 @@ namespace NetCafeWeb
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<NetCafe> NetCafes { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PC> PCs { get; set; }

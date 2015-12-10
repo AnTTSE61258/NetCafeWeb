@@ -8,14 +8,33 @@ namespace NetCafeWeb.Service
 {
     public class MobileService
     {
-        UserRepository repo = new UserRepository();
+        UserRepository userRepo = new UserRepository();
+        NetCafeRepository netcafeRepo = new NetCafeRepository();
+        PCRepository pcRepo = new PCRepository();
+        
         public string checkUser(string username, string password)
         {
-            if(repo.checkUser(username,password))
+            if(userRepo.checkUser(username,password))
             {
                 return "true";
             }
             return "false";
+        }
+
+        public List<PCJson> getPcList(string username, string password, int netCafeId)
+        {
+            if (userRepo.checkUser(username, password))
+            {
+                List<PCJson> pcjsons = new List<PCJson>();
+                List<PC> pcs = pcRepo.findByNetcafeID(netCafeId);
+                foreach (PC pc in pcs)
+                {
+                    pcjsons.Add(new PCJson(pc.PCID, pc.PCName, pc.PCDescriptions, pc.Price));
+
+                }
+                return pcjsons;
+            }
+            return null;
         }
     }
 }
