@@ -10,50 +10,110 @@
 
 <div class="container">
     <h2>User Manager - for admin only</h2>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Edit</th>
-                <!--<th>Delete</th>-->
-                <th>Fullname</th>
-                <th>Username</th>
-                <th>Identify Number</th>
-                <th>Phone Number</th>
-                <th>Balance</th>
-                <th>Role</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (User user in users)
-                {
-                    if (!user.UserName.ToUpper().Equals(User.Identity.GetUserName().ToUpper()))
-                    {
-                    <tr>
-                        <td><button class="btn btn-warning" onclick="location.href='/User/edit/@user.UserID'">Edit</button></td>
-                        <!--<td><button class="btn btn-danger" onclick="deleteUser(@user.UserID)">Delete</button></td>-->
-                        
-                        <td>@user.Fullname</td>
-                        <td>@user.UserName</td>
-                        <td>@user.IdentityNumber</td>
-                        <td>@user.UserPhoneNumber</td>
-                        <td>@user.Balance</td>
-                        <td>@{ for (int i = 0; i < roles.Count; i++)
-                            {
-                                if (user.RoleID == roles[i].RoleID)
-                                {
-                                    @roles[i].RoleName;
-                                }
-                            }
-                                }
-                        </td>
-                    </tr>
-                    }
-                }
-            }
+    @{
 
-        </tbody>
-    </table>
+        var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
+        var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
+        string userId = User.Identity.GetUserId();
+        var a = manager.IsInRoleAsync(User.Identity.GetUserId(), "Admin");
+        if (a.Result)
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <!--<th>Delete</th>-->
+                        <th>Fullname</th>
+                        <th>Username</th>
+                        <th>Identify Number</th>
+                        <th>Phone Number</th>
+                        <th>Balance</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (User user in users)
+                        {
+                            if (!user.UserName.ToUpper().Equals(User.Identity.GetUserName().ToUpper()))
+                            {
+                                <tr>
+                                    <td><button class="btn btn-warning" onclick="location.href='/User/edit/@user.UserID'">Edit</button></td>
+                                    <!--<td><button class="btn btn-danger" onclick="deleteUser(@user.UserID)">Delete</button></td>-->
+
+                                    <td>@user.Fullname</td>
+                                    <td>@user.UserName</td>
+                                    <td>@user.IdentityNumber</td>
+                                    <td>@user.UserPhoneNumber</td>
+                                    <td>@user.Balance</td>
+                                    <td>
+                                        @{ for (int i = 0; i < roles.Count; i++)
+                                            {
+                                                if (user.RoleID == roles[i].RoleID)
+                                                {
+                                                    @roles[i].RoleName;
+                                                }
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                                                }
+                                            }
+                    }
+
+                </tbody>
+            </table>
+                                            }
+                                            else
+                                            {
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Edit</th>
+                                                            <!--<th>Delete</th>-->
+                                                            <th>Fullname</th>
+                                                            <th>Username</th>
+                                                            <th>Identify Number</th>
+                                                            <th>Phone Number</th>
+                                                            <th>Balance</th>
+                                                            <th>Role</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{
+                                                            foreach (User user in users)
+                                                            {
+                                                                if (!user.UserName.ToUpper().Equals(User.Identity.GetUserName().ToUpper()) && user.RoleID == 3)
+                                                                {
+                                                                    <tr>
+                                                                        <td><button class="btn btn-warning" onclick="location.href='/User/edit/@user.UserID'">Edit</button></td>
+                                                                        <!--<td><button class="btn btn-danger" onclick="deleteUser(@user.UserID)">Delete</button></td>-->
+
+                                                                        <td>@user.Fullname</td>
+                                                                        <td>@user.UserName</td>
+                                                                        <td>@user.IdentityNumber</td>
+                                                                        <td>@user.UserPhoneNumber</td>
+                                                                        <td>@user.Balance</td>
+                                                                        <td>
+                                                                            @{ for (int i = 0; i < roles.Count; i++)
+                                                                                {
+                                                                                    if (user.RoleID == roles[i].RoleID)
+                                                                                    {
+                                                                                        @roles[i].RoleName;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                                    }
+                                                                                }
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                                                                }
+    }
+
 </div>
 
 <script>

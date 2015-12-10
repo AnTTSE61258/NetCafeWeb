@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MasterPage.cshtml";
@@ -14,6 +14,12 @@
 }
 else
 {
+
+    var store = new Microsoft.AspNet.Identity.EntityFramework.UserStore<NetCafeWeb.Models.ApplicationUser>(new NetCafeWeb.Models.ApplicationDbContext());
+    var manager = new Microsoft.AspNet.Identity.UserManager<NetCafeWeb.Models.ApplicationUser>(store);
+    string userId = User.Identity.GetUserId();
+    var a = manager.IsInRoleAsync(User.Identity.GetUserId(), "Admin");
+
     <div class="form-group">
         <label>Fullname</label>
         <input type="text" class="form-control" value="@selectedUser.Fullname" disabled="disabled" />
@@ -25,22 +31,44 @@ else
         <input type="text" class="form-control" value="@selectedUser.UserPhoneNumber" disabled="disabled" />
         <label>Balance</label>
         <input type="text" class="form-control" value="@selectedUser.Balance" id="balance"/>
-        <label>Role</label>
-        <select class="form-control" id="userRole">
-            @{ 
-                foreach (Role role in roles)
-                {
-                    if (selectedUser.RoleID == role.RoleID)
+        @if (a.Result)
+        {
+            <label>Role</label>
+            <select class="form-control" id="userRole">
+                @{
+                    foreach (Role role in roles)
                     {
-                        <option value="@role.RoleID" selected="selected">@role.RoleName</option>
+                        if (selectedUser.RoleID == role.RoleID)
+                        {
+                            <option value="@role.RoleID" selected="selected">@role.RoleName</option>
+                        }
+                        else
+                        {
+                            <option value="@role.RoleID">@role.RoleName</option>
+                        }
+                    }
+                }
+            </select>
                     }
                     else
                     {
-                        <option value="@role.RoleID">@role.RoleName</option>
-                    }
-                }
-            }
-        </select>
+                        <label>Role</label>
+                        <select class="form-control" id="userRole" disabled="disabled">
+                            @{
+                                foreach (Role role in roles)
+                                {
+                                    if (selectedUser.RoleID == role.RoleID)
+                                    {
+                                        <option value="@role.RoleID" selected="selected">@role.RoleName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@role.RoleID">@role.RoleName</option>
+                                    }
+                                }
+                            }
+                        </select>
+                                }
     </div>
     <div>
         <p class="alert-danger" id="error"></p>
@@ -74,8 +102,16 @@ else
                 alert("Problem occurred!")
             },
             success: function (data) {
-                alert("Edit successfully");
-                location.href="/User";
+                if (data === 'manage')
+                {
+                    $("#error").html("This supervisor is managing an netcafe!");
+                }
+                if (data ==='true')
+                {
+                    alert("Edit successfully");
+                    location.href="/User";
+                }
+                
             },
             type: 'POST'
         })

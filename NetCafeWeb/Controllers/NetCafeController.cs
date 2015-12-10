@@ -14,16 +14,16 @@ namespace NetCafeWeb.Controllers
     [AuthLog(Roles = "Admin")]
     public class NetCafeController : Controller
     {
-        
+
         public ActionResult Test()
         {
             return View();
         }
         // GET: NetCafe
-        
+
         public ActionResult Index()
         {
-            
+
             IRepository<NetCafe> repository = new NetCafeRepository();
             IEnumerable<NetCafe> netCafes = repository.List;
             ViewBag.netcafes = netCafes.Cast<NetCafe>().ToList();
@@ -41,13 +41,22 @@ namespace NetCafeWeb.Controllers
             String status = Request.Params["status"];
             String phoneNumber = Request.Params["phoneNumber"];
             String description = Request.Params["description"];
+            double locationX = Double.Parse(Request.Params["locationX"]);
+            double locationY = Double.Parse(Request.Params["locationY"]);
+
+
+
             //valid du lieu
 
-            //
             NetCafeService netcafeService = new NetCafeService();
             if (netcafeService.isExistWithName(name))
             {
                 return "Net cafe with this name is existed!";
+            }
+            // Check supervisor da quan ly net nao hay chua
+            else if (netcafeService.isExistWithSupervisor(int.Parse(supervisor)))
+            {
+                return "This supervisor has been managed a Netcafe already!";
             }
             IRepository<NetCafe> repository = new NetCafeRepository();
             NetCafe netcafe = new NetCafe();
@@ -55,15 +64,17 @@ namespace NetCafeWeb.Controllers
             netcafe.NetCafeAddress = address;
             netcafe.SupervisorID = int.Parse(supervisor);
             netcafe.NetCafeStatus = int.Parse(status);
-           
+
             netcafe.NetCafePhoneNumber = phoneNumber;
             netcafe.NetCafeDescriptions = description;
+            netcafe.LocationX = locationX;
+            netcafe.LocationY = locationY;
             repository.Add(netcafe);
             return "true";
         }
 
         [HttpPost]
-        public Boolean editNetCafe()
+        public String editNetCafe()
         {
             String idParam = Request.Params["id"];
             String name = Request.Params["name"];
@@ -72,6 +83,7 @@ namespace NetCafeWeb.Controllers
             String status = Request.Params["status"];
             String phoneNumber = Request.Params["phoneNumber"];
             String description = Request.Params["description"];
+
 
             IRepository<NetCafe> repository = new NetCafeRepository();
             int id = int.Parse(idParam);
@@ -83,25 +95,37 @@ namespace NetCafeWeb.Controllers
 
             netcafe.NetCafePhoneNumber = phoneNumber;
             netcafe.NetCafeDescriptions = description;
+
+            // kiem tra xem noi dung edit co hop le hay khong
+            NetCafeService netcafeService = new NetCafeService();
+            if (!netcafeService.checkValidEdition(netcafe))
+            {
+                return "false";
+            }
+
             repository.Update(netcafe);
-            return true;
+            return "true";
 
         }
         [HttpPost]
-        public Boolean delete()
+        public String deactivate()
         {
             String idParam = Request.Params["id"];
             int id = int.Parse(idParam);
             IRepository<NetCafe> repository = new NetCafeRepository();
-            NetCafe deletedNetCafe = repository.findById(id);
-            if (deletedNetCafe == null)
+            NetCafe deactivateNet = repository.findById(id);
+            if (deactivateNet == null)
             {
-                return false;
+                return "false";
             }
-            repository.Delete(deletedNetCafe);
+            if (deactivateNet.NetCafeStatus == SLIM_CONFIG.NETCAFE_ACTIVE)
+            {
+                deactivateNet.NetCafeStatus = SLIM_CONFIG.NETCAFE_DEACTIVE;
+            }
+            repository.Update(deactivateNet);
 
-            return true;
-            
+            return "true";
+
         }
         [HttpPost]
         public NetCafe getNetCafe()

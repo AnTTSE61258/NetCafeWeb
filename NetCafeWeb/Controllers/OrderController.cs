@@ -141,12 +141,20 @@ namespace NetCafeWeb.Controllers
             foreach(NetCafe netCafe in netcafes)
             {
                 var eCoord = new GeoCoordinate(netCafe.LocationX.Value, netCafe.LocationY.Value);
-                double currentDistance = sCoord.GetDistanceTo(eCoord);
-                if (nearestDistance > currentDistance)
+                if (eCoord != null)
                 {
-                    nearestDistance = currentDistance;
-                    nearestNetName = netCafe.NetCafeName;
+                    double currentDistance = sCoord.GetDistanceTo(eCoord);
+                    if (nearestDistance > currentDistance)
+                    {
+                        nearestDistance = currentDistance;
+                        nearestNetName = netCafe.NetCafeName;
+                    }
                 }
+                else
+                {
+                    return nearestNetName;
+                }
+                
             }
 
             return nearestNetName;

@@ -18,5 +18,6 @@ namespace NetCafeWeb.Service
         List<PC> GetPCList();
         PC GetEditPCByID(int PCID);
         NetCafe GetNetCafeByID(int NetCafeID);
+
     }
 }

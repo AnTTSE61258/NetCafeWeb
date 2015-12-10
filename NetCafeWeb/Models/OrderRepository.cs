@@ -53,5 +53,11 @@ namespace NetCafeWeb.Models
             var query = (from o in _orderContext.Orders where o.PC.NetCafeID == netID select o).ToList();
             return query;
         }
+
+        public List<Order> getOrderByPCID(int pcID)
+        {
+            var query = (from o in _orderContext.Orders where o.PC.PCID == pcID select o).ToList();
+            return query;
+        }
     }
 }

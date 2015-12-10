@@ -68,7 +68,7 @@ public class NetCafeRepository : IRepository<NetCafe>
     public int getNetCafeIDByName(int supervisorId)
     {
         List<NetCafe> nets = findBySuID(supervisorId);
-        if (nets !=null && nets.Count > 0)
+        if (nets != null && nets.Count > 0)
         {
             return nets[0].NetCafeID;
         }

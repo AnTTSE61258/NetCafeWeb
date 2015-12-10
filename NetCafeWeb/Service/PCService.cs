@@ -29,25 +29,43 @@ namespace NetCafeWeb.Service
                 return true;
             }
         }
+        
+        public bool checkDeletePC(int pcID)
+        {
+            OrderRepository orderRepo = new OrderRepository();
+
+            var orderList = orderRepo.getOrderByPCID(pcID);
+            if (orderList.Count == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         public Boolean DeletePC(int ID)
         {
             IRepository<PC> repository = new PCRepository();
             PC deletedPC = repository.findById(ID);
-            if (deletedPC == null)
+
+            if (deletedPC == null || !checkDeletePC(ID))
             {
                 return false;
             }
-            try
+            else
             {
-                repository.Delete(deletedPC);
+                try
+                {
+                    repository.Delete(deletedPC);
+                }
+                catch (Exception e)
+                {
+                    e.GetHashCode();
+                }
+                return true;
             }
-            catch (Exception e)
-            {
-                e.GetHashCode();
-                return false;
-            }
-            return true;
+
+
         }
 
         public Boolean EditPC(PC editPC)
@@ -146,5 +164,6 @@ namespace NetCafeWeb.Service
             PCList = PCRepo.PCList();
             return PCList;
         }
+
     }
 }

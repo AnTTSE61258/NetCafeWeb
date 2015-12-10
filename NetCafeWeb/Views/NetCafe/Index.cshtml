@@ -1,12 +1,9 @@
 ﻿
 @{
-
-
     ViewBag.Title = "NetCafe Manager";
     Layout = "~/Views/Shared/MasterPage.cshtml";
     List<NetCafe> netCafes = ViewBag.netcafes;
     List<User> supervisors = ViewBag.supervisors;
-    NetCafe selectedNetCafe;
 
 }
 
@@ -19,11 +16,9 @@
         <thead>
             <tr>
                 <th>Edit</th>
-                <th>Delete</th>
-                <th>ID</th>
+                <th>Deactivate</th>
                 <th>Name</th>
                 <th>Address</th>
-                <th>Supervisor ID</th>
                 <th>Supervisor Name</th>
                 <th>Status</th>
                 <th>Phone number</th>
@@ -36,28 +31,35 @@
                 {
                     <tr>
                         <td><button class="btn btn-warning" onclick="location.href='/NetCafe/edit/@netcafe.NetCafeID'">Edit</button></td>
-                        <td><button class="btn btn-danger" onclick="deleteNetCafe(@netcafe.NetCafeID)">Delete</button></td>
-                        <td>@netcafe.NetCafeID</td>
+                        @{
+                            if (@netcafe.NetCafeStatus == SLIM_CONFIG.NETCAFE_ACTIVE)
+                            {
+                                <td><button class="btn btn-danger" onclick="deactivateNetCafe(@netcafe.NetCafeID)">Deactivate</button></td>
+                            }
+                            else
+                            {
+                                <td><button disabled="disabled" class="btn btn-danger" onclick="deactivateNetCafe(@netcafe.NetCafeID)">Deactivate</button></td>
+                            }
+                        }
                         <td>@netcafe.NetCafeName</td>
                         <td>@netcafe.NetCafeAddress</td>
-                        <td>@netcafe.SupervisorID</td>
-                        <td>@netcafe.User.UserName</td>
+                        <td>@netcafe.User.Fullname</td>
                         <td>
-                        @if(netcafe.NetCafeStatus == SLIM_CONFIG.NETCAFE_ACTIVE)
-                        {
-                            <span>ACTIVE</span>
-                        }
-                        else
-                        {
-                            <span>DEACTIVE</span>
-                        }
+                            @if (netcafe.NetCafeStatus == SLIM_CONFIG.NETCAFE_ACTIVE)
+                            {
+                                <span>ACTIVE</span>
+                            }
+                            else
+                            {
+                                <span>DEACTIVE</span>
+                            }
                         </td>
                         <td>@netcafe.NetCafePhoneNumber</td>
                         <td>@netcafe.NetCafeDescriptions</td>
                     </tr>
 
 
-                }
+                            }
             }
 
         </tbody>
@@ -79,19 +81,20 @@
             <div class="modal-body">
                 <div class="form-group" style="width:100%">
                     <label for="usr">Name</label>
-                    <input type="text" class="form-control" id="netCafeName" >
+                    <input type="text" class="form-control" id="netCafeName">
                     <label for="usr">Address</label>
                     <input type="text" class="form-control" id="netCafeAddress">
                     <div class="form-group">
                         <label for="sel1">Supervisor</label>
                         <select class="form-control" id="netCafeSupervisor">
                             <option value="-1">NONE</option>
-                            @{ 
+                            @{
 
-                               foreach (User user in supervisors){
-                                   <option value="@user.UserID">@user.UserID - @user.UserName</option>
-                               }
-                           }
+                                foreach (User user in supervisors)
+                                {
+                                    <option value="@user.UserID">@user.Fullname</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="form-group">
@@ -101,13 +104,13 @@
                             <option value="@SLIM_CONFIG.NETCAFE_DEACTIVE">DEACIVE</option>
                         </select>
                     </div>
-                   
+
                     <label for="usr">Phone Number</label>
                     <input type="text" class="form-control" id="netCafePhoneNumber">
                     <label for="usr">Description</label>
                     <input type="text" class="form-control" id="netCafeDescription">
                 </div>
-                <p class="alert-danger" id="error" style="color='red'"></p>
+                <p class="alert-danger" id="error" style="color: red"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -120,6 +123,15 @@
 <script>
 
     function addNetCafe() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(addNetCafe1);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+
+    function addNetCafe1(position) {
         $("#error").html("");
         var name = $('#netCafeName').val();
         var address = $('#netCafeAddress').val();
@@ -144,6 +156,9 @@
             return;
         }
 
+        
+        var lati = position.coords.latitude;
+        var loti = position.coords.longitude;
 
         $.ajax({
             url: '/NetCafe/add',
@@ -153,14 +168,16 @@
                 supervisor: supervisor,
                 status: status,
                 phoneNumber: phoneNumber,
-                description: description
+                description: description,
+                locationX: lati,
+                locationY: loti
             },
             error: function () {
-               alert("Problem")
+                $("#error").html("Cannot create NetCafe!");
             },
             success: function (data) {
                 if (data === 'true'){
-                    alert("Add successfully")
+                    alert("Add successfully!!")
                     location.reload();
                 }
                 else{
@@ -171,10 +188,10 @@
             type: 'POST'
         });
     }
-    function deleteNetCafe(id) {
-
+    function deactivateNetCafe(id) {
+            
         $.ajax({
-            url: '/netcafe/delete',
+            url: '/netcafe/deactivate',
             data: {
                 id: id
             },
@@ -182,14 +199,12 @@
                 alert("problem")
             },
             success: function (data) {
-                if(data=== "True"){
-                    alert("delete successfully");
+                if(data=== 'true'){
+                    alert("Deactivate successfully!");
                     location.reload();
                 }else{
-                    alert("Can't delete this netcafe");
+                    alert("Can't deactivate this netcafe");
                 }
-               
-
             },
             type: 'post'
         });

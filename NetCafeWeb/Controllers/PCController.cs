@@ -50,7 +50,7 @@ namespace NetCafeWeb.Controllers
             }
             else
             {
-                if (id != null)
+                if (id != null && id > 0)
                 {
                     PCList = PCService.FindByNetID(id.Value);
                     ViewBag.pcList = PCList;
@@ -134,15 +134,15 @@ namespace NetCafeWeb.Controllers
         }
 
         [HttpPost]
-        public Boolean Delete()
+        public String Delete()
         {
             int ID = int.Parse(Request.Params["id"]);
             
             if (PCService.DeletePC(ID))
             {
-                return true;
+                return "true";
             }
-            return false;
+            return "false";
         }
 
         [HttpGet]

@@ -17,7 +17,7 @@ namespace NetCafeWeb.Controllers
     {
         //
         // GET: /User/
-        [AuthLog(Roles = "Admin")]
+        [AuthLog(Roles = "Admin,Supervisor")]
         public ActionResult Index()
         {
             UserService services = new UserService();
@@ -42,8 +42,8 @@ namespace NetCafeWeb.Controllers
             return true;
         }
         [HttpPost]
-        [AuthLog(Roles = "Admin")]
-        public Boolean editUser()
+        [AuthLog(Roles = "Admin,Supervisor")]
+        public string editUser()
         {
             //get data from request
             int selectedUserID = Int32.Parse(Request.Params["userID"]);
@@ -53,12 +53,26 @@ namespace NetCafeWeb.Controllers
 
 
             UserService services = new UserService();
+            if(services.checkIsManage(selectedUserID))
+            {
+                return "manage";
+            }
+            else
+            {
+                User selectedUser = services.findAnUser(selectedUserID);
+                selectedUser.Balance = newBalance;
+                selectedUser.RoleID = newRoleID;
+                if (services.updateUser(selectedUser))
+                {
+                    return "true";
+                }
+            }
 
-            User selectedUser = services.findAnUser(selectedUserID);
-            selectedUser.Balance = newBalance;
-            selectedUser.RoleID = newRoleID;
+            return "false";
 
-            return services.updateUser(selectedUser);
+           
+
+            //return services.updateUser(selectedUser);
 
             /*
             //get the old info of the account
@@ -139,7 +153,7 @@ namespace NetCafeWeb.Controllers
             return null;
         }
 
-        [AuthLog(Roles = "Admin")]
+        [AuthLog(Roles = "Admin,Supervisor")]
         public ActionResult edit(int? id)
         {
             if (id == null)

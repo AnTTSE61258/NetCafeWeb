@@ -14,6 +14,24 @@ namespace NetCafeWeb.Service
         private static RoleRepository role_repo = new RoleRepository();
         IEnumerable<Role> roles = role_repo.List;
 
+        public bool checkIsManage(int id)
+        {
+            User user = findAnUser(id);
+            if(user.RoleID == 2)
+            {
+                NetCafeService net_services = new NetCafeService();
+                List<NetCafe> netcafes = net_services.getAllNetCafe();
+                foreach(NetCafe net in netcafes)
+                {
+                    if (net.SupervisorID == user.UserID)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public bool addUser(User user)
         {
             if (user != null)

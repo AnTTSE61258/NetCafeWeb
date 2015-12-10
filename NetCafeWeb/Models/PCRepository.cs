@@ -81,7 +81,7 @@ namespace NetCafeWeb.Models
             return query;
 
         }
-
+        
         public void Update(PC entity)
         {
             _pcContext.Entry(entity).State = System.Data.Entity.EntityState.Modified;

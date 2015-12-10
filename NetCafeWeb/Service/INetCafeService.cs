@@ -10,5 +10,7 @@ namespace NetCafeWeb.Service
     {
         bool isExistWithName(String name);
         NetCafe findByID(int id);
+        bool isExistWithSupervisor(int id);
+        bool checkValidEdition(NetCafe checkNet);
     }
 }

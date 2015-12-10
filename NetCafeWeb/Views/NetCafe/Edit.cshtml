@@ -7,68 +7,68 @@
 }
 
 <h2>Edit + @netcafe.NetCafeName</h2>
-    @{ if (netcafe == null)
-        {
-            <h2>This net cafe is not longer available. Please try again.</h2>
-        }
-        else
-        {
-            <div class="form-group" style="width:100%">
-                <label>ID</label>
-                <input type="text" class="form-control" value="@netcafe.NetCafeID" disabled="disabled"/>
-                <label for="usr">Name</label>
-                <input type="text" class="form-control" id="netCafeName" value="@netcafe.NetCafeName">
-                <label for="usr">Address</label>
-                <input type="text" class="form-control" id="netCafeAddress" value="@netcafe.NetCafeAddress">
-                <div class="form-group">
-                    <label for="sel1">Supervisor</label>
-                    <select class="form-control" id="netCafeSupervisor">
-                        <option value="-1">NONE</option>
-                        @{
+@{ if (netcafe == null)
+    {
+        <h2>This net cafe is not longer available. Please try again.</h2>
+    }
+    else
+    {
+        <div class="form-group" style="width:100%">
+            <label>ID</label>
+            <input type="text" class="form-control" value="@netcafe.NetCafeID" disabled="disabled" />
+            <label for="usr">Name</label>
+            <input type="text" class="form-control" id="netCafeName" value="@netcafe.NetCafeName">
+            <label for="usr">Address</label>
+            <input type="text" class="form-control" id="netCafeAddress" value="@netcafe.NetCafeAddress">
+            <div class="form-group">
+                <label for="sel1">Supervisor</label>
+                <select class="form-control" id="netCafeSupervisor">
+                    <option value="-1">NONE</option>
+                    @{
 
-                            foreach (User user in supervisors)
+                        foreach (User user in supervisors)
+                        {
+                            if (user.UserID == netcafe.SupervisorID)
                             {
-                                if (user.UserID == netcafe.SupervisorID)
-                                {
-                                    <option value="@user.UserID" selected ="selected">@user.UserID - @user.UserName</option>
-                                }
-                                else
-                                {
-                                    <option value="@user.UserID">@user.UserID - @user.UserName</option>
-                                }
-
+                                <option value="@user.UserID" selected="selected">@user.Fullname</option>
                             }
-                        }
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sel1">Status</label>
-                    <select class="form-control" id="netCafeStatus">
-                        @if (netcafe.NetCafeStatus == 1)
-                        {
-                            <option value="1" selected="selected">ACTIVE</option>
-                            <option value="2">DEACIVE</option>
-                        }
-                        else
-                        {
-                            <option value="1">ACTIVE</option>
-                            <option value="2" selected="selected">DEACIVE</option>
-                        }
+                            else
+                            {
+                                <option value="@user.UserID">@user.Fullname</option>
+                            }
 
-                    </select>
-                </div>
-
-                <label for="usr">Phone Number</label>
-                <input type="text" class="form-control" id="netCafePhoneNumber" value="@netcafe.NetCafePhoneNumber">
-                <label for="usr">Description</label>
-                <input type="text" class="form-control" id="netCafeDescription" value="@netcafe.NetCafeDescriptions">
+                        }
+                    }
+                </select>
             </div>
-                <p id="error" style="color='red'"></p>
+            <div class="form-group">
+                <label for="sel1">Status</label>
+                <select class="form-control" id="netCafeStatus">
+                    @if (netcafe.NetCafeStatus == 1)
+                    {
+                        <option value="1" selected="selected">ACTIVE</option>
+                            <option value="2">DEACIVE</option>
+                    }
+                    else
+                    {
+                        <option value="1">ACTIVE</option>
+                            <option value="2" selected="selected">DEACIVE</option>
+                    }
+
+                </select>
+            </div>
+
+            <label for="usr">Phone Number</label>
+            <input type="text" class="form-control" id="netCafePhoneNumber" value="@netcafe.NetCafePhoneNumber">
+            <label for="usr">Description</label>
+            <input type="text" class="form-control" id="netCafeDescription" value="@netcafe.NetCafeDescriptions">
+        </div>
+            <p id="error" style="color='red'"></p>
                 <button type="button" class="btn" onclick="location.href='/NetCafe'">Cancel</button>
 
                 <button type="button" class="btn btn-success" onclick="editNetCafe()">Submit</button>
-             }
-    }
+                        }
+}
 <script>
     function editNetCafe() {
         $("#error").html("");
@@ -112,8 +112,13 @@
                 alert("Problem")
             },
             success: function (data) {
-                alert("Edit successfully");
-                location.href="/NetCafe";
+                if (data=== 'true') {
+                    alert("Edit successfully");
+                    location.href="/NetCafe";
+                }
+                else {
+                    $("#error").html("Name or supervisor is existed!");
+                }
             },
             type: 'POST'
         });
