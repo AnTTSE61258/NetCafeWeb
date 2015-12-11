@@ -93,6 +93,35 @@ namespace NetCafeWeb.Controllers
             ViewBag.netcafes = netcafes;
             return View();
         }
+
+        public String AddBookingForMobile(String idParam, String username, String password,
+            String date, String time, String duration)
+        {
+            UserService userService = new UserService();
+            int userid = userService.findAnUserByName(username).UserID;
+            int pcid = int.Parse(idParam);
+            DateTime newDate = DateTime.ParseExact(date + " " + time, "dd/MM/yyyy HH:mm", null);
+            int intDuration = int.Parse(duration);
+
+            OrderService orderService = new OrderService();
+            OrderStatus orderStatus = orderService.isCanOrder(pcid, newDate, intDuration, userid);
+            if (orderStatus.status == OrderStatusCode.FAIL)
+            {
+                return orderStatus.message;
+            }
+            Order order = new Order();
+            order.PCID = pcid;
+            order.UserID = userid;
+            order.StartTime = newDate;
+            order.Duration = intDuration;
+            order.OrderStatus = 0;
+            // tru balance
+            IRepository<Order> repository = new OrderRepository();
+            repository.Add(order);
+            return "true";
+        }
+
+
         [HttpPost]
         public String AddBooking()
         {
